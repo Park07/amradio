@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""
-WAV to AM Transmitter for Red Pitaya (Single Channel)
-"""
+
+# WAV to AM Transmitter for Red Pitaya (Single Channel)
+
 
 import socket
 import struct
@@ -12,7 +12,7 @@ import argparse
 import time
 
 
-def transmit_wav(filepath, freq_hz=702000, addr="192.168.1.100", port=1001):
+def transmit_wav(filepath, freq_hz=700000, addr="localhost", port=1001):
     """Transmit WAV file as AM signal"""
 
     # Load WAV
@@ -23,7 +23,7 @@ def transmit_wav(filepath, freq_hz=702000, addr="192.168.1.100", port=1001):
     if len(audio.shape) > 1:
         audio = audio.mean(axis=1)
 
-    # Normalize
+    # Normalise
     audio = audio.astype(np.float32) / 32768.0
 
     # Resample to 100kSPS
@@ -67,28 +67,11 @@ def transmit_wav(filepath, freq_hz=702000, addr="192.168.1.100", port=1001):
     sock.close()
 
 
-def create_test_tone(filename="test_tone.wav"):
-    """Create 1kHz test tone"""
-    t = np.linspace(0, 5, 48000 * 5, dtype=np.float32)
-    audio = (0.8 * np.sin(2 * np.pi * 1000 * t) * 32767).astype(np.int16)
-    wavfile.write(filename, 48000, audio)
-    print(f"Created: {filename}")
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--file", "-f", type=str)
+    parser.add_argument("--file", "-f", type=str, default="MXLamAMF.wav")
     parser.add_argument("--freq", type=int, default=702000)
-    parser.add_argument("--addr", type=str, default="192.168.1.100")
-    parser.add_argument("--test", action="store_true")
+    parser.add_argument("--addr", type=str, default="localhost")
     args = parser.parse_args()
 
-    if args.test:
-        create_test_tone("test_tone.wav")
-        args.file = "test_tone.wav"
-
-    if args.file:
-        transmit_wav(args.file, args.freq, args.addr)
-    else:
-        print("Usage: python wav_to_am.py --file audio.wav --freq 702000")
-        print("       python wav_to_am.py --test")
+    transmit_wav(args.file, args.freq, args.addr)
