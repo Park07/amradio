@@ -13,36 +13,42 @@ def send_scpi(cmd):
     time.sleep(0.1)
     sock.close()
 
-def transmit_two_sines(freq_hz=10000000, duration=20):
-    print("Generating combined sine waveform...")
-
+def transmit_complex(freq_hz=10000000, duration=10):
+    print("Generating complex waveform...")
+    
     samples = 16384
-    t = np.linspace(0, 6.5 * np.pi, samples)
-
-    # Two different frequencies
-    sine1 = np.sin(t)       # Frequency 1x
-    sine2 = np.sin(2 * t)   # Frequency 2x
-    audio = (sine1 + sine2) / 2
-
+    t = np.linspace(0, 1, samples)
+    
+    # Complex waveform with different phases and harmonics
+    wave1 = np.sin(2 * np.pi * 400 * t * 10)                      # Base 400 Hz
+    wave2 = 0.5 * np.sin(4 * np.pi * 400 * t * 10 + np.pi/3)      # 2nd harmonic + phase shift
+    wave3 = 0.3 * np.sin(6 * np.pi * 400 * t * 10 + 4*np.pi/3)    # 3rd harmonic + phase shift
+    wave4 = 0.2 * np.cos(2 * np.pi * 700 * t * 10)                # Different freq, cosine
+    wave5 = 0.15 * np.sin(2 * np.pi * 1500 * t * 10 + np.pi/2)    # High freq + 90° phase
+    
+    # Combine all
+    audio = wave1 + wave2 + wave3 + wave4 + wave5
+    audio = audio / np.max(np.abs(audio))  # Normalize
+    
     # AM modulation
     depth = 0.5
     envelope = 1.0 + depth * audio
     waveform = envelope / np.max(envelope)
-
+    
     waveform_str = ",".join([f"{x:.4f}" for x in waveform])
-
+    
     print("Uploading to Red Pitaya...")
     send_scpi(f"SOUR1:TRAC:DATA:DATA {waveform_str}")
     send_scpi("SOUR1:FUNC ARB")
     send_scpi(f"SOUR1:FREQ:FIX {freq_hz}")
     send_scpi("SOUR1:VOLT 0.9")
     send_scpi("OUTPUT1:STATE ON")
-
+    
     print(f"Transmitting at {freq_hz/1e6} MHz for {duration} seconds...")
     time.sleep(duration)
-
+    
     send_scpi("OUTPUT1:STATE OFF")
     print("Done!")
 
 if __name__ == "__main__":
-    transmit_two_sines(10000000, 20)
+    transmit_complex(10000000, 10)
