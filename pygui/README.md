@@ -1,163 +1,176 @@
-# UGL Tunnel AM Break-In System - Control Panel GUI
+# UGL Tunnel AM Break-In System
 
-**Industrial-grade control interface for emergency radio broadcast**
+Professional control panel for emergency AM broadcast in road tunnels using Red Pitaya FPGA.
 
-## Quick Start
+**UNSW EPI Project for UGL**
 
-```bash
-# Install DearPyGui
-pip install dearpygui
-
-# Run the application
-python tunnel_am_breakin_gui.py
-```
 
 ## Features
 
-| Feature | Description |
-|---------|-------------|
-| **Industrial Dark Theme** | Control room aesthetic |
-| **Dual Channel Support** | 531 kHz + 702 kHz simultaneous |
-| **Real-time Spectrum** | RF output visualisation |
-| **Audio Waveform** | Live audio monitoring |
-| **Keyboard Shortcuts** | F1/SPACE = Broadcast, ESC = Stop |
-| **Audit Logging** | Timestamped event log |
-| **Channel Control** | Enable/disable individual channels |
+- 🔴 **Emergency Broadcast** - One-click activation with safety confirmation
+- 📻 **Multi-Channel** - Simultaneous broadcast on 531 kHz and 702 kHz
+- 📊 **Real-Time Spectrum** - Live RF spectrum analyzer display
+- 🎤 **Audio Monitoring** - Waveform visualization
+- 🔌 **SCPI Control** - Red Pitaya FPGA communication
+- 💾 **Settings Persistence** - Remembers IP and preferences
+- ⌨️ **Keyboard Shortcuts** - F1/Space to broadcast, ESC to stop
 
-## Keyboard Shortcuts
+## Installation
 
-| Key | Action |
-|-----|--------|
-| `F1` or `SPACE` | Toggle broadcast |
-| `ESC` | Emergency stop |
+```bash
+# Clone the repository
+git clone <repo-url>
+cd tunnel_am_breakin
 
-## Configuration
+# Install dependencies
+pip install -r requirements.txt
 
-Edit the `Config` class in the script:
+# Run the application
+python -m tunnel_am_breakin
+```
+
+## Usage
+
+### Basic Usage
+
+```bash
+# Run with mock SCPI client (for testing without hardware)
+python -m tunnel_am_breakin
+
+# Run in demo mode
+python -m tunnel_am_breakin --demo
+
+# Run with real Red Pitaya connection
+python -m tunnel_am_breakin --real --ip 192.168.1.100
+```
+
+### Python API
 
 ```python
-class Config:
-    RP_IP = "192.168.1.100"  # Red Pitaya IP address
-    RP_PORT = 5000           # SCPI port
+from tunnel_am_breakin import TunnelAMBreakIn
 
-    CHANNELS = [
-        {"id": 1, "freq_khz": 531, "name": "Channel 1"},
-        {"id": 2, "freq_khz": 702, "name": "Channel 2"},
-        # Add more channels as needed (up to 12)
-    ]
+# Simple usage
+app = TunnelAMBreakIn()
+app.run()
+
+# Custom configuration
+from tunnel_am_breakin import SystemModel, MainView, SCPIClient
+
+model = SystemModel()
+view = MainView()
+scpi = SCPIClient()
+
+app = TunnelAMBreakIn(model=model, view=view, scpi=scpi, use_mock=False)
+app.run()
 ```
 
 ## Architecture
 
 ```
-┌─────────────────┐     SCPI Commands      ┌─────────────────┐
-│                 │ ───────────────────▶   │                 │
-│   Python GUI    │   FREQ:CARRIER 531000  │   Red Pitaya    │
-│   (DearPyGui)   │   MSG:SELECT emergency │   (FPGA)        │
-│                 │   OUTPUT:STATE ON      │                 │
-└─────────────────┘ ◀───────────────────   └─────────────────┘
-                       Status/Telemetry
+┌─────────────────────────────────────────────────────────────────┐
+│                      TunnelAMBreakIn (App)                      │
+│                                                                 │
+│  ┌───────────────┐  ┌───────────────┐  ┌───────────────┐       │
+│  │   SystemModel │  │   MainView    │  │  Controller   │       │
+│  │   (State)     │◄─┤   (Display)   │◄─┤  (Logic)      │       │
+│  └───────────────┘  └───────────────┘  └───────┬───────┘       │
+│                                                 │               │
+│                                        ┌───────▼───────┐       │
+│                                        │  SCPIClient   │       │
+│                                        │  (Hardware)   │       │
+│                                        └───────────────┘       │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼ SCPI over TCP
+                    ┌─────────────────────┐
+                    │   Red Pitaya FPGA   │
+                    │   - NCO             │
+                    │   - AM Modulator    │
+                    │   - BRAM Audio      │
+                    └─────────────────────┘
 ```
 
-## Requirements
+## Project Structure
 
-- Python 3.8+
-- DearPyGui 2.0+
-- Red Pitaya 125-10 (for actual RF output)
-
-## Screenshots
-
-The GUI features:
-- Dark industrial color scheme
-- Real-time RF spectrum analyser
-- Audio waveform display
-- Channel status panels with level meters
-- Large emergency broadcast button
-- System event log
-
-## Project
-
-**UNSW EPI x UGL Engineering**
-Tunnel AM Radio Break-In System
-January 2026# UGL Tunnel AM Break-In System - Control Panel GUI
-
-**Industrial-grade control interface for emergency radio broadcast**
-
-## Quick Start
-
-```bash
-# Install DearPyGui
-pip install dearpygui
-
-# Run the application
-python tunnel_am_breakin_gui.py
+```
+tunnel_am_breakin/
+├── __init__.py          # Package exports
+├── __main__.py          # Entry point (python -m tunnel_am_breakin)
+├── app.py               # Main application orchestration
+├── configs.py           # All constants and configuration
+├── tags.py              # Widget tag management (no magic strings)
+├── models.py            # State and data management
+├── views.py             # View components (MainView, ChannelView, etc.)
+├── ui_builder.py        # UI construction
+├── controllers.py       # Business logic and callbacks
+├── themes.py            # Industrial dark theme
+├── scpi_client.py       # Red Pitaya SCPI communication
+└── requirements.txt     # Python dependencies
 ```
 
-## Features
+## MVC Architecture
 
-| Feature | Description |
+| Component | File | Responsibility |
+|-----------|------|----------------|
+| **Model** | `models.py` | System state, channel states, logging |
+| **View** | `views.py`, `ui_builder.py` | UI components and display |
+| **Controller** | `controllers.py` | Business logic, callbacks, hardware |
+
+## SCPI Commands
+
+The GUI sends these commands to the Red Pitaya FPGA:
+
+| Command | Description |
 |---------|-------------|
-| **Industrial Dark Theme** | Control room aesthetic |
-| **Dual Channel Support** | 531 kHz + 702 kHz simultaneous |
-| **Real-time Spectrum** | RF output visualization |
-| **Audio Waveform** | Live audio monitoring |
-| **Keyboard Shortcuts** | F1/SPACE = Broadcast, ESC = Stop |
-| **Audit Logging** | Timestamped event log |
-| **Channel Control** | Enable/disable individual channels |
+| `FREQ:CH1 531000` | Set channel 1 frequency |
+| `FREQ:CH2 702000` | Set channel 2 frequency |
+| `MSG:SELECT emergency` | Select broadcast message |
+| `OUTPUT:CH1 ON` | Enable channel 1 output |
+| `OUTPUT:ALL OFF` | Disable all outputs |
+| `STATUS?` | Query system status |
 
 ## Keyboard Shortcuts
 
 | Key | Action |
 |-----|--------|
-| `F1` or `SPACE` | Toggle broadcast |
-| `ESC` | Emergency stop |
+| `F1` or `Space` | Toggle broadcast |
+| `Escape` | Emergency stop |
+
+## Development
+
+### Running Tests
+
+```bash
+# Run with pytest
+pytest tests/
+
+# Run with coverage
+pytest --cov=tunnel_am_breakin tests/
+```
+
+### Code Style
+
+```bash
+# Format with black
+black tunnel_am_breakin/
+
+# Check with flake8
+flake8 tunnel_am_breakin/
+```
 
 ## Configuration
 
-Edit the `Config` class in the script:
+Edit `configs.py` to customize:
 
-```python
-class Config:
-    RP_IP = "192.168.1.100"  # Red Pitaya IP address
-    RP_PORT = 5000           # SCPI port
+- **Channels**: Frequencies and phase increments
+- **Messages**: Emergency messages and durations
+- **Colors**: UI theme colors
+- **Display**: Update rate and buffer sizes
 
-    CHANNELS = [
-        {"id": 1, "freq_khz": 531, "name": "Channel 1"},
-        {"id": 2, "freq_khz": 702, "name": "Channel 2"},
-        # Add more channels as needed (up to 12)
-    ]
-```
+## License
 
-## Architecture
+MIT License - UNSW EPI Project
 
-```
-┌─────────────────┐     SCPI Commands      ┌─────────────────┐
-│                 │ ───────────────────▶   │                 │
-│   Python GUI    │   FREQ:CARRIER 531000  │   Red Pitaya    │
-│   (DearPyGui)   │   MSG:SELECT emergency │   (FPGA)        │
-│                 │   OUTPUT:STATE ON      │                 │
-└─────────────────┘ ◀───────────────────   └─────────────────┘
-                       Status/Telemetry
-```
+## Authors
 
-## Requirements
-
-- Python 3.8+
-- DearPyGui 2.0+
-- Red Pitaya 125-10 (for actual RF output)
-
-## Screenshots
-
-The GUI features:
-- Dark industrial color scheme
-- Real-time RF spectrum analyzer
-- Audio waveform display
-- Channel status panels with level meters
-- Large emergency broadcast button
-- System event log
-
-## Project
-
-**UNSW EPI x UGL Engineering**
-Tunnel AM Radio Break-In System
-January 2026
+William Park - UGL Tunnel Project
