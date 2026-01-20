@@ -1,8 +1,0 @@
-# UGL Tunnel AM Break-In System
-# Python dependencies
-
-# GUI Framework
-dearpygui>=1.10.0
-
-# Optional: Theme extensions
-dearpygui-ext>=0.9.5
