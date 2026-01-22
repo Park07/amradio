@@ -1,392 +1,252 @@
 """
 Unit Tests for Controller Module
 =================================
-Tests for business logic and SCPI communication.
+Tests for UI controller and event handling.
 """
 
 import pytest
-import socket
-import time
 from unittest.mock import Mock, MagicMock, patch
+import sys
+
+# Mock dearpygui before importing controller
+sys.modules['dearpygui'] = MagicMock()
+sys.modules['dearpygui.dearpygui'] = MagicMock()
+
+with patch.dict('sys.modules', {'dearpygui': MagicMock(), 'dearpygui.dearpygui': MagicMock()}):
+    from controller import Controller
+    from model import Model, AppState, ChannelState
+    from config import Config
 
 
 # =============================================================================
-# SCPI Command Building Tests
+# Controller Creation Tests
 # =============================================================================
 
-class TestSCPICommands:
-    """Tests for SCPI command construction."""
-    
-    def test_identify_command(self):
-        """Identity query should be *IDN?"""
-        cmd = "*IDN?"
-        assert cmd == "*IDN?"
-        
-    def test_output_on_command(self):
-        """Output ON command format."""
-        cmd = "OUTPUT:STATE ON"
-        assert cmd == "OUTPUT:STATE ON"
-        
-    def test_output_off_command(self):
-        """Output OFF command format."""
-        cmd = "OUTPUT:STATE OFF"
-        assert cmd == "OUTPUT:STATE OFF"
-        
-    def test_channel_enable_command(self):
-        """Channel enable command format."""
-        ch = 1
-        cmd = f"CH{ch}:OUTPUT ON"
-        assert cmd == "CH1:OUTPUT ON"
-        
-    def test_channel_disable_command(self):
-        """Channel disable command format."""
-        ch = 2
-        cmd = f"CH{ch}:OUTPUT OFF"
-        assert cmd == "CH2:OUTPUT OFF"
-        
-    def test_frequency_command(self):
-        """Frequency command format."""
-        ch = 1
-        freq_hz = 531000
-        cmd = f"CH{ch}:FREQ {freq_hz}"
-        assert cmd == "CH1:FREQ 531000"
-        
-    def test_source_bram_command(self):
-        """BRAM source command format."""
-        cmd = "SOURCE:INPUT BRAM"
-        assert cmd == "SOURCE:INPUT BRAM"
-        
-    def test_source_adc_command(self):
-        """ADC source command format."""
-        cmd = "SOURCE:INPUT ADC"
-        assert cmd == "SOURCE:INPUT ADC"
-        
-    def test_message_select_command(self):
-        """Message select command format."""
-        msg_id = 2
-        cmd = f"SOURCE:MSG {msg_id}"
-        assert cmd == "SOURCE:MSG 2"
+class TestControllerCreation:
+    """Tests for Controller initialization."""
+
+    @patch('controller.dpg')
+    def test_controller_creation(self, mock_dpg):
+        """Controller should be created with model."""
+        model = Model()
+        controller = Controller(model)
+        assert controller.model is model
+
+    @patch('controller.dpg')
+    def test_controller_subscribes_to_model(self, mock_dpg):
+        """Controller should subscribe to model state changes."""
+        model = Model()
+        initial_listeners = len(model._state_listeners)
+        controller = Controller(model)
+        assert len(model._state_listeners) == initial_listeners + 1
+
+    @patch('controller.dpg')
+    def test_controller_subscribes_to_logger(self, mock_dpg):
+        """Controller should subscribe to logger messages."""
+        model = Model()
+        initial_listeners = len(model.logger.listeners)
+        controller = Controller(model)
+        assert len(model.logger.listeners) == initial_listeners + 1
+
+    @patch('controller.dpg')
+    def test_controller_log_entries_empty(self, mock_dpg):
+        """Controller should start with empty log entries."""
+        model = Model()
+        controller = Controller(model)
+        assert controller.log_entries == []
 
 
 # =============================================================================
-# Connection Tests
+# Event Handler Tests
 # =============================================================================
 
-class TestConnection:
-    """Tests for network connection handling."""
-    
-    def test_connect_success(self, mock_server):
-        """Should connect successfully to server."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        
-        try:
-            sock.connect(("127.0.0.1", mock_server.port))
-            connected = True
-        except Exception:
-            connected = False
-        finally:
-            sock.close()
-            
-        assert connected == True
-        
-    def test_connect_timeout(self):
-        """Should timeout on unreachable host."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(0.5)
-        
-        try:
-            # Use non-routable IP
-            sock.connect(("10.255.255.1", 5000))
-            connected = True
-        except socket.timeout:
-            connected = False
-        except Exception:
-            connected = False
-        finally:
-            sock.close()
-            
-        assert connected == False
-        
-    def test_connect_refused(self):
-        """Should handle connection refused."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(1)
-        
-        try:
-            # Use localhost with unlikely port
-            sock.connect(("127.0.0.1", 59999))
-            connected = True
-        except ConnectionRefusedError:
-            connected = False
-        except Exception:
-            connected = False
-        finally:
-            sock.close()
-            
-        assert connected == False
+class TestEventHandlers:
+    """Tests for controller event handlers."""
 
+    @patch('controller.dpg')
+    def test_on_connect_click_disconnects(self, mock_dpg):
+        """Connect click should call model.disconnect when connected."""
+        model = Model()
+        model.state.connected = True
+        model.disconnect = Mock()
+        controller = Controller(model)
 
-# =============================================================================
-# Command Sending Tests
-# =============================================================================
+        controller._on_connect_click()
 
-class TestCommandSending:
-    """Tests for sending commands to hardware."""
-    
-    def test_send_command(self, mock_server):
-        """Should send command and receive acknowledgment."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        sock.connect(("127.0.0.1", mock_server.port))
-        
-        # Send command
-        sock.send(b"OUTPUT:STATE ON\n")
-        time.sleep(0.1)
-        
-        sock.close()
-        
-        assert "OUTPUT:STATE ON" in mock_server.received_commands
-        
-    def test_send_query(self, mock_server):
-        """Should send query and receive response."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        sock.connect(("127.0.0.1", mock_server.port))
-        
-        # Send query
-        sock.send(b"*IDN?\n")
-        response = sock.recv(1024).decode().strip()
-        
-        sock.close()
-        
-        assert "MockRedPitaya" in response
-        
-    def test_send_frequency(self, mock_server):
-        """Should send frequency command correctly."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        sock.connect(("127.0.0.1", mock_server.port))
-        
-        freq_hz = 700000
-        cmd = f"CH1:FREQ {freq_hz}\n"
-        sock.send(cmd.encode())
-        time.sleep(0.1)
-        
-        sock.close()
-        
-        assert "CH1:FREQ 700000" in mock_server.received_commands
+        model.disconnect.assert_called_once()
 
+    @patch('controller.dpg')
+    def test_on_source_change_adc(self, mock_dpg):
+        """Source change to ADC should call model.set_source."""
+        model = Model()
+        model.set_source = Mock()
+        controller = Controller(model)
 
-# =============================================================================
-# Frequency Conversion Tests
-# =============================================================================
+        controller._on_source_change(None, "Live Mic (ADC)")
 
-class TestFrequencyConversion:
-    """Tests for kHz to Hz conversion."""
-    
-    def test_khz_to_hz(self):
-        """kHz should convert to Hz correctly."""
-        freq_khz = 531
-        freq_hz = freq_khz * 1000
-        assert freq_hz == 531000
-        
-    def test_hz_to_phase_inc(self, freq_to_phase_inc):
-        """Hz should convert to phase increment correctly."""
-        freq_hz = 700000
-        phase_inc = freq_to_phase_inc(freq_hz)
-        
-        # Verify it's a 32-bit value
-        assert 0 <= phase_inc <= 0xFFFFFFFF
-        
-    def test_frequency_range_check(self):
-        """Should validate frequency is in AM band."""
-        def is_valid_freq(freq_khz):
-            return 530 <= freq_khz <= 1700
-            
-        assert is_valid_freq(531) == True
-        assert is_valid_freq(700) == True
-        assert is_valid_freq(1700) == True
-        assert is_valid_freq(500) == False
-        assert is_valid_freq(1800) == False
+        model.set_source.assert_called_once_with(Config.SOURCE_ADC)
+
+    @patch('controller.dpg')
+    def test_on_source_change_bram(self, mock_dpg):
+        """Source change to BRAM should call model.set_source."""
+        model = Model()
+        model.set_source = Mock()
+        controller = Controller(model)
+
+        controller._on_source_change(None, "Stored Message (BRAM)")
+
+        model.set_source.assert_called_once_with(Config.SOURCE_BRAM)
+
+    @patch('controller.dpg')
+    def test_on_message_change(self, mock_dpg):
+        """Message change should call model.set_message."""
+        model = Model()
+        model.set_message = Mock()
+        controller = Controller(model)
+
+        msg_name = Config.MESSAGES[0]["name"]
+        controller._on_message_change(None, msg_name)
+
+        model.set_message.assert_called_once_with(Config.MESSAGES[0]["id"])
+
+    @patch('controller.dpg')
+    def test_on_channel_toggle_enable(self, mock_dpg):
+        """Channel toggle should call model.set_channel_enabled."""
+        model = Model()
+        model.set_channel_enabled = Mock()
+        controller = Controller(model)
+
+        controller._on_channel_toggle(None, True, 1)
+
+        model.set_channel_enabled.assert_called_once_with(1, True)
+
+    @patch('controller.dpg')
+    def test_on_channel_toggle_disable(self, mock_dpg):
+        """Channel toggle should disable channel."""
+        model = Model()
+        model.set_channel_enabled = Mock()
+        controller = Controller(model)
+
+        controller._on_channel_toggle(None, False, 2)
+
+        model.set_channel_enabled.assert_called_once_with(2, False)
+
+    @patch('controller.dpg')
+    def test_on_freq_change(self, mock_dpg):
+        """Frequency change should call model.set_channel_frequency."""
+        model = Model()
+        model.set_channel_frequency = Mock()
+        controller = Controller(model)
+
+        controller._on_freq_change(None, 531, 1)
+
+        model.set_channel_frequency.assert_called_once_with(1, 531000)
+
+    @patch('controller.dpg')
+    def test_on_broadcast_click_not_connected(self, mock_dpg):
+        """Broadcast click should do nothing when disconnected."""
+        model = Model()
+        model.set_broadcast = Mock()
+        controller = Controller(model)
+
+        controller._on_broadcast_click()
+
+        model.set_broadcast.assert_not_called()
+
+    @patch('controller.dpg')
+    def test_on_broadcast_click_stop(self, mock_dpg):
+        """Broadcast click should stop when broadcasting."""
+        model = Model()
+        model.state.connected = True
+        model.state.broadcasting = True
+        model.set_broadcast = Mock()
+        controller = Controller(model)
+
+        controller._on_broadcast_click()
+
+        model.set_broadcast.assert_called_once_with(False)
 
 
 # =============================================================================
-# Broadcast Control Tests
+# Log Handler Tests
 # =============================================================================
 
-class TestBroadcastControl:
-    """Tests for broadcast start/stop logic."""
-    
-    def test_start_broadcast_sequence(self, mock_server):
-        """Start broadcast should send correct command sequence."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        sock.connect(("127.0.0.1", mock_server.port))
-        
-        # Simulate start broadcast
-        commands = [
-            "CH1:OUTPUT ON",
-            "CH1:FREQ 700000",
-            "OUTPUT:STATE ON"
-        ]
-        
-        for cmd in commands:
-            sock.send(f"{cmd}\n".encode())
-            time.sleep(0.05)
-            
-        sock.close()
-        time.sleep(0.1)
-        
-        for cmd in commands:
-            assert cmd in mock_server.received_commands
-            
-    def test_stop_broadcast_command(self, mock_server):
-        """Stop broadcast should send OUTPUT:STATE OFF."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        sock.connect(("127.0.0.1", mock_server.port))
-        
-        sock.send(b"OUTPUT:STATE OFF\n")
-        time.sleep(0.1)
-        
-        sock.close()
-        
-        assert "OUTPUT:STATE OFF" in mock_server.received_commands
+class TestLogHandler:
+    """Tests for log message handler."""
+
+    @patch('controller.dpg')
+    def test_on_log_message_appends(self, mock_dpg):
+        """Log message should be appended to entries."""
+        mock_dpg.does_item_exist.return_value = True
+
+        model = Model()
+        controller = Controller(model)
+
+        controller._on_log_message("Test log entry")
+
+        assert "Test log entry" in controller.log_entries
+
+    @patch('controller.dpg')
+    def test_on_log_message_trims_old(self, mock_dpg):
+        """Log should trim old entries when exceeding max."""
+        mock_dpg.does_item_exist.return_value = True
+
+        model = Model()
+        controller = Controller(model)
+
+        for i in range(Config.LOG_MAX_LINES + 10):
+            controller._on_log_message(f"Entry {i}")
+
+        assert len(controller.log_entries) <= Config.LOG_MAX_LINES
 
 
 # =============================================================================
-# Error Handling Tests
+# Integration Tests
 # =============================================================================
 
-class TestErrorHandling:
-    """Tests for error handling."""
-    
-    def test_handle_disconnect(self):
-        """Should handle unexpected disconnect gracefully."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(1)
-        
-        # Connect to nothing
-        try:
-            sock.connect(("127.0.0.1", 59998))
-            sock.send(b"TEST\n")
-            error_occurred = False
-        except Exception:
-            error_occurred = True
-        finally:
-            sock.close()
-            
-        assert error_occurred == True
-        
-    def test_handle_timeout(self):
-        """Should handle send timeout gracefully."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(0.1)
-        
-        try:
-            sock.connect(("10.255.255.1", 5000))
-            timeout_occurred = False
-        except socket.timeout:
-            timeout_occurred = True
-        except Exception:
-            timeout_occurred = True
-        finally:
-            sock.close()
-            
-        assert timeout_occurred == True
-        
-    def test_invalid_frequency_handling(self):
-        """Should reject invalid frequencies."""
-        def validate_frequency(freq_khz):
-            if not isinstance(freq_khz, (int, float)):
-                return False
-            if freq_khz < 530 or freq_khz > 1700:
-                return False
-            return True
-            
-        assert validate_frequency(700) == True
-        assert validate_frequency(500) == False
-        assert validate_frequency(1800) == False
-        assert validate_frequency("abc") == False
+class TestControllerIntegration:
+    """Integration tests for controller with model."""
 
+    @patch('controller.dpg')
+    def test_channel_enable_updates_state(self, mock_dpg):
+        """Enabling channel should update model state."""
+        model = Model()
+        controller = Controller(model)
 
-# =============================================================================
-# Channel Control Tests
-# =============================================================================
+        controller._on_channel_toggle(None, True, 1)
 
-class TestChannelControl:
-    """Tests for channel enable/disable logic."""
-    
-    def test_enable_channel(self, mock_server):
-        """Should send enable command for channel."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        sock.connect(("127.0.0.1", mock_server.port))
-        
-        sock.send(b"CH1:OUTPUT ON\n")
-        time.sleep(0.1)
-        
-        sock.close()
-        
-        assert "CH1:OUTPUT ON" in mock_server.received_commands
-        
-    def test_disable_channel(self, mock_server):
-        """Should send disable command for channel."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        sock.connect(("127.0.0.1", mock_server.port))
-        
-        sock.send(b"CH2:OUTPUT OFF\n")
-        time.sleep(0.1)
-        
-        sock.close()
-        
-        assert "CH2:OUTPUT OFF" in mock_server.received_commands
-        
-    def test_set_channel_frequency(self, mock_server):
-        """Should set channel frequency correctly."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        sock.connect(("127.0.0.1", mock_server.port))
-        
-        sock.send(b"CH1:FREQ 531000\n")
-        time.sleep(0.1)
-        
-        sock.close()
-        
-        assert "CH1:FREQ 531000" in mock_server.received_commands
+        ch = model.get_channel(1)
+        assert ch.enabled is True
 
+    @patch('controller.dpg')
+    def test_frequency_change_updates_state(self, mock_dpg):
+        """Changing frequency should update model state."""
+        model = Model()
+        controller = Controller(model)
 
-# =============================================================================
-# Audio Source Tests
-# =============================================================================
+        controller._on_freq_change(None, 900, 1)
 
-class TestAudioSourceControl:
-    """Tests for audio source switching."""
-    
-    def test_select_bram_source(self, mock_server):
-        """Should select BRAM audio source."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        sock.connect(("127.0.0.1", mock_server.port))
-        
-        sock.send(b"SOURCE:INPUT BRAM\n")
-        time.sleep(0.1)
-        
-        sock.close()
-        
-        assert "SOURCE:INPUT BRAM" in mock_server.received_commands
-        
-    def test_select_adc_source(self, mock_server):
-        """Should select ADC audio source."""
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sock.settimeout(2)
-        sock.connect(("127.0.0.1", mock_server.port))
-        
-        sock.send(b"SOURCE:INPUT ADC\n")
-        time.sleep(0.1)
-        
-        sock.close()
-        
-        assert "SOURCE:INPUT ADC" in mock_server.received_commands
+        ch = model.get_channel(1)
+        assert ch.frequency == 900000
+
+    @patch('controller.dpg')
+    def test_source_change_updates_state(self, mock_dpg):
+        """Changing source should update model state."""
+        model = Model()
+        controller = Controller(model)
+
+        controller._on_source_change(None, "Live Mic (ADC)")
+
+        assert model.state.source == Config.SOURCE_ADC
+
+    @patch('controller.dpg')
+    def test_message_change_updates_state(self, mock_dpg):
+        """Changing message should update model state."""
+        model = Model()
+        controller = Controller(model)
+
+        msg_name = Config.MESSAGES[1]["name"] if len(Config.MESSAGES) > 1 else Config.MESSAGES[0]["name"]
+        msg_id = Config.MESSAGES[1]["id"] if len(Config.MESSAGES) > 1 else Config.MESSAGES[0]["id"]
+        controller._on_message_change(None, msg_name)
+
+        assert model.state.selected_message == msg_id

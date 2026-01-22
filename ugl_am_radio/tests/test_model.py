@@ -5,251 +5,400 @@ Tests for data models and state management.
 """
 
 import pytest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock, patch, MagicMock
+import tempfile
+import os
+
+from model import ChannelState, AppState, AuditLogger, SCPIClient, Model
+from config import Config
 
 
 # =============================================================================
-# Channel State Tests
+# ChannelState Tests
 # =============================================================================
 
 class TestChannelState:
-    """Tests for channel state management."""
-    
-    def test_default_frequency(self, default_channel_state):
-        """Channel should have default frequency."""
-        assert default_channel_state["frequency_khz"] == 700
-        
-    def test_frequency_conversion(self):
-        """Frequency should convert kHz to Hz correctly."""
-        freq_khz = 531
-        freq_hz = freq_khz * 1000
-        assert freq_hz == 531000
-        
-    def test_channel_disabled_by_default(self, default_channel_state):
-        """Channel should be disabled by default."""
-        assert default_channel_state["enabled"] == False
-        
-    def test_frequency_range_validation(self):
-        """Frequency should be within valid AM range."""
-        min_freq = 530
-        max_freq = 1700
-        test_freq = 700
-        
-        assert min_freq <= test_freq <= max_freq
-        
-    def test_invalid_frequency_below_range(self):
-        """Frequency below 530 kHz should be invalid."""
-        freq = 500
-        min_freq = 530
-        assert freq < min_freq
-        
-    def test_invalid_frequency_above_range(self):
-        """Frequency above 1700 kHz should be invalid."""
-        freq = 1800
-        max_freq = 1700
-        assert freq > max_freq
+    """Tests for ChannelState dataclass."""
+
+    def test_channel_state_creation(self):
+        """ChannelState should be created with required fields."""
+        ch = ChannelState(id=1, frequency=700000)
+        assert ch.id == 1
+        assert ch.frequency == 700000
+        assert ch.enabled is False
+
+    def test_channel_state_enabled(self):
+        """ChannelState enabled flag should work."""
+        ch = ChannelState(id=2, frequency=900000, enabled=True)
+        assert ch.enabled is True
+
+    def test_channel_state_modification(self):
+        """ChannelState fields should be mutable."""
+        ch = ChannelState(id=1, frequency=700000)
+        ch.frequency = 531000
+        ch.enabled = True
+        assert ch.frequency == 531000
+        assert ch.enabled is True
 
 
 # =============================================================================
-# System State Tests
+# AppState Tests
 # =============================================================================
 
-class TestSystemState:
-    """Tests for system state management."""
-    
-    def test_initial_disconnected(self, default_system_state):
-        """System should be disconnected initially."""
-        assert default_system_state["connected"] == False
-        
-    def test_initial_not_broadcasting(self, default_system_state):
-        """System should not be broadcasting initially."""
-        assert default_system_state["broadcasting"] == False
-        
-    def test_default_audio_source(self, default_system_state):
-        """Default audio source should be BRAM."""
-        assert default_system_state["audio_source"] == "BRAM"
-        
-    def test_default_ip_address(self, default_system_state):
-        """Default IP should be set."""
-        assert default_system_state["ip_address"] == "192.168.0.100"
-        
-    def test_default_port(self, default_system_state):
-        """Default port should be 5000."""
-        assert default_system_state["port"] == 5000
+class TestAppState:
+    """Tests for AppState dataclass."""
+
+    def test_app_state_defaults(self):
+        """AppState should have correct defaults."""
+        state = AppState()
+        assert state.connected is False
+        assert state.broadcasting is False
+        assert state.source == Config.SOURCE_BRAM
+        assert state.selected_message == 1
+
+    def test_app_state_channels_initialized(self):
+        """AppState should initialize channels from Config."""
+        state = AppState()
+        assert len(state.channels) == len(Config.CHANNELS)
+
+    def test_app_state_custom_values(self):
+        """AppState should accept custom values."""
+        state = AppState(connected=True, broadcasting=True, source="ADC")
+        assert state.connected is True
+        assert state.broadcasting is True
+        assert state.source == "ADC"
 
 
 # =============================================================================
-# Phase Increment Calculation Tests
+# AuditLogger Tests
+# =============================================================================
+
+class TestAuditLogger:
+    """Tests for AuditLogger class."""
+
+    def test_logger_creation(self):
+        """AuditLogger should be created with default log file."""
+        logger = AuditLogger()
+        assert logger.log_file == Config.LOG_FILE
+
+    def test_logger_custom_file(self):
+        """AuditLogger should accept custom log file."""
+        logger = AuditLogger(log_file="custom.log")
+        assert logger.log_file == "custom.log"
+
+    def test_logger_log_returns_entry(self):
+        """log() should return the formatted entry."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.log') as f:
+            temp_log = f.name
+        try:
+            logger = AuditLogger(log_file=temp_log)
+            entry = logger.log("Test message")
+            assert "Test message" in entry
+            assert "[INFO]" in entry
+        finally:
+            os.unlink(temp_log)
+
+    def test_logger_log_levels(self):
+        """log() should include specified level."""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.log') as f:
+            temp_log = f.name
+        try:
+            logger = AuditLogger(log_file=temp_log)
+            entry = logger.log("Error occurred", level="ERROR")
+            assert "[ERROR]" in entry
+        finally:
+            os.unlink(temp_log)
+
+    def test_logger_listener_callback(self):
+        """AuditLogger should notify listeners."""
+        logger = AuditLogger(log_file="/dev/null")
+        received = []
+        logger.add_listener(lambda msg: received.append(msg))
+        logger.log("Test")
+        assert len(received) == 1
+        assert "Test" in received[0]
+
+    def test_logger_multiple_listeners(self):
+        """AuditLogger should notify all listeners."""
+        logger = AuditLogger(log_file="/dev/null")
+        received1, received2 = [], []
+        logger.add_listener(lambda msg: received1.append(msg))
+        logger.add_listener(lambda msg: received2.append(msg))
+        logger.log("Multi")
+        assert len(received1) == 1
+        assert len(received2) == 1
+
+
+# =============================================================================
+# SCPIClient Tests
+# =============================================================================
+
+class TestSCPIClient:
+    """Tests for SCPIClient class."""
+
+    def test_scpi_client_creation(self):
+        """SCPIClient should be created with logger."""
+        logger = AuditLogger(log_file="/dev/null")
+        client = SCPIClient(logger)
+        assert client.connected is False
+        assert client.socket is None
+
+    @patch('socket.socket')
+    def test_scpi_connect_success(self, mock_socket_class):
+        """SCPIClient should connect successfully."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+
+        logger = AuditLogger(log_file="/dev/null")
+        client = SCPIClient(logger)
+        result = client.connect("127.0.0.1", 5000)
+
+        assert result is True
+        assert client.connected is True
+        mock_socket.connect.assert_called_once_with(("127.0.0.1", 5000))
+
+    @patch('socket.socket')
+    def test_scpi_connect_timeout(self, mock_socket_class):
+        """SCPIClient should handle connection timeout."""
+        mock_socket = MagicMock()
+        mock_socket.connect.side_effect = TimeoutError()
+        mock_socket_class.return_value = mock_socket
+
+        logger = AuditLogger(log_file="/dev/null")
+        client = SCPIClient(logger)
+        result = client.connect("127.0.0.1", 5000)
+
+        assert result is False
+        assert client.connected is False
+
+    @patch('socket.socket')
+    def test_scpi_disconnect(self, mock_socket_class):
+        """SCPIClient should disconnect cleanly."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+
+        logger = AuditLogger(log_file="/dev/null")
+        client = SCPIClient(logger)
+        client.connect("127.0.0.1", 5000)
+        client.disconnect()
+
+        assert client.connected is False
+        assert client.socket is None
+        mock_socket.close.assert_called_once()
+
+    @patch('socket.socket')
+    def test_scpi_send_command(self, mock_socket_class):
+        """SCPIClient should send commands."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+
+        logger = AuditLogger(log_file="/dev/null")
+        client = SCPIClient(logger)
+        client.connect("127.0.0.1", 5000)
+        client.send("OUTPUT:STATE ON")
+
+        mock_socket.sendall.assert_called_with(b"OUTPUT:STATE ON\n")
+
+    @patch('socket.socket')
+    def test_scpi_send_query(self, mock_socket_class):
+        """SCPIClient should handle queries."""
+        mock_socket = MagicMock()
+        mock_socket.recv.return_value = b"RedPitaya,v1.0"
+        mock_socket_class.return_value = mock_socket
+
+        logger = AuditLogger(log_file="/dev/null")
+        client = SCPIClient(logger)
+        client.connect("127.0.0.1", 5000)
+        response = client.send("*IDN?")
+
+        assert response == "RedPitaya,v1.0"
+
+    def test_scpi_send_not_connected(self):
+        """SCPIClient should handle send when not connected."""
+        logger = AuditLogger(log_file="/dev/null")
+        client = SCPIClient(logger)
+        result = client.send("TEST")
+        assert result is None
+
+
+# =============================================================================
+# Model Tests
+# =============================================================================
+
+class TestModel:
+    """Tests for Model class."""
+
+    def test_model_creation(self):
+        """Model should be created with components."""
+        model = Model()
+        assert model.logger is not None
+        assert model.scpi is not None
+        assert model.state is not None
+
+    def test_model_initial_state(self):
+        """Model should have correct initial state."""
+        model = Model()
+        assert model.is_connected() is False
+        assert model.is_broadcasting() is False
+
+    def test_model_state_listener(self):
+        """Model should notify state listeners."""
+        model = Model()
+        received = []
+        model.add_state_listener(lambda state: received.append(state))
+        model._notify_state_change()
+        assert len(received) == 1
+
+    @patch('socket.socket')
+    def test_model_connect(self, mock_socket_class):
+        """Model should connect and update state."""
+        mock_socket = MagicMock()
+        mock_socket.recv.return_value = b"RedPitaya"
+        mock_socket_class.return_value = mock_socket
+
+        model = Model()
+        result = model.connect("127.0.0.1", 5000)
+
+        assert result is True
+        assert model.is_connected() is True
+
+    @patch('socket.socket')
+    def test_model_disconnect(self, mock_socket_class):
+        """Model should disconnect and update state."""
+        mock_socket = MagicMock()
+        mock_socket.recv.return_value = b"RedPitaya"
+        mock_socket_class.return_value = mock_socket
+
+        model = Model()
+        model.connect("127.0.0.1", 5000)
+        model.disconnect()
+
+        assert model.is_connected() is False
+
+    @patch('socket.socket')
+    def test_model_set_source(self, mock_socket_class):
+        """Model should set audio source."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+
+        model = Model()
+        model.connect("127.0.0.1", 5000)
+        model.set_source("ADC")
+
+        assert model.state.source == "ADC"
+
+    @patch('socket.socket')
+    def test_model_set_message(self, mock_socket_class):
+        """Model should set message ID."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+
+        model = Model()
+        model.connect("127.0.0.1", 5000)
+        model.set_message(2)
+
+        assert model.state.selected_message == 2
+
+    @patch('socket.socket')
+    def test_model_set_channel_frequency(self, mock_socket_class):
+        """Model should set channel frequency."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+
+        model = Model()
+        model.connect("127.0.0.1", 5000)
+        model.set_channel_frequency(1, 531000)
+
+        ch = model.get_channel(1)
+        assert ch.frequency == 531000
+
+    @patch('socket.socket')
+    def test_model_set_channel_enabled(self, mock_socket_class):
+        """Model should enable/disable channel."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+
+        model = Model()
+        model.connect("127.0.0.1", 5000)
+        model.set_channel_enabled(1, True)
+
+        ch = model.get_channel(1)
+        assert ch.enabled is True
+
+    @patch('socket.socket')
+    def test_model_set_broadcast(self, mock_socket_class):
+        """Model should start/stop broadcast."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+
+        model = Model()
+        model.connect("127.0.0.1", 5000)
+        model.set_broadcast(True)
+
+        assert model.is_broadcasting() is True
+
+    @patch('socket.socket')
+    def test_model_toggle_broadcast(self, mock_socket_class):
+        """Model should toggle broadcast state."""
+        mock_socket = MagicMock()
+        mock_socket_class.return_value = mock_socket
+
+        model = Model()
+        model.connect("127.0.0.1", 5000)
+
+        model.toggle_broadcast()
+        assert model.is_broadcasting() is True
+
+        model.toggle_broadcast()
+        assert model.is_broadcasting() is False
+
+    def test_model_get_channel(self):
+        """Model should return channel by ID."""
+        model = Model()
+        ch = model.get_channel(1)
+        assert ch is not None
+        assert ch.id == 1
+
+    def test_model_get_channel_invalid(self):
+        """Model should return None for invalid channel ID."""
+        model = Model()
+        ch = model.get_channel(99)
+        assert ch is None
+
+
+# =============================================================================
+# Phase Increment Tests
 # =============================================================================
 
 class TestPhaseIncrement:
     """Tests for NCO phase increment calculation."""
-    
+
+    @pytest.fixture
+    def freq_to_phase_inc(self):
+        """Helper function to convert frequency to phase increment."""
+        def _convert(freq_hz: int, clk_hz: int = 125000000) -> int:
+            return int((freq_hz * (1 << 32)) / clk_hz) & 0xFFFFFFFF
+        return _convert
+
     def test_700khz_phase_increment(self, freq_to_phase_inc):
         """700 kHz should produce correct phase increment."""
         phase_inc = freq_to_phase_inc(700000)
         # Expected: 0x016F0069 (approximate)
         assert 0x016F0000 <= phase_inc <= 0x016F00FF
-        
+
     def test_900khz_phase_increment(self, freq_to_phase_inc):
         """900 kHz should produce correct phase increment."""
         phase_inc = freq_to_phase_inc(900000)
-        # Expected: 0x01D7DEF4 (approximate)
+        # Expected: 0x01D7DBF4 (approximate)
         assert 0x01D7DB00 <= phase_inc <= 0x01D7DC00
-        
+
     def test_531khz_phase_increment(self, freq_to_phase_inc):
         """531 kHz should produce correct phase increment."""
         phase_inc = freq_to_phase_inc(531000)
-        # phase_inc = (531000 * 2^32) / 125000000
         expected = int((531000 * (1 << 32)) / 125000000)
         assert phase_inc == expected
-        
+
     def test_phase_increment_is_32bit(self, freq_to_phase_inc):
         """Phase increment should fit in 32 bits."""
-        phase_inc = freq_to_phase_inc(1700000)  # Max frequency
+        phase_inc = freq_to_phase_inc(1700000)
         assert 0 <= phase_inc <= 0xFFFFFFFF
-        
-    def test_zero_frequency(self, freq_to_phase_inc):
-        """Zero frequency should produce zero phase increment."""
-        phase_inc = freq_to_phase_inc(0)
-        assert phase_inc == 0
-
-
-# =============================================================================
-# Audio Source Tests
-# =============================================================================
-
-class TestAudioSource:
-    """Tests for audio source selection."""
-    
-    def test_valid_sources(self):
-        """BRAM and ADC should be valid sources."""
-        valid_sources = ["BRAM", "ADC"]
-        assert "BRAM" in valid_sources
-        assert "ADC" in valid_sources
-        
-    def test_bram_is_stored_audio(self):
-        """BRAM should represent stored/pre-loaded audio."""
-        source = "BRAM"
-        assert source == "BRAM"
-        
-    def test_adc_is_live_audio(self):
-        """ADC should represent live audio input."""
-        source = "ADC"
-        assert source == "ADC"
-
-
-# =============================================================================
-# Message Selection Tests
-# =============================================================================
-
-class TestMessageSelection:
-    """Tests for broadcast message selection."""
-    
-    def test_valid_message_ids(self):
-        """Message IDs should be positive integers."""
-        messages = [1, 2, 3, 4]
-        for msg_id in messages:
-            assert isinstance(msg_id, int)
-            assert msg_id > 0
-            
-    def test_message_names(self):
-        """Standard messages should have names."""
-        messages = {
-            1: "Emergency Evacuation",
-            2: "System Test",
-            3: "All Clear"
-        }
-        assert messages[1] == "Emergency Evacuation"
-        
-    def test_default_message_selection(self, default_system_state):
-        """Default message should be set."""
-        assert default_system_state["selected_message"] == 1
-
-
-# =============================================================================
-# State Transition Tests
-# =============================================================================
-
-class TestStateTransitions:
-    """Tests for valid state transitions."""
-    
-    def test_connect_changes_state(self):
-        """Connecting should change connected state to True."""
-        state = {"connected": False}
-        # Simulate connect
-        state["connected"] = True
-        assert state["connected"] == True
-        
-    def test_disconnect_changes_state(self):
-        """Disconnecting should change connected state to False."""
-        state = {"connected": True}
-        # Simulate disconnect
-        state["connected"] = False
-        assert state["connected"] == False
-        
-    def test_cannot_broadcast_when_disconnected(self):
-        """Should not be able to broadcast when disconnected."""
-        state = {"connected": False, "broadcasting": False}
-        
-        # Attempt to broadcast
-        can_broadcast = state["connected"]
-        assert can_broadcast == False
-        
-    def test_can_broadcast_when_connected(self):
-        """Should be able to broadcast when connected."""
-        state = {"connected": True, "broadcasting": False}
-        
-        # Can broadcast check
-        can_broadcast = state["connected"]
-        assert can_broadcast == True
-        
-    def test_stop_broadcast_on_disconnect(self):
-        """Broadcast should stop when disconnected."""
-        state = {"connected": True, "broadcasting": True}
-        
-        # Simulate disconnect
-        state["connected"] = False
-        state["broadcasting"] = False  # Should be stopped
-        
-        assert state["broadcasting"] == False
-
-
-# =============================================================================
-# Validation Tests
-# =============================================================================
-
-class TestValidation:
-    """Tests for input validation."""
-    
-    def test_ip_address_format(self):
-        """IP address should be valid format."""
-        import re
-        ip = "192.168.0.100"
-        pattern = r"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$"
-        assert re.match(pattern, ip) is not None
-        
-    def test_invalid_ip_address(self):
-        """Invalid IP should be rejected."""
-        import re
-        invalid_ips = ["256.1.1.1", "abc.def.ghi.jkl", "192.168.1"]
-        pattern = r"^(\d{1,3}\.){3}\d{1,3}$"
-        
-        for ip in invalid_ips:
-            match = re.match(pattern, ip)
-            if match:
-                # Check octets are valid
-                octets = ip.split(".")
-                valid = all(0 <= int(o) <= 255 for o in octets)
-                assert not valid or len(octets) != 4
-                
-    def test_port_range(self):
-        """Port should be in valid range."""
-        valid_port = 5000
-        assert 1 <= valid_port <= 65535
-        
-    def test_invalid_port(self):
-        """Invalid ports should be rejected."""
-        invalid_ports = [0, -1, 65536, 70000]
-        for port in invalid_ports:
-            assert not (1 <= port <= 65535)

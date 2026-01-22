@@ -8,7 +8,7 @@ Entry point for the GUI application.
 Architecture:
     MODE A: Live Mic (ADC)
     Mic → PA Console → Analog Cable → RP ADC IN → FPGA → RF OUT
-    
+
     MODE B: Stored Message (BRAM)
     BRAM (pre-loaded audio) → FPGA → RF OUT
 
@@ -16,7 +16,7 @@ Control: GUI → SCPI over Ethernet → Red Pitaya
 
 Usage:
     python main.py
-    
+
 Requirements:
     pip install dearpygui
 """
@@ -29,38 +29,38 @@ from controller import Controller
 
 def main():
     """Main entry point."""
-    
+
     # Initialize DearPyGui
     dpg.create_context()
-    
+
     # Create MVC components
     model = Model()
     controller = Controller(model)
-    
+
     # Build UI
     controller.build_ui()
-    
+
     # Setup viewport
     dpg.create_viewport(
         title=Config.WINDOW_TITLE,
         width=Config.WINDOW_WIDTH,
         height=Config.WINDOW_HEIGHT,
         resizable=True,
-        vsync=True
+        vsync=True,
     )
-    
+
     # Configure
     dpg.setup_dearpygui()
     dpg.set_primary_window("main_window", True)
-    
+
     # Run
     dpg.show_viewport()
     dpg.start_dearpygui()
-    
+
     # Cleanup
     if model.is_connected():
         model.disconnect()
-    
+
     dpg.destroy_context()
 
 

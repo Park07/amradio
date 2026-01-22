@@ -1,0 +1,12 @@
+[run]
+source = .
+omit = 
+    tests/*
+    shibokensupport/*
+    pyscript
+    signature_bootstrap.py
+    htmlcov/*
+    */__pycache__/*
+
+[report]
+fail_under = 70
