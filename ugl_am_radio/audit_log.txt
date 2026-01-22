@@ -193,3 +193,120 @@
 [2026-01-22 15:18:23] [INFO] === BROADCAST STARTED ===
 [2026-01-22 15:18:23] [INFO] TX: OUTPUT:STATE OFF
 [2026-01-22 15:18:23] [INFO] === BROADCAST STOPPED ===
+[2026-01-22 15:21:40] [WARN] Not connected. Queued: CH1:OUTPUT ON
+[2026-01-22 15:21:40] [WARN] Not connected. Queued: CH1:FREQ 900000
+[2026-01-22 15:21:40] [WARN] Not connected. Queued: SOURCE:INPUT ADC
+[2026-01-22 15:21:40] [WARN] Not connected. Queued: SOURCE:MSG 2
+[2026-01-22 15:21:41] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:21:41] [INFO] TX: *IDN?
+[2026-01-22 15:21:41] [INFO] RX: RedPitaya
+[2026-01-22 15:21:41] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:21:41] [INFO] TX: *IDN?
+[2026-01-22 15:21:41] [INFO] RX: RedPitaya
+[2026-01-22 15:21:41] [INFO] Disconnected
+[2026-01-22 15:21:41] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:21:41] [INFO] TX: *IDN?
+[2026-01-22 15:21:41] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4659681936'>
+[2026-01-22 15:21:41] [INFO] TX: SOURCE:INPUT ADC
+[2026-01-22 15:21:41] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:21:41] [INFO] TX: *IDN?
+[2026-01-22 15:21:41] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4659687312'>
+[2026-01-22 15:21:41] [INFO] TX: SOURCE:MSG 2
+[2026-01-22 15:21:41] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:21:41] [INFO] TX: *IDN?
+[2026-01-22 15:21:41] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4659683616'>
+[2026-01-22 15:21:41] [INFO] TX: CH1:FREQ 531000
+[2026-01-22 15:21:41] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:21:41] [INFO] TX: *IDN?
+[2026-01-22 15:21:41] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4661740944'>
+[2026-01-22 15:21:41] [INFO] TX: CH1:OUTPUT ON
+[2026-01-22 15:21:41] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:21:41] [INFO] TX: *IDN?
+[2026-01-22 15:21:41] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4661746656'>
+[2026-01-22 15:21:41] [INFO] TX: OUTPUT:STATE ON
+[2026-01-22 15:21:41] [INFO] === BROADCAST STARTED ===
+[2026-01-22 15:21:41] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:21:41] [INFO] TX: *IDN?
+[2026-01-22 15:21:41] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4661752032'>
+[2026-01-22 15:21:41] [INFO] TX: OUTPUT:STATE ON
+[2026-01-22 15:21:41] [INFO] === BROADCAST STARTED ===
+[2026-01-22 15:21:41] [INFO] TX: OUTPUT:STATE OFF
+[2026-01-22 15:21:41] [INFO] === BROADCAST STOPPED ===
+[2026-01-22 15:22:16] [WARN] Not connected. Queued: CH1:OUTPUT ON
+[2026-01-22 15:22:16] [WARN] Not connected. Queued: CH1:FREQ 900000
+[2026-01-22 15:22:16] [WARN] Not connected. Queued: SOURCE:INPUT ADC
+[2026-01-22 15:22:16] [WARN] Not connected. Queued: SOURCE:MSG 2
+[2026-01-22 15:22:16] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:22:16] [INFO] TX: *IDN?
+[2026-01-22 15:22:16] [INFO] RX: RedPitaya
+[2026-01-22 15:22:16] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:22:16] [INFO] TX: *IDN?
+[2026-01-22 15:22:16] [INFO] RX: RedPitaya
+[2026-01-22 15:22:16] [INFO] Disconnected
+[2026-01-22 15:22:16] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:22:16] [INFO] TX: *IDN?
+[2026-01-22 15:22:16] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4427045520'>
+[2026-01-22 15:22:16] [INFO] TX: SOURCE:INPUT ADC
+[2026-01-22 15:22:16] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:22:16] [INFO] TX: *IDN?
+[2026-01-22 15:22:16] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4427050896'>
+[2026-01-22 15:22:16] [INFO] TX: SOURCE:MSG 2
+[2026-01-22 15:22:16] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:22:16] [INFO] TX: *IDN?
+[2026-01-22 15:22:16] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4427047200'>
+[2026-01-22 15:22:16] [INFO] TX: CH1:FREQ 531000
+[2026-01-22 15:22:16] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:22:16] [INFO] TX: *IDN?
+[2026-01-22 15:22:16] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4799546768'>
+[2026-01-22 15:22:16] [INFO] TX: CH1:OUTPUT ON
+[2026-01-22 15:22:16] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:22:16] [INFO] TX: *IDN?
+[2026-01-22 15:22:16] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4799552480'>
+[2026-01-22 15:22:16] [INFO] TX: OUTPUT:STATE ON
+[2026-01-22 15:22:16] [INFO] === BROADCAST STARTED ===
+[2026-01-22 15:22:16] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:22:16] [INFO] TX: *IDN?
+[2026-01-22 15:22:16] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4799557856'>
+[2026-01-22 15:22:16] [INFO] TX: OUTPUT:STATE ON
+[2026-01-22 15:22:16] [INFO] === BROADCAST STARTED ===
+[2026-01-22 15:22:16] [INFO] TX: OUTPUT:STATE OFF
+[2026-01-22 15:22:16] [INFO] === BROADCAST STOPPED ===
+[2026-01-22 15:23:05] [WARN] Not connected. Queued: CH1:OUTPUT ON
+[2026-01-22 15:23:05] [WARN] Not connected. Queued: CH1:FREQ 900000
+[2026-01-22 15:23:05] [WARN] Not connected. Queued: SOURCE:INPUT ADC
+[2026-01-22 15:23:05] [WARN] Not connected. Queued: SOURCE:MSG 2
+[2026-01-22 15:23:05] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:23:05] [INFO] TX: *IDN?
+[2026-01-22 15:23:05] [INFO] RX: RedPitaya
+[2026-01-22 15:23:05] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:23:05] [INFO] TX: *IDN?
+[2026-01-22 15:23:05] [INFO] RX: RedPitaya
+[2026-01-22 15:23:05] [INFO] Disconnected
+[2026-01-22 15:23:05] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:23:05] [INFO] TX: *IDN?
+[2026-01-22 15:23:05] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4563098592'>
+[2026-01-22 15:23:05] [INFO] TX: SOURCE:INPUT ADC
+[2026-01-22 15:23:05] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:23:05] [INFO] TX: *IDN?
+[2026-01-22 15:23:05] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4563103968'>
+[2026-01-22 15:23:05] [INFO] TX: SOURCE:MSG 2
+[2026-01-22 15:23:05] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:23:05] [INFO] TX: *IDN?
+[2026-01-22 15:23:05] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4563100272'>
+[2026-01-22 15:23:05] [INFO] TX: CH1:FREQ 531000
+[2026-01-22 15:23:05] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:23:05] [INFO] TX: *IDN?
+[2026-01-22 15:23:05] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4699358944'>
+[2026-01-22 15:23:05] [INFO] TX: CH1:OUTPUT ON
+[2026-01-22 15:23:05] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:23:05] [INFO] TX: *IDN?
+[2026-01-22 15:23:05] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4699364656'>
+[2026-01-22 15:23:05] [INFO] TX: OUTPUT:STATE ON
+[2026-01-22 15:23:05] [INFO] === BROADCAST STARTED ===
+[2026-01-22 15:23:05] [INFO] Connected to 127.0.0.1:5000
+[2026-01-22 15:23:05] [INFO] TX: *IDN?
+[2026-01-22 15:23:05] [INFO] RX: <MagicMock name='socket().recv().decode().strip()' id='4699370032'>
+[2026-01-22 15:23:05] [INFO] TX: OUTPUT:STATE ON
+[2026-01-22 15:23:05] [INFO] === BROADCAST STARTED ===
+[2026-01-22 15:23:05] [INFO] TX: OUTPUT:STATE OFF
+[2026-01-22 15:23:05] [INFO] === BROADCAST STOPPED ===

@@ -104,12 +104,12 @@ markers = [
 # Coverage Configuration
 # =============================================================================
 [tool.coverage.run]
-source = ["."]
 omit = [
-    "tests/*",
+    "main.py",
     "mock_server.py",
-    "*/__pycache__/*",
+    "tests/*",
 ]
+source = ["."]
 branch = true
 
 [tool.coverage.report]
@@ -145,3 +145,4 @@ exclude = [
 # =============================================================================
 # Note: flake8 doesn't support pyproject.toml natively
 # See .flake8 file for flake8 configuration
+
