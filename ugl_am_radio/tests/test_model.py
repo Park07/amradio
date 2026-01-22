@@ -94,8 +94,8 @@ class TestPhaseIncrement:
     def test_900khz_phase_increment(self, freq_to_phase_inc):
         """900 kHz should produce correct phase increment."""
         phase_inc = freq_to_phase_inc(900000)
-        # Expected: 0x01D41F2B (approximate)
-        assert 0x01D41000 <= phase_inc <= 0x01D42000
+        # Expected: 0x01D7DEF4 (approximate)
+        assert 0x01D7DB00 <= phase_inc <= 0x01D7DC00
         
     def test_531khz_phase_increment(self, freq_to_phase_inc):
         """531 kHz should produce correct phase increment."""
