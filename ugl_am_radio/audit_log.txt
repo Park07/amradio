@@ -310,3 +310,25 @@
 [2026-01-22 15:23:05] [INFO] === BROADCAST STARTED ===
 [2026-01-22 15:23:05] [INFO] TX: OUTPUT:STATE OFF
 [2026-01-22 15:23:05] [INFO] === BROADCAST STOPPED ===
+[2026-01-23 09:55:37] [WARN] Not connected. Queued: SOURCE:INPUT ADC
+[2026-01-23 09:55:39] [WARN] Not connected. Queued: SOURCE:INPUT BRAM
+[2026-01-23 09:56:23] [WARN] Not connected. Queued: CH1:OUTPUT ON
+[2026-01-23 10:33:06] [WARN] Not connected. Queued: CH1:OUTPUT ON
+[2026-01-23 10:33:11] [ERROR] Connection timeout: 192.168.1.100:5000
+[2026-01-23 10:47:59] [WARN] Not connected. Queued: SOURCE:INPUT ADC
+[2026-01-23 10:48:00] [WARN] Not connected. Queued: SOURCE:INPUT BRAM
+[2026-01-23 10:49:07] [WARN] Not connected. Queued: SOURCE:INPUT ADC
+[2026-01-23 10:49:09] [WARN] Not connected. Queued: SOURCE:INPUT BRAM
+[2026-01-23 10:49:32] [WARN] Not connected. Queued: SOURCE:INPUT ADC
+[2026-01-23 10:49:33] [WARN] Not connected. Queued: SOURCE:INPUT BRAM
+[2026-01-23 10:49:45] [WARN] Not connected. Queued: SOURCE:MSG 1
+[2026-01-23 10:50:20] [WARN] Frequency out of range: 8000
+[2026-01-23 10:50:20] [WARN] Not connected. Queued: CH1:FREQ 8000
+[2026-01-23 10:50:20] [WARN] Frequency out of range: 80000
+[2026-01-23 10:50:20] [WARN] Not connected. Queued: CH1:FREQ 80000
+[2026-01-23 10:50:21] [WARN] Not connected. Queued: CH1:FREQ 800000
+[2026-01-23 10:50:22] [WARN] Frequency out of range: 9000
+[2026-01-23 10:50:22] [WARN] Not connected. Queued: CH1:FREQ 9000
+[2026-01-23 10:50:22] [WARN] Frequency out of range: 90000
+[2026-01-23 10:50:22] [WARN] Not connected. Queued: CH1:FREQ 90000
+[2026-01-23 10:50:23] [WARN] Not connected. Queued: CH1:FREQ 900000
