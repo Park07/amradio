@@ -150,11 +150,16 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 ## Authors
 
-- **William Park** - GUI Development
-- **Bowen** - FPGA Integration
+- **William Park** - GUI Development, watchdog
+- **Bowen** - FPGA development (NCO + AM, RF Output)
 
 ## Acknowledgments
 
 - UGL Limited - Project sponsor
-- University of New South Wales - Academic support
+- University of New South Wales - Facilities provision
 - Red Pitaya - Hardware platform
+
+
+Special Thanks to our supervisors, Robert Mahood from UGL for his invaluable guidance and support And Andrew Wong from UNSW for teaching us valuble project management skills.
+
+[updated 27th of January]
