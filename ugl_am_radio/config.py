@@ -1,100 +1,121 @@
 """
-Configuration for UGL AM Radio Control System.
-All settings centralized here - no hardcoded values elsewhere.
+Configuration for UGL AM Radio Control System
+==============================================
+Author: [William Park]
+Date: January 2026
+
 """
 
 
 class Config:
     """Application configuration."""
 
-    # === NETWORK ===
-    DEFAULT_IP = "192.168.1.100"
-    DEFAULT_PORT = 5000
-    SOCKET_TIMEOUT = 2.0
-    RECONNECT_DELAY = 3.0
-
-    # === CHANNELS ===
-    CHANNELS = [
-        {"id": 1, "name": "CH1", "default_freq": 531000},
-        {"id": 2, "name": "CH2", "default_freq": 702000},
-    ]
-
-    # Channel frequency limits (Hz)
-    FREQ_MIN = 500000  # 500 kHz
-    FREQ_MAX = 1700000  # 1700 kHz
-
-    # === STORED MESSAGES ===
-    MESSAGES = [
-        {"id": 1, "name": "Emergency Evacuation", "file": "evacuate.wav"},
-        {"id": 2, "name": "All Clear", "file": "all_clear.wav"},
-        {"id": 3, "name": "Test Broadcast", "file": "test.wav"},
-        {"id": 4, "name": "Shelter in Place", "file": "shelter.wav"},
-    ]
-
-    # === AUDIO SOURCES ===
-    SOURCE_ADC = "ADC"  # Live mic via analog input
-    SOURCE_BRAM = "BRAM"  # Stored message from FPGA memory
-
-    # === GUI WINDOW ===
+    # Window settings
     WINDOW_TITLE = "UGL AM Radio Control"
     WINDOW_WIDTH = 520
-    WINDOW_HEIGHT = 700
+    WINDOW_HEIGHT = 820  # Slightly taller for watchdog status
 
-    # === THEME COLORS (RGBA) ===
-    class Colors:
-        # Background
-        WINDOW_BG = [10, 10, 12, 255]
-        PANEL_BG = [18, 20, 26, 255]
-        FRAME_BG = [26, 26, 31, 255]
-        FRAME_BG_HOVER = [35, 35, 42, 255]
+    # Connection defaults
+    DEFAULT_IP = "192.168.0.100"
+    DEFAULT_PORT = 5000
+    SOCKET_TIMEOUT = 5.0
 
-        # Text
-        TEXT_PRIMARY = [232, 232, 232, 255]
-        TEXT_SECONDARY = [136, 136, 136, 255]
-        TEXT_DIM = [102, 102, 102, 255]
-        TEXT_DISABLED = [60, 60, 60, 255]
+    # Polling settings (Reddit advice: alexforencich, exodusTay)
+    POLL_INTERVAL = 0.5  # 500ms - fast enough for responsive UI
+    HEARTBEAT_INTERVAL = 1.0  # 1 second
+    HEARTBEAT_TIMEOUT = 3.0  # 3 seconds = connection lost
 
-        # Status colors
-        CONNECTED = [34, 197, 94, 255]  # Green
-        CONNECTED_DIM = [74, 222, 128, 255]
-        DISCONNECTED = [239, 68, 68, 255]  # Red
-        DISCONNECTED_DIM = [248, 113, 113, 255]
-        WARNING = [251, 191, 36, 255]  # Yellow/Amber
+    # Watchdog settings (Reddit advice: cannibal_catfish69 - "fail safely")
+    WATCHDOG_TIMEOUT = 5  # FPGA will kill RF after 5 sec without heartbeat
+    WATCHDOG_WARNING_THRESHOLD = 0.8  # Warn at 80% of timeout
 
-        # Buttons
-        BTN_BG = [26, 26, 31, 255]
-        BTN_HOVER = [40, 40, 48, 255]
-        BTN_DISABLED = [20, 20, 24, 255]
+    # Auto-reconnect settings
+    AUTO_RECONNECT = True
+    RECONNECT_DELAY = 2.0
+    MAX_RECONNECT_ATTEMPTS = 5
 
-        # Broadcast button
-        BROADCAST_IDLE = [34, 197, 94, 255]
-        BROADCAST_IDLE_HOVER = [22, 163, 74, 255]
-        BROADCAST_ACTIVE = [220, 38, 38, 255]
-        BROADCAST_ACTIVE_HOVER = [185, 28, 28, 255]
-        BROADCAST_DISABLED = [50, 50, 55, 255]
+    # Audio sources
+    SOURCE_ADC = "ADC"
+    SOURCE_BRAM = "BRAM"
 
-        # Channel
-        CHANNEL_ACTIVE = [59, 130, 246, 255]
-        CHANNEL_INACTIVE = [51, 51, 51, 255]
+    # Frequency limits (Hz)
+    FREQ_MIN = 530_000
+    FREQ_MAX = 1_700_000
 
-        # Log colors
-        LOG_BG = [8, 8, 10, 255]
-        LOG_ERROR = [248, 113, 113, 255]
-        LOG_WARN = [251, 191, 36, 255]
-        LOG_INFO = [74, 222, 128, 255]
-        LOG_TIME = [85, 85, 85, 255]
+    # Channel configuration
+    CHANNELS = [
+        {"id": 1, "default_freq": 700_000},
+        {"id": 2, "default_freq": 900_000},
+    ]
 
-    # === SCPI COMMANDS ===
+    # Message presets
+    MESSAGES = [
+        {"id": 1, "name": "Emergency Evacuation", "duration": "45s"},
+        {"id": 2, "name": "Fire Alert", "duration": "30s"},
+        {"id": 3, "name": "Traffic Advisory", "duration": "60s"},
+        {"id": 4, "name": "Test Tone", "duration": "10s"},
+    ]
+
+    # Logging
+    LOG_FILE = "audit_log.txt"
+    LOG_MAX_LINES = 100
+    LOG_TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+    # SCPI Commands
     class SCPI:
+        QUERY_ID = "*IDN?"
+        QUERY_STATUS = "STATUS?"
         SET_SOURCE = "SOURCE:INPUT {}"
         SET_MESSAGE = "SOURCE:MSG {}"
         SET_FREQ = "CH{}:FREQ {}"
         SET_OUTPUT = "CH{}:OUTPUT {}"
         SET_BROADCAST = "OUTPUT:STATE {}"
-        QUERY_ID = "*IDN?"
-        QUERY_STATUS = "SYST:STAT?"
+        # Watchdog commands
+        WATCHDOG_ENABLE = "WATCHDOG:ENABLE {}"
+        WATCHDOG_RESET = "WATCHDOG:RESET"
+        WATCHDOG_STATUS = "WATCHDOG:STATUS?"
 
-    # === LOGGING ===
-    LOG_MAX_LINES = 100
-    LOG_FILE = "audit_log.txt"
-    LOG_TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
+    # Colors (Pure black theme with emerald accents)
+    class Colors:
+        # Backgrounds
+        WINDOW_BG = [0, 0, 0, 255]           # Pure black
+        PANEL_BG = [23, 23, 23, 255]         # #171717
+        FRAME_BG = [38, 38, 38, 255]         # #262626
+        FRAME_BG_HOVER = [50, 50, 50, 255]
+
+        # Text
+        TEXT_PRIMARY = [255, 255, 255, 230]
+        TEXT_SECONDARY = [163, 163, 163, 255]  # #a3a3a3
+        TEXT_DIM = [115, 115, 115, 255]        # #737373
+        TEXT_DISABLED = [82, 82, 82, 255]
+
+        # Status colors
+        CONNECTED = [16, 185, 129, 255]        # emerald-500
+        CONNECTED_DIM = [16, 185, 129, 200]
+        DISCONNECTED = [239, 68, 68, 255]      # red-500
+        DISCONNECTED_DIM = [239, 68, 68, 200]
+        WARNING = [245, 158, 11, 255]          # amber-500
+
+        # Buttons
+        BTN_HOVER = [50, 50, 50, 255]
+
+        # Broadcast states
+        BROADCAST_DISABLED = [38, 38, 38, 255]
+        BROADCAST_IDLE = [16, 185, 129, 255]       # emerald-500
+        BROADCAST_IDLE_HOVER = [52, 211, 153, 255] # emerald-400
+        BROADCAST_ACTIVE = [185, 28, 28, 255]      # red-700
+        BROADCAST_ACTIVE_HOVER = [220, 38, 38, 255]
+        BROADCAST_ARMING = [245, 158, 11, 255]     # amber-500
+
+        # Watchdog states
+        WATCHDOG_OK = [16, 185, 129, 255]      # emerald
+        WATCHDOG_WARNING = [245, 158, 11, 255]  # amber
+        WATCHDOG_TRIGGERED = [239, 68, 68, 255] # red
+
+        # Channel
+        CHANNEL_ACTIVE = [59, 130, 246, 255]   # blue-500
+
+        # Log
+        LOG_INFO = [163, 163, 163, 255]
+        LOG_WARN = [245, 158, 11, 255]
+        LOG_ERROR = [239, 68, 68, 255]
