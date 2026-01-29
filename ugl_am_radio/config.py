@@ -1,9 +1,12 @@
 """
 Configuration for UGL AM Radio Control System
 ==============================================
-Author: [William Park]
+Author: William Park
 Date: January 2026
 
+Architecture based on industry advice from r/FPGA, r/ExperiencedDevs, r/softwarearchitecture
+
+Updated: 12-channel support for stress testing
 """
 
 
@@ -12,8 +15,8 @@ class Config:
 
     # Window settings
     WINDOW_TITLE = "UGL AM Radio Control"
-    WINDOW_WIDTH = 520
-    WINDOW_HEIGHT = 820  # Slightly taller for watchdog status
+    WINDOW_WIDTH = 600
+    WINDOW_HEIGHT = 900  # Taller for 12 channels
 
     # Connection defaults
     DEFAULT_IP = "192.168.0.100"
@@ -42,13 +45,27 @@ class Config:
     FREQ_MIN = 530_000
     FREQ_MAX = 1_700_000
 
-    # Channel configuration
+    # Number of channels (for stress testing)
+    NUM_CHANNELS = 12
+
+    # Channel configuration - 12 channels (1-12) spread across AM band
+    # Spacing: ~100 kHz apart to avoid interference
     CHANNELS = [
-        {"id": 1, "default_freq": 700_000},
-        {"id": 2, "default_freq": 900_000},
+        {"id": 1,  "default_freq": 540_000,  "name": "CH1"},
+        {"id": 2,  "default_freq": 640_000,  "name": "CH2"},
+        {"id": 3,  "default_freq": 740_000,  "name": "CH3"},
+        {"id": 4,  "default_freq": 840_000,  "name": "CH4"},
+        {"id": 5,  "default_freq": 940_000,  "name": "CH5"},
+        {"id": 6,  "default_freq": 1040_000, "name": "CH6"},
+        {"id": 7,  "default_freq": 1140_000, "name": "CH7"},
+        {"id": 8,  "default_freq": 1240_000, "name": "CH8"},
+        {"id": 9,  "default_freq": 1340_000, "name": "CH9"},
+        {"id": 10, "default_freq": 1440_000, "name": "CH10"},
+        {"id": 11, "default_freq": 1540_000, "name": "CH11"},
+        {"id": 12, "default_freq": 1640_000, "name": "CH12"},
     ]
 
-    # Message presets
+    # Message presets (original)
     MESSAGES = [
         {"id": 1, "name": "Emergency Evacuation", "duration": "45s"},
         {"id": 2, "name": "Fire Alert", "duration": "30s"},
@@ -67,9 +84,10 @@ class Config:
         QUERY_STATUS = "STATUS?"
         SET_SOURCE = "SOURCE:INPUT {}"
         SET_MESSAGE = "SOURCE:MSG {}"
-        SET_FREQ = "CH{}:FREQ {}"
-        SET_OUTPUT = "CH{}:OUTPUT {}"
+        SET_FREQ = "FREQ:CH{} {}"          # FREQ:CH0 540000
+        SET_OUTPUT = "CH{}:OUTPUT {}"       # CH0:OUTPUT ON
         SET_BROADCAST = "OUTPUT:STATE {}"
+        SET_ALL_ENABLE = "CH:EN {}"         # CH:EN 0b000000001111 (bitmask)
         # Watchdog commands
         WATCHDOG_ENABLE = "WATCHDOG:ENABLE {}"
         WATCHDOG_RESET = "WATCHDOG:RESET"
@@ -112,8 +130,10 @@ class Config:
         WATCHDOG_WARNING = [245, 158, 11, 255]  # amber
         WATCHDOG_TRIGGERED = [239, 68, 68, 255] # red
 
-        # Channel
+        # Channel states
         CHANNEL_ACTIVE = [59, 130, 246, 255]   # blue-500
+        CHANNEL_ENABLED = [16, 185, 129, 255]  # emerald
+        CHANNEL_DISABLED = [115, 115, 115, 255] # gray
 
         # Log
         LOG_INFO = [163, 163, 163, 255]
