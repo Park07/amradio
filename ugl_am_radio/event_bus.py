@@ -1,13 +1,10 @@
 """
 Event Bus - Central Event Dispatcher
 =====================================
-Author: [Your Name]
+Author: William
 Date: January 2026
 
-Reddit advice (kubrador, 5 upvotes):
-"Throw an event bus in there so hardware state changes and UI events
-talk through a neutral medium instead of your controller being a
-telephone switchboard."
+
 
 This allows:
 - Hardware events and UI events go through same channel

@@ -538,7 +538,7 @@ class Controller:
                 dpg.add_spacer(width=100)
                 btn = dpg.add_button(label=" 5", width=40, enabled=False, callback=self._on_channel_indicator_click, user_data=4)
                 self.tags["ch_ind_4"] = btn
-            
+
             # Row 5: 7, 6, 5 (CH8, CH7, CH6)
             with dpg.group(horizontal=True):
                 dpg.add_spacer(width=95)
