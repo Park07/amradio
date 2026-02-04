@@ -1,68 +1,40 @@
-#!/usr/bin/env python3
 """
-UGL Tunnel AM Radio Control System
-===================================
-
-Entry point for the GUI application.
-
-Architecture:
-    MODE A: Live Mic (ADC)
-    Mic → PA Console → Analog Cable → RP ADC IN → FPGA → RF OUT
-
-    MODE B: Stored Message (BRAM)
-    BRAM (pre-loaded audio) → FPGA → RF OUT
-
-Control: GUI → SCPI over Ethernet → Red Pitaya
-
-Usage:
-    python main.py
-
-Requirements:
-    pip install dearpygui
+UGL AM Radio Control - Main Entry Point
+========================================
+Sets up DearPyGui viewport with proper sizing.
 """
-
 import dearpygui.dearpygui as dpg
-from config import Config
 from model import Model
 from controller import Controller
 
-
 def main():
-    """Main entry point."""
-
-    # Initialize DearPyGui
     dpg.create_context()
 
-    # Create MVC components
+    # Create model and controller
     model = Model()
     controller = Controller(model)
 
-    # Build UI
+    # Build the UI
     controller.build_ui()
 
-    # Setup viewport
+    # Create viewport with proper size
     dpg.create_viewport(
-        title=Config.WINDOW_TITLE,
-        width=Config.WINDOW_WIDTH,
-        height=Config.WINDOW_HEIGHT,
-        resizable=True,
-        vsync=True,
+        title="UGL AM Radio Control",
+        width=1200,
+        height=900,
+        min_width=1100,
+        min_height=800
     )
 
-    # Configure
     dpg.setup_dearpygui()
+    dpg.show_viewport()
+
+    # Set main window as primary
     dpg.set_primary_window("main_window", True)
 
-    # Run
-    dpg.show_viewport()
+    # Main loop
     dpg.start_dearpygui()
-
-    # Cleanup
-    if model.is_connected():
-        model.disconnect()
-
     dpg.destroy_context()
-
 
 if __name__ == "__main__":
     main()
