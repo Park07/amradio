@@ -13,33 +13,33 @@
       --bg-elevated: #232d3b;
       --border: #2a3544;
       --border-light: #3a4554;
-      
+
       --text-primary: #e6edf5;
       --text-secondary: #8b99a8;
       --text-muted: #5a6878;
-      
+
       --accent-green: #00d26a;
       --accent-green-dim: #00a854;
       --accent-green-glow: rgba(0, 210, 106, 0.3);
-      
+
       --accent-red: #ff4757;
       --accent-red-dim: #cc3945;
       --accent-red-glow: rgba(255, 71, 87, 0.3);
-      
+
       --accent-amber: #ffa726;
       --accent-amber-dim: #e69520;
       --accent-amber-glow: rgba(255, 167, 38, 0.3);
-      
+
       --accent-blue: #4fc3f7;
       --accent-blue-dim: #3dadd6;
     }
-    
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       font-family: 'IBM Plex Sans', sans-serif;
       background: var(--bg-primary);
@@ -47,7 +47,7 @@
       min-height: 100vh;
       overflow-x: hidden;
     }
-    
+
     .app {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -56,7 +56,7 @@
       background: var(--border);
       min-height: 100vh;
     }
-    
+
     /* Header */
     .header {
       grid-column: 1 / -1;
@@ -66,20 +66,20 @@
       align-items: center;
       justify-content: space-between;
     }
-    
+
     .logo {
       display: flex;
       align-items: center;
       gap: 16px;
     }
-    
+
     .logo h1 {
       font-family: 'JetBrains Mono', monospace;
       font-size: 18px;
       font-weight: 600;
       letter-spacing: 0.5px;
     }
-    
+
     .logo .version {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
@@ -88,13 +88,13 @@
       padding: 4px 8px;
       border-radius: 4px;
     }
-    
+
     .connection-bar {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    
+
     .input-group {
       display: flex;
       align-items: center;
@@ -103,7 +103,7 @@
       border-radius: 6px;
       overflow: hidden;
     }
-    
+
     .input-group input {
       background: transparent;
       border: none;
@@ -113,22 +113,22 @@
       padding: 10px 12px;
       outline: none;
     }
-    
+
     .input-group input.ip {
       width: 130px;
     }
-    
+
     .input-group input.port {
       width: 100px;
       text-align: center;
       border-left: 1px solid var(--border);
     }
-    
+
     .input-group .separator {
       color: var(--text-muted);
       padding: 0 4px;
     }
-    
+
     .btn {
       font-family: 'IBM Plex Sans', sans-serif;
       font-size: 13px;
@@ -141,16 +141,16 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
+
     .btn-primary {
       background: var(--accent-blue);
       color: var(--bg-primary);
     }
-    
+
     .btn-primary:hover {
       background: var(--accent-blue-dim);
     }
-    
+
     .status-badge {
       display: flex;
       align-items: center;
@@ -161,36 +161,36 @@
       font-size: 12px;
       font-weight: 500;
     }
-    
+
     .status-badge.connected {
       background: rgba(0, 210, 106, 0.15);
       color: var(--accent-green);
       border: 1px solid var(--accent-green-dim);
     }
-    
+
     .status-badge.disconnected {
       background: rgba(255, 71, 87, 0.15);
       color: var(--accent-red);
       border: 1px solid var(--accent-red-dim);
     }
-    
+
     .status-dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
       animation: pulse 2s infinite;
     }
-    
+
     .connected .status-dot {
       background: var(--accent-green);
       box-shadow: 0 0 8px var(--accent-green-glow);
     }
-    
+
     .disconnected .status-dot {
       background: var(--accent-red);
       animation: none;
     }
-    
+
     /* Heartbeat monitor */
     .heartbeat-monitor {
       width: 60px;
@@ -202,13 +202,13 @@
       overflow: hidden;
       position: relative;
     }
-    
+
     .heartbeat-line {
       width: 200%;
       height: 100%;
       animation: heartbeatScroll 8s linear infinite;
     }
-    
+
     .heartbeat-path {
       fill: none;
       stroke: var(--accent-green);
@@ -217,30 +217,30 @@
       stroke-linejoin: round;
       filter: drop-shadow(0 0 2px var(--accent-green));
     }
-    
+
     @keyframes heartbeatScroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
     }
-    
+
     .disconnected ~ .heartbeat-monitor .heartbeat-path,
     .app.disconnected .heartbeat-path {
       stroke: var(--accent-red);
       animation: none;
       opacity: 0.3;
     }
-    
+
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
     }
-    
+
     /* Main panels */
     .panel {
       background: var(--bg-secondary);
       padding: 24px;
     }
-    
+
     .panel-header {
       display: flex;
       align-items: center;
@@ -249,7 +249,7 @@
       padding-bottom: 12px;
       border-bottom: 1px solid var(--border);
     }
-    
+
     .panel-title {
       font-size: 11px;
       font-weight: 600;
@@ -257,7 +257,7 @@
       letter-spacing: 1.5px;
       color: var(--text-secondary);
     }
-    
+
     /* Left Panel - Channels */
     .left-panel {
       display: flex;
@@ -265,18 +265,18 @@
       gap: 1px;
       background: var(--border);
     }
-    
+
     .source-section {
       background: var(--bg-secondary);
       padding: 20px 24px;
     }
-    
+
     .source-row {
       display: flex;
       align-items: center;
       gap: 16px;
     }
-    
+
     .source-label {
       font-size: 11px;
       font-weight: 600;
@@ -284,7 +284,7 @@
       letter-spacing: 1px;
       color: var(--text-secondary);
     }
-    
+
     .toggle {
       position: relative;
       width: 44px;
@@ -295,12 +295,12 @@
       border: 1px solid var(--border);
       transition: all 0.3s ease;
     }
-    
+
     .toggle.active {
       background: var(--accent-green);
       border-color: var(--accent-green);
     }
-    
+
     .toggle::after {
       content: '';
       position: absolute;
@@ -312,12 +312,12 @@
       border-radius: 50%;
       transition: all 0.3s ease;
     }
-    
+
     .toggle.active::after {
       left: 23px;
       background: white;
     }
-    
+
     .source-select {
       flex: 1;
       background: var(--bg-tertiary);
@@ -333,7 +333,7 @@
       background-repeat: no-repeat;
       background-position: right 12px center;
     }
-    
+
     .watchdog {
       display: flex;
       align-items: center;
@@ -342,33 +342,33 @@
       font-size: 12px;
       color: var(--accent-green);
     }
-    
+
     .watchdog-indicator {
       width: 6px;
       height: 6px;
       background: var(--accent-green);
       border-radius: 50%;
     }
-    
+
     /* Channel Dial Section */
     .channels-section {
       background: var(--bg-secondary);
       padding: 24px;
       flex: 1;
     }
-    
+
     .dial-container {
       display: flex;
       justify-content: center;
       margin-bottom: 24px;
     }
-    
+
     .dial-wrapper {
       position: relative;
       width: 300px;
       height: 300px;
     }
-    
+
     /* Outer ring with channel markers */
     .dial-outer {
       position: absolute;
@@ -377,7 +377,7 @@
       background: var(--bg-tertiary);
       border: 3px solid var(--border);
     }
-    
+
     /* Channel markers around the dial */
     .channel-marker {
       position: absolute;
@@ -394,15 +394,15 @@
       transition: all 0.2s ease;
       border-radius: 50%;
     }
-    
+
     .channel-marker:hover {
       color: var(--text-primary);
     }
-    
+
     .channel-marker.active {
       color: var(--accent-green);
     }
-    
+
     .channel-marker.active::after {
       content: '';
       position: absolute;
@@ -412,12 +412,12 @@
       background: var(--accent-green);
       border-radius: 50%;
     }
-    
+
     .channel-marker.selected {
       color: var(--accent-blue);
       font-size: 18px;
     }
-    
+
     /* The rotatable dial */
     .dial-knob {
       position: absolute;
@@ -429,20 +429,20 @@
       transition: box-shadow 0.2s ease;
       user-select: none;
     }
-    
+
     .dial-knob:hover {
       box-shadow: 0 0 30px rgba(79, 195, 247, 0.15);
     }
-    
+
     .dial-knob:active {
       cursor: grabbing;
     }
-    
+
     .dial-knob.dragging {
       cursor: grabbing;
       box-shadow: 0 0 40px rgba(79, 195, 247, 0.25);
     }
-    
+
     /* Knob texture - radial lines */
     .dial-knob::before {
       content: '';
@@ -456,7 +456,7 @@
       );
       opacity: 0.3;
     }
-    
+
     /* Pointer/indicator on the dial */
     .dial-pointer {
       position: absolute;
@@ -469,7 +469,7 @@
       border-radius: 2px;
       box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
     }
-    
+
     /* Center display */
     .dial-center {
       position: absolute;
@@ -488,7 +488,7 @@
       pointer-events: none;
       z-index: 10;
     }
-    
+
     .dial-center .channel-num {
       font-family: 'JetBrains Mono', monospace;
       font-size: 32px;
@@ -496,7 +496,7 @@
       color: var(--accent-blue);
       line-height: 1;
     }
-    
+
     .dial-center .channel-label {
       font-size: 10px;
       text-transform: uppercase;
@@ -504,14 +504,14 @@
       color: var(--text-muted);
       margin-top: 4px;
     }
-    
+
     .dial-center .freq-display {
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
       color: var(--accent-amber);
       margin-top: 6px;
     }
-    
+
     .active-count {
       text-align: center;
       font-family: 'JetBrains Mono', monospace;
@@ -519,12 +519,12 @@
       color: var(--text-secondary);
       margin-top: 16px;
     }
-    
+
     .active-count span {
       color: var(--accent-green);
       font-weight: 600;
     }
-    
+
     /* Channel Summary Grid */
     .summary-grid {
       display: grid;
@@ -532,7 +532,7 @@
       gap: 8px;
       margin-top: 20px;
     }
-    
+
     .summary-item {
       background: var(--bg-tertiary);
       border: 1px solid var(--border);
@@ -544,50 +544,50 @@
       cursor: pointer;
       transition: all 0.2s ease;
     }
-    
+
     .summary-item:hover {
       border-color: var(--border-light);
     }
-    
+
     .summary-item.selected {
       border-color: var(--accent-blue);
       background: rgba(79, 195, 247, 0.08);
     }
-    
+
     .summary-item.active {
       border-color: var(--accent-green-dim);
       background: rgba(0, 210, 106, 0.08);
     }
-    
+
     .summary-item.active.selected {
       border-color: var(--accent-blue);
       box-shadow: inset 0 0 0 1px var(--accent-green-dim);
     }
-    
+
     .summary-item .ch-num {
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
       color: var(--text-muted);
     }
-    
+
     .summary-item.active .ch-num {
       color: var(--accent-green);
     }
-    
+
     .summary-item.selected .ch-num {
       color: var(--accent-blue);
     }
-    
+
     .summary-item .freq {
       font-family: 'JetBrains Mono', monospace;
       font-size: 11px;
       color: var(--text-secondary);
     }
-    
+
     .summary-item.active .freq {
       color: var(--text-primary);
     }
-    
+
     /* Right Panel - Controls */
     .right-panel {
       display: flex;
@@ -595,13 +595,13 @@
       gap: 1px;
       background: var(--border);
     }
-    
+
     /* Broadcast Section */
     .broadcast-section {
       background: var(--bg-secondary);
       padding: 24px;
     }
-    
+
     .broadcast-card {
       background: var(--bg-tertiary);
       border: 2px solid var(--border);
@@ -609,24 +609,24 @@
       padding: 32px;
       text-align: center;
     }
-    
+
     .broadcast-card.broadcasting {
       border-color: var(--accent-red);
       background: rgba(255, 71, 87, 0.08);
       animation: urgentPulse 2s ease-in-out infinite;
     }
-    
+
     @keyframes urgentPulse {
-      0%, 100% { 
+      0%, 100% {
         box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
         border-color: var(--accent-red);
       }
-      50% { 
+      50% {
         box-shadow: 0 0 30px 5px rgba(255, 71, 87, 0.3);
         border-color: #ff6b7a;
       }
     }
-    
+
     .live-badge {
       display: none;
       align-items: center;
@@ -643,7 +643,7 @@
       margin: 0 auto 16px;
       width: fit-content;
     }
-    
+
     .live-badge .live-dot {
       width: 8px;
       height: 8px;
@@ -651,29 +651,29 @@
       border-radius: 50%;
       animation: livePulse 1s ease-in-out infinite;
     }
-    
+
     @keyframes livePulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.3; }
     }
-    
+
     .broadcast-card.broadcasting .live-badge {
       display: flex;
     }
-    
+
     .broadcast-card.broadcasting .broadcast-status {
       display: none;
     }
-    
+
     .broadcast-card.broadcasting .info-item .value {
       color: var(--text-primary);
     }
-    
+
     .broadcast-card.broadcasting #durationDisplay {
       font-size: 32px;
       color: var(--accent-red);
     }
-    
+
     .broadcast-status {
       font-size: 12px;
       text-transform: uppercase;
@@ -681,7 +681,7 @@
       color: var(--text-muted);
       margin-bottom: 16px;
     }
-    
+
     .broadcast-btn {
       width: 100%;
       padding: 20px 40px;
@@ -697,44 +697,44 @@
       position: relative;
       overflow: hidden;
     }
-    
+
     .broadcast-btn.start {
       background: linear-gradient(135deg, var(--accent-green), var(--accent-green-dim));
       color: var(--bg-primary);
     }
-    
+
     .broadcast-btn.start:hover {
       box-shadow: 0 8px 30px var(--accent-green-glow);
       transform: translateY(-2px);
     }
-    
+
     .broadcast-btn.stop {
       background: linear-gradient(135deg, var(--accent-red), var(--accent-red-dim));
       color: white;
     }
-    
+
     .broadcast-btn.stop:hover {
       box-shadow: 0 8px 30px var(--accent-red-glow);
     }
-    
+
     .broadcast-info {
       display: flex;
       justify-content: center;
       gap: 32px;
       margin-top: 20px;
     }
-    
+
     .info-item {
       text-align: center;
     }
-    
+
     .info-item .value {
       font-family: 'JetBrains Mono', monospace;
       font-size: 24px;
       font-weight: 700;
       color: var(--text-primary);
     }
-    
+
     .info-item .label {
       font-size: 10px;
       text-transform: uppercase;
@@ -742,40 +742,40 @@
       color: var(--text-muted);
       margin-top: 4px;
     }
-    
+
     /* Selected Channel Section */
     .selected-section {
       background: var(--bg-secondary);
       padding: 24px;
       flex: 1;
     }
-    
+
     .channel-config {
       background: var(--bg-tertiary);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 20px;
     }
-    
+
     .config-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom: 20px;
     }
-    
+
     .config-title {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    
+
     .config-title h3 {
       font-family: 'JetBrains Mono', monospace;
       font-size: 18px;
       font-weight: 600;
     }
-    
+
     .enable-badge {
       padding: 4px 10px;
       border-radius: 4px;
@@ -784,21 +784,21 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    
+
     .enable-badge.on {
       background: rgba(0, 210, 106, 0.2);
       color: var(--accent-green);
     }
-    
+
     .enable-badge.off {
       background: rgba(255, 71, 87, 0.2);
       color: var(--accent-red);
     }
-    
+
     .freq-control {
       margin-bottom: 20px;
     }
-    
+
     .freq-label {
       font-size: 11px;
       text-transform: uppercase;
@@ -806,30 +806,30 @@
       color: var(--text-secondary);
       margin-bottom: 12px;
     }
-    
+
     .freq-display-large {
       display: flex;
       align-items: baseline;
       gap: 8px;
       margin-bottom: 16px;
     }
-    
+
     .freq-value {
       font-family: 'JetBrains Mono', monospace;
       font-size: 42px;
       font-weight: 700;
       color: var(--accent-amber);
     }
-    
+
     .freq-unit {
       font-size: 16px;
       color: var(--text-secondary);
     }
-    
+
     .freq-slider-wrapper {
       margin-bottom: 20px;
     }
-    
+
     .freq-slider-container {
       position: relative;
       height: 8px;
@@ -837,7 +837,7 @@
       border-radius: 4px;
       cursor: pointer;
     }
-    
+
     .freq-slider-fill {
       position: absolute;
       left: 0;
@@ -848,7 +848,7 @@
       border-radius: 4px;
       transition: width 0.1s ease;
     }
-    
+
     .freq-slider-handle {
       position: absolute;
       top: 50%;
@@ -863,17 +863,17 @@
       transition: left 0.1s ease;
       z-index: 2;
     }
-    
+
     .freq-slider-handle:hover {
       transform: translate(-50%, -50%) scale(1.1);
     }
-    
+
     .freq-ticks {
       position: relative;
       height: 40px;
       margin-top: 8px;
     }
-    
+
     .freq-tick {
       position: absolute;
       transform: translateX(-50%);
@@ -883,18 +883,18 @@
       cursor: pointer;
       transition: all 0.15s ease;
     }
-    
+
     .freq-tick:hover .tick-label {
       color: var(--accent-amber);
       border-color: var(--accent-amber);
     }
-    
+
     .tick-line {
       width: 2px;
       height: 12px;
       background: var(--border-light);
     }
-    
+
     .tick-label {
       margin-top: 6px;
       padding: 4px 8px;
@@ -906,17 +906,17 @@
       border-radius: 4px;
       transition: all 0.15s ease;
     }
-    
+
     .freq-tick.active .tick-label {
       color: var(--accent-amber);
       border-color: var(--accent-amber);
       background: rgba(255, 167, 38, 0.15);
     }
-    
+
     .freq-tick.active .tick-line {
       background: var(--accent-amber);
     }
-    
+
     .freq-input-row {
       display: flex;
       align-items: center;
@@ -924,7 +924,7 @@
       gap: 8px;
       margin-top: 12px;
     }
-    
+
     .freq-input {
       width: 80px;
       background: var(--bg-elevated);
@@ -937,23 +937,23 @@
       text-align: center;
       outline: none;
     }
-    
+
     .freq-input:focus {
       border-color: var(--accent-amber);
     }
-    
+
     .freq-input::-webkit-inner-spin-button,
     .freq-input::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
-    
+
     .freq-input-unit {
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
       color: var(--text-muted);
     }
-    
+
     /* Footer / Log */
     .footer {
       grid-column: 1 / -1;
@@ -961,7 +961,7 @@
       padding: 16px 24px;
       max-height: 150px;
     }
-    
+
     /* Confirmation Modal */
     .modal-overlay {
       display: none;
@@ -973,11 +973,11 @@
       justify-content: center;
       backdrop-filter: blur(4px);
     }
-    
+
     .modal-overlay.show {
       display: flex;
     }
-    
+
     .modal {
       background: var(--bg-secondary);
       border: 1px solid var(--border);
@@ -986,31 +986,31 @@
       min-width: 320px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     }
-    
+
     .modal-header {
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 16px;
       color: var(--text-primary);
     }
-    
+
     .modal-body {
       color: var(--text-secondary);
       margin-bottom: 24px;
       line-height: 1.5;
     }
-    
+
     .modal-body span {
       color: var(--accent-green);
       font-weight: 600;
     }
-    
+
     .modal-actions {
       display: flex;
       gap: 12px;
       justify-content: flex-end;
     }
-    
+
     .modal-btn {
       padding: 10px 20px;
       border-radius: 6px;
@@ -1021,26 +1021,26 @@
       transition: all 0.2s ease;
       border: none;
     }
-    
+
     .modal-btn.cancel {
       background: var(--bg-tertiary);
       color: var(--text-secondary);
       border: 1px solid var(--border);
     }
-    
+
     .modal-btn.cancel:hover {
       background: var(--bg-elevated);
     }
-    
+
     .modal-btn.confirm {
       background: var(--accent-green);
       color: var(--bg-primary);
     }
-    
+
     .modal-btn.confirm:hover {
       background: var(--accent-green-dim);
     }
-    
+
     .log-container {
       background: var(--bg-primary);
       border: 1px solid var(--border);
@@ -1051,38 +1051,38 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
     }
-    
+
     .log-entry {
       display: flex;
       gap: 12px;
       padding: 4px 0;
       border-bottom: 1px solid var(--border);
     }
-    
+
     .log-entry:last-child {
       border-bottom: none;
     }
-    
+
     .log-time {
       color: var(--text-muted);
     }
-    
+
     .log-msg {
       color: var(--text-secondary);
     }
-    
+
     .log-msg.success {
       color: var(--accent-green);
     }
-    
+
     .log-msg.warning {
       color: var(--accent-amber);
     }
-    
+
     .log-msg.error {
       color: var(--accent-red);
     }
-    
+
     /* Quick channel presets */
     .quick-channels {
       display: flex;
@@ -1092,7 +1092,7 @@
       margin-top: 8px;
       flex-wrap: wrap;
     }
-    
+
     .quick-channels-label {
       font-size: 10px;
       text-transform: uppercase;
@@ -1100,7 +1100,7 @@
       color: var(--text-muted);
       margin-right: 4px;
     }
-    
+
     .quick-ch-btn {
       padding: 6px 10px;
       background: var(--bg-tertiary);
@@ -1112,17 +1112,17 @@
       cursor: pointer;
       transition: all 0.15s ease;
     }
-    
+
     .quick-ch-btn:hover {
       border-color: var(--accent-blue);
       color: var(--accent-blue);
     }
-    
+
     /* Better visual feedback for enabling */
     .summary-item {
       position: relative;
     }
-    
+
     .summary-item::before {
       content: '';
       position: absolute;
@@ -1135,24 +1135,24 @@
       background: var(--text-muted);
       opacity: 0.3;
     }
-    
+
     .summary-item.active::before {
       background: var(--accent-green);
       opacity: 1;
       box-shadow: 0 0 6px var(--accent-green-glow);
     }
-    
+
     .summary-item .ch-num {
       margin-left: 10px;
     }
-    
+
     /* Dial enable feedback animation */
     @keyframes enablePulse {
       0% { box-shadow: 0 0 0 0 var(--accent-green-glow); }
       50% { box-shadow: 0 0 20px 10px var(--accent-green-glow); }
       100% { box-shadow: 0 0 0 0 var(--accent-green-glow); }
     }
-    
+
     .dial-knob.enabled-pulse {
       animation: enablePulse 0.4s ease-out;
     }
@@ -1166,34 +1166,34 @@
         <h1>UGL AM Radio Control</h1>
         <span class="version">v00d56e3</span>
       </div>
-      
+
       <div class="connection-bar">
         <div class="heartbeat-monitor">
           <svg class="heartbeat-line" viewBox="0 0 120 20" preserveAspectRatio="none">
             <polyline class="heartbeat-path" points="0,10 10,10 15,10 18,3 22,17 26,10 35,10 45,10 50,10 53,3 57,17 61,10 70,10 80,10 85,10 88,3 92,17 96,10 105,10 115,10 118,3 122,17 126,10 135,10" />
           </svg>
         </div>
-        
+
         <div class="watchdog">
           <span class="watchdog-indicator"></span>
           WATCHDOG OK (5s)
         </div>
-        
+
         <div class="input-group">
           <input type="text" class="ip" value="192.168.0.100" placeholder="IP Address">
           <span class="separator">:</span>
           <input type="text" class="port" value="5000" placeholder="Port">
         </div>
-        
+
         <button class="btn btn-primary">Connect</button>
-        
+
         <div class="status-badge connected">
           <span class="status-dot"></span>
           CONNECTED
         </div>
       </div>
     </header>
-    
+
     <!-- Left Panel -->
     <div class="left-panel">
       <div class="source-section">
@@ -1208,12 +1208,12 @@
           </select>
         </div>
       </div>
-      
+
       <div class="channels-section">
         <div class="dial-container">
           <div class="dial-wrapper">
             <div class="dial-outer"></div>
-            
+
             <!-- Channel markers positioned around the dial -->
             <div class="channel-marker selected" data-channel="12" style="top: -5px; left: 50%; transform: translateX(-50%);">12</div>
             <div class="channel-marker active" data-channel="1" style="top: 15px; right: 30px;">1</div>
@@ -1227,12 +1227,12 @@
             <div class="channel-marker" data-channel="9" style="top: 50%; left: -15px; transform: translateY(-50%);">9</div>
             <div class="channel-marker" data-channel="10" style="top: 65px; left: -5px;">10</div>
             <div class="channel-marker" data-channel="11" style="top: 15px; left: 30px;">11</div>
-            
+
             <!-- The rotatable knob -->
             <div class="dial-knob" id="dialKnob">
               <div class="dial-pointer"></div>
             </div>
-            
+
             <!-- Center display -->
             <div class="dial-center">
               <span class="channel-num" id="channelDisplay">12</span>
@@ -1241,7 +1241,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="quick-channels">
           <span class="quick-channels-label">Quick:</span>
           <button class="quick-ch-btn" onclick="enableChannels(1)">1 CH</button>
@@ -1253,7 +1253,7 @@
           <button class="quick-ch-btn" onclick="enableChannels(12)">12 CH</button>
         </div>
         <p class="active-count">Active: <span>3</span> / 12</p>
-        
+
         <div class="summary-grid" id="summaryGrid">
           <div class="summary-item active selected" data-channel="1"><span class="ch-num">CH1</span><span class="freq">540</span></div>
           <div class="summary-item active" data-channel="2"><span class="ch-num">CH2</span><span class="freq">900</span></div>
@@ -1270,14 +1270,14 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Right Panel -->
     <div class="right-panel">
       <div class="broadcast-section">
         <div class="panel-header">
           <span class="panel-title">Broadcast Control</span>
         </div>
-        
+
         <div class="broadcast-card" id="broadcastCard">
           <div class="live-badge">
             <span class="live-dot"></span>
@@ -1297,12 +1297,12 @@
           </div>
         </div>
       </div>
-      
+
       <div class="selected-section">
         <div class="panel-header">
           <span class="panel-title">Selected Channel</span>
         </div>
-        
+
         <div class="channel-config">
           <div class="config-header">
             <div class="config-title">
@@ -1311,14 +1311,14 @@
             </div>
             <div class="toggle active" id="channelToggle" onclick="toggleSelectedChannel()"></div>
           </div>
-          
+
           <div class="freq-control">
             <p class="freq-label">Frequency</p>
             <div class="freq-display-large">
               <span class="freq-value" id="freqDisplay">540</span>
               <span class="freq-unit">kHz</span>
             </div>
-            
+
             <div class="freq-slider-wrapper">
               <div class="freq-slider-container" id="freqSlider">
                 <div class="freq-slider-fill" id="freqFill"></div>
@@ -1342,7 +1342,7 @@
                   <span class="tick-label">1500</span>
                 </div>
               </div>
-              
+
               <div class="freq-input-row">
                 <input type="number" class="freq-input" id="freqInput" value="540" min="500" max="1700" step="10">
                 <span class="freq-input-unit">kHz</span>
@@ -1352,7 +1352,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Confirmation Modal -->
     <div class="modal-overlay" id="confirmModal">
       <div class="modal">
@@ -1366,7 +1366,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Footer / Log -->
     <footer class="footer">
       <div class="panel-header" style="margin-bottom: 12px;">
@@ -1396,62 +1396,73 @@
   <script>
     // === Tauri API ===
     // This replaces HTTP fetch with native Tauri IPC
-    const { invoke } = window.__TAURI__.tauri;
-    
+    let invoke;
+    if (window.__TAURI__ && window.__TAURI__.invoke) {
+      invoke = window.__TAURI__.invoke;
+    } else if (window.__TAURI__ && window.__TAURI__.tauri) {
+      invoke = window.__TAURI__.tauri.invoke;
+    } else {
+      // Fallback for testing in browser
+      invoke = async (cmd, args) => {
+        console.log('Tauri not available, mock invoke:', cmd, args);
+        return null;
+      };
+    }
+
     let isConnectedToFPGA = false;
     let backendReady = true; // Always ready in Rust version
-    
+
     // === API using Tauri invoke ===
     const API = {
       async getState() {
         return await invoke('get_state');
       },
-      
+
       async connect(ip, port) {
         return await invoke('connect', { ip, port });
       },
-      
+
       async disconnect() {
         return await invoke('disconnect');
       },
-      
+
       async startBroadcast() {
         return await invoke('start_broadcast');
       },
-      
+
       async stopBroadcast() {
         return await invoke('stop_broadcast');
       },
-      
+
       async updateChannel(channelId, update) {
         return await invoke('update_channel', { channelId, update });
       },
-      
+
       async enablePreset(count) {
         return await invoke('enable_preset_channels', { count });
       },
-      
+
       async setSource(source) {
         return await invoke('set_source', { source });
       },
-      
+
       async setMessage(messageId) {
         return await invoke('set_message', { messageId });
       },
-      
+
       async resetWatchdog() {
         return await invoke('reset_watchdog');
       },
-      
+
       async getLog(limit = 20) {
         return await invoke('get_log', { limit });
       },
-      
+
       async getConfig() {
         return await invoke('get_config');
       }
     };
-    
+
     // Channel data
     const channelData = {
       1: { freq: 540, active: true },
@@ -1467,19 +1478,19 @@
       11: { freq: null, active: false },
       12: { freq: null, active: false }
     };
-    
+
     let selectedChannel = 12;
     let currentFreq = 540;
     const minFreq = 500;
     const maxFreq = 1700;
-    
+
     // Dial rotation
     const dialKnob = document.getElementById('dialKnob');
     const channelDisplay = document.getElementById('channelDisplay');
     const freqMiniDisplay = document.getElementById('freqMiniDisplay');
     let isDragging = false;
     let currentRotation = 0; // 12 o'clock = 0 degrees
-    
+
     function getAngleFromCenter(e, element) {
       const rect = element.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
@@ -1490,19 +1501,19 @@
       if (angle < 0) angle += 360;
       return angle;
     }
-    
+
     function angleToChannel(angle) {
       // 12 = 0°, 1 = 30°, 2 = 60°, etc.
       const normalized = (angle + 15) % 360; // +15 for snap zone
       const channel = Math.floor(normalized / 30) + 1;
       return channel > 12 ? 12 : channel;
     }
-    
+
     function channelToAngle(channel) {
       // Channel 12 = 0°, Channel 1 = 30°, etc.
       return ((channel % 12) * 30);
     }
-    
+
     function updateDialRotation(angle, snap = false) {
       if (snap) {
         const channel = angleToChannel(angle);
@@ -1511,11 +1522,11 @@
       currentRotation = angle;
       dialKnob.style.transform = `rotate(${angle}deg)`;
     }
-    
+
     function selectChannel(channel) {
       selectedChannel = channel;
       channelDisplay.textContent = channel;
-      
+
       // Update markers
       document.querySelectorAll('.channel-marker').forEach(m => {
         m.classList.remove('selected');
@@ -1523,7 +1534,7 @@
           m.classList.add('selected');
         }
       });
-      
+
       // Update summary grid
       document.querySelectorAll('.summary-item').forEach(item => {
         item.classList.remove('selected');
@@ -1531,10 +1542,10 @@
           item.classList.add('selected');
         }
       });
-      
+
       // Update config panel
       document.getElementById('configChannelTitle').textContent = `Channel ${channel}`;
-      
+
       const data = channelData[channel];
       const toggle = document.getElementById('channelToggle');
       if (data.active) {
@@ -1544,40 +1555,40 @@
         toggle.classList.remove('active');
         currentFreq = 540;
       }
-      
+
       updateEnableBadge();
       updateFreqDisplay();
-      
+
       // Update mini display
       if (data.active && data.freq) {
         freqMiniDisplay.textContent = `${data.freq} kHz`;
       } else {
         freqMiniDisplay.textContent = '-- kHz';
       }
-      
+
       // Rotate dial to channel position
       updateDialRotation(channelToAngle(channel), false);
     }
-    
+
     // Dial dragging
     dialKnob.addEventListener('mousedown', (e) => {
       isDragging = true;
       dialKnob.classList.add('dragging');
       e.preventDefault();
     });
-    
+
     document.addEventListener('mousemove', (e) => {
       if (!isDragging) return;
       const angle = getAngleFromCenter(e, dialKnob.parentElement);
       updateDialRotation(angle);
-      
+
       // Update channel as we drag
       const channel = angleToChannel(angle);
       if (channel !== selectedChannel) {
         selectChannel(channel);
       }
     });
-    
+
     document.addEventListener('mouseup', () => {
       if (isDragging) {
         isDragging = false;
@@ -1586,7 +1597,7 @@
         updateDialRotation(currentRotation, true);
       }
     });
-    
+
     // Click on markers to select
     document.querySelectorAll('.channel-marker').forEach(marker => {
       marker.addEventListener('click', () => {
@@ -1594,7 +1605,7 @@
         selectChannel(channel);
       });
     });
-    
+
     // Click on summary items
     document.querySelectorAll('.summary-item').forEach(item => {
       item.addEventListener('click', () => {
@@ -1602,16 +1613,16 @@
         selectChannel(channel);
       });
     });
-    
+
     // Frequency control
     function updateFreqDisplay() {
       document.getElementById('freqDisplay').textContent = currentFreq;
       document.getElementById('freqInput').value = currentFreq;
-      
+
       const percent = ((currentFreq - minFreq) / (maxFreq - minFreq)) * 100;
       document.getElementById('freqFill').style.width = `${percent}%`;
       document.getElementById('freqHandle').style.left = `${percent}%`;
-      
+
       // Update tick highlights
       document.querySelectorAll('.freq-tick').forEach(tick => {
         const tickFreq = parseInt(tick.dataset.freq);
@@ -1622,13 +1633,13 @@
         }
       });
     }
-    
+
     function setFreq(freq) {
       currentFreq = Math.max(minFreq, Math.min(maxFreq, freq));
       updateFreqDisplay();
       addLog(`CH${selectedChannel} frequency set to ${currentFreq} kHz`);
     }
-    
+
     function updateEnableBadge() {
       const toggle = document.getElementById('channelToggle');
       const badge = document.getElementById('enableBadge');
@@ -1640,32 +1651,32 @@
         badge.className = 'enable-badge off';
       }
     }
-    
+
     // Frequency slider
     const freqSlider = document.getElementById('freqSlider');
     let isSliding = false;
-    
+
     freqSlider.addEventListener('mousedown', (e) => {
       isSliding = true;
       updateFreqFromSlider(e);
     });
-    
+
     document.addEventListener('mousemove', (e) => {
       if (!isSliding) return;
       updateFreqFromSlider(e);
     });
-    
+
     document.addEventListener('mouseup', () => {
       isSliding = false;
     });
-    
+
     function updateFreqFromSlider(e) {
       const rect = freqSlider.getBoundingClientRect();
       const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
       const freq = Math.round((percent * (maxFreq - minFreq) + minFreq) / 10) * 10;
       setFreq(freq);
     }
-    
+
     // Click on tick marks
     document.querySelectorAll('.freq-tick').forEach(tick => {
       tick.addEventListener('click', () => {
@@ -1673,7 +1684,7 @@
         setFreq(freq);
       });
     });
-    
+
     // Frequency input
     const freqInput = document.getElementById('freqInput');
     freqInput.addEventListener('change', () => {
@@ -1682,7 +1693,7 @@
         setFreq(freq);
       }
     });
-    
+
     freqInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         const freq = parseInt(freqInput.value);
@@ -1692,7 +1703,7 @@
         freqInput.blur();
       }
     });
-    
+
     // Quick channel enable
     async function enableChannels(count) {
       // Call Rust backend
@@ -1704,13 +1715,13 @@
           return;
         }
       }
-      
+
       // Reset all channels locally
       for (let i = 1; i <= 12; i++) {
         channelData[i].active = false;
         channelData[i].freq = null;
       }
-      
+
       // Enable specified number of channels, distributed around the dial
       const freqPresets = [540, 900, 1200, 1500];
       const distribution = {
@@ -1722,22 +1733,22 @@
         8: [12, 1, 3, 4, 6, 7, 9, 10],
         12: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
       };
-      
+
       const channels = distribution[count] || distribution[1];
       channels.forEach((ch, i) => {
         channelData[ch].active = true;
         channelData[ch].freq = freqPresets[i % freqPresets.length];
       });
-      
+
       updateChannelVisuals();
       addLog(`Enabled ${count} channel${count > 1 ? 's' : ''}`, 'success');
     }
-    
+
     // Broadcast toggle
     let isBroadcasting = false;
     let broadcastTimer = null;
     let broadcastSeconds = 0;
-    
+
     function toggleBroadcast() {
       if (isBroadcasting) {
         // Stop immediately, no confirmation needed
@@ -1753,16 +1764,16 @@
         document.getElementById('confirmModal').classList.add('show');
       }
     }
-    
+
     function closeModal() {
       document.getElementById('confirmModal').classList.remove('show');
     }
-    
+
     function confirmBroadcast() {
       closeModal();
       startBroadcast();
     }
-    
+
     async function startBroadcast() {
       // Call Rust backend
       if (isConnectedToFPGA) {
@@ -1773,19 +1784,19 @@
           return;
         }
       }
-      
+
       isBroadcasting = true;
       const card = document.getElementById('broadcastCard');
       const btn = document.getElementById('broadcastBtn');
       const status = card.querySelector('.broadcast-status');
-      
+
       card.classList.add('broadcasting');
       btn.textContent = 'Stop Broadcast';
       btn.className = 'broadcast-btn stop';
       status.innerHTML = '● Broadcasting';
       const activeCount = Object.values(channelData).filter(c => c.active).length;
       addLog(`Broadcast started on ${activeCount} channel${activeCount !== 1 ? 's' : ''}`, 'success');
-      
+
       broadcastSeconds = 0;
       broadcastTimer = setInterval(() => {
         broadcastSeconds++;
@@ -1794,7 +1805,7 @@
         document.getElementById('durationDisplay').textContent = `${mins}:${secs}`;
       }, 1000);
     }
-    
+
     async function stopBroadcast() {
       // Call Rust backend
       if (isConnectedToFPGA) {
@@ -1804,35 +1815,35 @@
           addLog(`Stop failed: ${err}`, 'error');
         }
       }
-      
+
       isBroadcasting = false;
       const card = document.getElementById('broadcastCard');
       const btn = document.getElementById('broadcastBtn');
       const status = card.querySelector('.broadcast-status');
-      
+
       card.classList.remove('broadcasting');
       btn.textContent = 'Start Broadcast';
       btn.className = 'broadcast-btn start';
       status.innerHTML = '● Ready to Broadcast';
       addLog('Broadcast stopped', 'warning');
-      
+
       clearInterval(broadcastTimer);
       document.getElementById('durationDisplay').textContent = '00:00';
     }
-    
+
     // Close modal on escape or click outside
     document.getElementById('confirmModal').addEventListener('click', (e) => {
       if (e.target.classList.contains('modal-overlay')) {
         closeModal();
       }
     });
-    
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeModal();
       }
     });
-    
+
     // Logging
     function addLog(message, type = '') {
       const container = document.getElementById('logContainer');
@@ -1845,7 +1856,7 @@
       `;
       container.insertBefore(entry, container.firstChild);
     }
-    
+
     // Keyboard support
     document.addEventListener('keydown', (e) => {
       switch(e.key) {
@@ -1883,12 +1894,12 @@
           break;
       }
     });
-    
+
     // Double-click dial to toggle channel
     dialKnob.addEventListener('dblclick', () => {
       toggleSelectedChannel();
     });
-    
+
     // Double-click summary items to toggle
     document.querySelectorAll('.summary-item').forEach(item => {
       item.addEventListener('dblclick', () => {
@@ -1897,21 +1908,21 @@
         toggleSelectedChannel();
       });
     });
-    
+
     async function toggleSelectedChannel() {
       const toggle = document.getElementById('channelToggle');
       toggle.classList.toggle('active');
-      
+
       const isActive = toggle.classList.contains('active');
       channelData[selectedChannel].active = isActive;
-      
+
       if (isActive) {
         channelData[selectedChannel].freq = currentFreq;
         // Visual feedback
         dialKnob.classList.add('enabled-pulse');
         setTimeout(() => dialKnob.classList.remove('enabled-pulse'), 400);
       }
-      
+
       // Call Rust backend
       if (isConnectedToFPGA) {
         try {
@@ -1923,14 +1934,14 @@
           addLog(`Channel update failed: ${err}`, 'error');
         }
       }
-      
+
       updateEnableBadge();
       updateChannelVisuals();
-      
+
       const status = isActive ? 'enabled' : 'disabled';
       addLog(`CH${selectedChannel} ${status}`, isActive ? 'success' : 'warning');
     }
-    
+
     function updateChannelVisuals() {
       // Update markers
       document.querySelectorAll('.channel-marker').forEach(m => {
@@ -1941,7 +1952,7 @@
           m.classList.remove('active');
         }
       });
-      
+
       // Update summary grid
       document.querySelectorAll('.summary-item').forEach(item => {
         const ch = parseInt(item.dataset.channel);
@@ -1954,12 +1965,12 @@
           freqSpan.textContent = '--';
         }
       });
-      
+
       // Update active count
       const activeCount = Object.values(channelData).filter(c => c.active).length;
       document.querySelector('.active-count span').textContent = activeCount;
       document.querySelector('.info-item .value').textContent = activeCount;
-      
+
       // Update mini display
       const data = channelData[selectedChannel];
       if (data.active && data.freq) {
@@ -1968,13 +1979,13 @@
         freqMiniDisplay.textContent = '-- kHz';
       }
     }
-    
+
     // === Connection Handling ===
     const connectBtn = document.querySelector('.btn-primary');
     const statusBadge = document.querySelector('.status-badge');
     const ipInput = document.querySelector('.ip');
     const portInput = document.querySelector('.port');
-    
+
     async function toggleConnection() {
       if (isConnectedToFPGA) {
         await doDisconnect();
@@ -1982,14 +1993,14 @@
         await doConnect();
       }
     }
-    
+
     async function doConnect() {
       const ip = ipInput.value || '192.168.0.100';
       const port = parseInt(portInput.value) || 5000;
-      
+
       connectBtn.textContent = 'CONNECTING...';
       connectBtn.disabled = true;
-      
+
       try {
         await API.connect(ip, port);
         isConnectedToFPGA = true;
@@ -2001,7 +2012,7 @@
         connectBtn.disabled = false;
       }
     }
-    
+
     async function doDisconnect() {
       try {
         await API.disconnect();
@@ -2012,7 +2023,7 @@
       updateConnectionUI();
       addLog('Disconnected', 'warning');
     }
-    
+
     function updateConnectionUI() {
       if (isConnectedToFPGA) {
         connectBtn.textContent = 'DISCONNECT';
@@ -2026,30 +2037,30 @@
         statusBadge.innerHTML = '<span class="status-dot"></span> Disconnected';
       }
     }
-    
+
     // Connect button click
     connectBtn.addEventListener('click', toggleConnection);
-    
+
     // === State Polling ===
     async function pollState() {
       if (!isConnectedToFPGA) return;
-      
+
       try {
         const state = await API.getState();
-        
+
         // Update channels from Rust state
         state.channels.forEach(ch => {
           channelData[ch.id].active = ch.enabled;
           channelData[ch.id].freq = ch.enabled ? Math.round(ch.frequency / 1000) : null;
         });
-        
+
         updateChannelVisuals();
-        
+
         // Update watchdog display if needed
         if (state.watchdog_state === 'TRIGGERED') {
           addLog('WATCHDOG TRIGGERED!', 'error');
         }
-        
+
       } catch (err) {
         // Connection lost
         isConnectedToFPGA = false;
@@ -2057,10 +2068,10 @@
         addLog('Connection lost', 'error');
       }
     }
-    
+
     // Poll every 2 seconds when connected
     setInterval(pollState, 2000);
-    
+
     // Initialize
     selectChannel(12);
     updateChannelVisuals();
