@@ -1716,15 +1716,14 @@
     }
 
     // === Frequency Control ===
-    function updateFreqDisplayFast() {
-      const percent = ((currentFreq - minFreq) / (maxFreq - minFreq)) * 100;
+    function updateFreqDisplay() {
       document.getElementById('freqDisplay').textContent = currentFreq;
+      document.getElementById('freqInput').value = currentFreq;
+
+      const percent = ((currentFreq - minFreq) / (maxFreq - minFreq)) * 100;
       document.getElementById('freqFill').style.width = `${percent}%`;
       document.getElementById('freqHandle').style.left = `${percent}%`;
-    }
-    function updateFreqDisplay() {
-      updateFreqDisplayFast();
-      document.getElementById('freqInput').value = currentFreq;
+
       document.querySelectorAll('.freq-tick').forEach(tick => {
         tick.classList.toggle('active', parseInt(tick.dataset.freq) === currentFreq);
       });
@@ -1741,43 +1740,34 @@
       }
     }
 
+    // Frequency slider
+    const freqSlider = document.getElementById('freqSlider');
     let isSliding = false;
-    let rafId = null;
 
+    // start
     freqSlider.addEventListener('mousedown', (e) => {
       isSliding = true;
       updateFreqFromSlider(e);
     });
-
     document.addEventListener('mousemove', (e) => {
       if (!isSliding) return;
-
-      // Cancel previous frame request
-      if (rafId) cancelAnimationFrame(rafId);
-
-      // Schedule update for next frame
-      rafId = requestAnimationFrame(() => {
-        const rect = freqSlider.getBoundingClientRect();
-        const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        currentFreq = Math.round((percent * (maxFreq - minFreq) + minFreq) / 10) * 10;
-        document.getElementById('freqDisplay').textContent = currentFreq;
-        document.getElementById('freqFill').style.width = `${percent * 100}%`;
-        document.getElementById('freqHandle').style.left = `${percent * 100}%`;
-      });
+      // Visual update only - no setFreq
+      const rect = freqSlider.getBoundingClientRect();
+      const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      currentFreq = Math.round((percent * (maxFreq - minFreq) + minFreq) / 10) * 10;
+      updateFreqDisplay();
     });
-
     document.addEventListener('mouseup', () => {
       if (isSliding) {
         isSliding = false;
-        if (rafId) cancelAnimationFrame(rafId);
-        updateFreqDisplay();
+        // Now update channel data + log
         if (channelData[selectedChannel].active) {
           channelData[selectedChannel].freq = currentFreq;
           updateChannelVisuals();
         }
+        addLog(`CH${selectedChannel} frequency set to ${currentFreq} kHz`);
       }
     });
-
     function updateFreqFromSlider(e) {
       const rect = freqSlider.getBoundingClientRect();
       const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
