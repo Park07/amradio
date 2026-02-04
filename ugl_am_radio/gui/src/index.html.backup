@@ -657,7 +657,50 @@
       50% {
         box-shadow: 0 0 30px 5px rgba(255, 71, 87, 0.3);
         border-color: #ff6b7a;
+    }
       }
+      /* BROADCASTING - Full Alert Mode */
+    .app.broadcasting {
+      grid-template-columns: 0fr 1fr;
+      transition: grid-template-columns 0.5s ease;
+    }
+
+    .app.broadcasting .left-panel {
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .app.broadcasting:hover .left-panel {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .app.broadcasting .broadcast-card {
+      transform: scale(1.1);
+      animation: urgentPulse 1s ease-in-out infinite, shake 0.15s ease-in-out infinite;
+    }
+
+    .app.broadcasting .broadcast-btn.stop {
+      font-size: 32px;
+      padding: 50px 80px;
+    }
+
+    .app.broadcasting .live-badge {
+      font-size: 24px;
+      padding: 16px 32px;
+    }
+
+    .app.broadcasting #durationDisplay {
+      font-size: 48px !important;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0) scale(1.1); }
+      25% { transform: translateX(-5px) scale(1.1); }
+      75% { transform: translateX(5px) scale(1.1); }
+    
     }
 
     .live-badge {
@@ -1529,8 +1572,8 @@
 
     function angleToChannel(angle) {
       const normalized = (angle + 15) % 360;
-      const channel = Math.floor(normalized / 30) + 1;
-      return channel > 12 ? 12 : channel;
+      const channel = Math.floor(normalized / 30);
+      return channel === 0 ? 12 : channel;
     }
 
     function channelToAngle(channel) {
@@ -1716,14 +1759,15 @@
     }
 
     // === Frequency Control ===
-    function updateFreqDisplay() {
-      document.getElementById('freqDisplay').textContent = currentFreq;
-      document.getElementById('freqInput').value = currentFreq;
-
+    function updateFreqDisplayFast() {
       const percent = ((currentFreq - minFreq) / (maxFreq - minFreq)) * 100;
+      document.getElementById('freqDisplay').textContent = currentFreq;
       document.getElementById('freqFill').style.width = `${percent}%`;
       document.getElementById('freqHandle').style.left = `${percent}%`;
-
+    }
+    function updateFreqDisplay() {
+      updateFreqDisplayFast();
+      document.getElementById('freqInput').value = currentFreq;
       document.querySelectorAll('.freq-tick').forEach(tick => {
         tick.classList.toggle('active', parseInt(tick.dataset.freq) === currentFreq);
       });
@@ -1740,34 +1784,43 @@
       }
     }
 
-    // Frequency slider
-    const freqSlider = document.getElementById('freqSlider');
     let isSliding = false;
+    let rafId = null;
 
-    // start
     freqSlider.addEventListener('mousedown', (e) => {
       isSliding = true;
       updateFreqFromSlider(e);
     });
+
     document.addEventListener('mousemove', (e) => {
       if (!isSliding) return;
-      // Visual update only - no setFreq
-      const rect = freqSlider.getBoundingClientRect();
-      const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      currentFreq = Math.round((percent * (maxFreq - minFreq) + minFreq) / 10) * 10;
-      updateFreqDisplay();
+
+      // Cancel previous frame request
+      if (rafId) cancelAnimationFrame(rafId);
+
+      // Schedule update for next frame
+      rafId = requestAnimationFrame(() => {
+        const rect = freqSlider.getBoundingClientRect();
+        const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+        currentFreq = Math.round((percent * (maxFreq - minFreq) + minFreq) / 10) * 10;
+        document.getElementById('freqDisplay').textContent = currentFreq;
+        document.getElementById('freqFill').style.width = `${percent * 100}%`;
+        document.getElementById('freqHandle').style.left = `${percent * 100}%`;
+      });
     });
+
     document.addEventListener('mouseup', () => {
       if (isSliding) {
         isSliding = false;
-        // Now update channel data + log
+        if (rafId) cancelAnimationFrame(rafId);
+        updateFreqDisplay();
         if (channelData[selectedChannel].active) {
           channelData[selectedChannel].freq = currentFreq;
           updateChannelVisuals();
         }
-        addLog(`CH${selectedChannel} frequency set to ${currentFreq} kHz`);
       }
     });
+
     function updateFreqFromSlider(e) {
       const rect = freqSlider.getBoundingClientRect();
       const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
@@ -1874,6 +1927,7 @@
       }
 
       isBroadcasting = true;
+      app.classList.add('broadcasting');
       broadcastCard.classList.add('broadcasting');
       broadcastBtn.textContent = 'Stop Broadcast';
       broadcastBtn.className = 'broadcast-btn stop';
@@ -1900,6 +1954,8 @@
       }
 
       isBroadcasting = false;
+      app.classList.remove('broadcasting');
+
       broadcastCard.classList.remove('broadcasting');
       broadcastBtn.textContent = 'Start Broadcast';
       broadcastBtn.className = 'broadcast-btn start';

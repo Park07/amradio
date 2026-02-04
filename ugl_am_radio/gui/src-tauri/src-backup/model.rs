@@ -2,19 +2,48 @@
 // model.rs - FULL PRODUCTION VERSION
 // Complete NetworkManager with all features from Python
 // ============================================================
-use crate::state_machine::{BroadcastState, ConnectionState, WatchdogState, SourceMode};
+
 use std::sync::Arc;
 use tokio::io::AsyncReadExt;
 use std::time::Duration;
 use tokio::io::{AsyncBufReadExt, AsyncWriteExt, BufReader};
 use tokio::net::TcpStream;
-use tokio::sync::{broadcast, RwLock};
+use tokio::sync::{broadcast, RwLock, Mutex};
 use tokio::time::{timeout, sleep, Instant};
 use serde::{Deserialize, Serialize};
 
 use crate::config::{Config, ScpiCommands};
 use crate::event_bus::EventType;
 
+// ============================================================
+// STATE ENUMS (Same as Python)
+// ============================================================
+#[derive(Clone, Debug, PartialEq, Serialize)]
+pub enum ConnectionState {
+    Disconnected,
+    Connecting,
+    Connected,
+    Reconnecting,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
+pub enum BroadcastState {
+    Idle,
+    Broadcasting,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
+pub enum WatchdogState {
+    Ok,
+    Warning,
+    Triggered,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize)]
+pub enum SourceMode {
+    Bram,
+    Adc,
+}
 
 // ============================================================
 // CHANNEL STRUCT
@@ -43,15 +72,15 @@ impl Channel {
 // ============================================================
 // DEVICE STATE - All tracked state
 // ============================================================
-#[derive(Debug, Clone, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct DeviceState {
     pub connection: ConnectionState,
     pub broadcast: BroadcastState,
     pub watchdog: WatchdogState,
-    pub source: SourceMode,
     pub channels: Vec<Channel>,
+    pub source: SourceMode,
+    pub last_status_time: Option<u64>,  // Unix timestamp
     pub fpga_temperature: Option<f32>,
-    pub last_status_time: Option<u64>,
     pub error_count: u32,
 }
 
@@ -61,20 +90,15 @@ impl Default for DeviceState {
             connection: ConnectionState::Disconnected,
             broadcast: BroadcastState::Idle,
             watchdog: WatchdogState::Ok,
-            last_status_time: None,
+            channels: (1..=12).map(Channel::new).collect(),
             source: SourceMode::Bram,
-            channels: (1..=12).map(|id| Channel {
-                id,
-                enabled: false,
-                frequency: 540_000 + (id as u32 - 1) * 100_000,
-                amplitude: 1.0,
-                phase: 0.0,
-            }).collect(),
+            last_status_time: None,
             fpga_temperature: None,
             error_count: 0,
         }
     }
 }
+
 // ============================================================
 // AUDIT LOG ENTRY
 // ============================================================
@@ -852,64 +876,29 @@ impl NetworkManager {
         Ok(())
     }
 
-        // ----------------------------------------------------------
-        // GET STATE (for UI)
-        // ----------------------------------------------------------
-        pub async fn get_state(&self) -> DeviceState {
-            self.state.read().await.clone()
-        }
-
-        // ----------------------------------------------------------
-        // GET AUDIT LOG
-        // ----------------------------------------------------------
-        pub async fn get_audit_log(&self) -> Vec<AuditEntry> {
-            self.audit_log.read().await.clone()
-        }
-
-        // ----------------------------------------------------------
-        // IS CONNECTED
-        // ----------------------------------------------------------
-        pub async fn is_connected(&self) -> bool {
-            self.state.read().await.connection == ConnectionState::Connected
-        }
-        // ----------------------------------------------------------
-    // ARM (for state machine)
     // ----------------------------------------------------------
-    pub async fn arm(&self) -> Result<(), String> {
-        let state = self.state.read().await;
-        if state.connection != ConnectionState::Connected {
-            return Err("Not connected".to_string());
-        }
-        drop(state);
-
-        self.log_info("System armed").await;
-        Ok(())
+    // GET STATE (for UI)
+    // ----------------------------------------------------------
+    pub async fn get_state(&self) -> DeviceState {
+        self.state.read().await.clone()
     }
 
     // ----------------------------------------------------------
-    // START EMERGENCY (bypasses arm)
+    // GET AUDIT LOG
     // ----------------------------------------------------------
-    pub async fn start_emergency(&self) -> Result<(), String> {
-        self.log_info("EMERGENCY BROADCAST").await;
-
-        self.send_command(ScpiCommands::OUTPUT_ON).await?;
-
-        {
-            let mut state = self.state.write().await;
-            state.broadcast = BroadcastState::Broadcasting;
-        }
-
-        let _ = self.event_tx.send(EventType::BroadcastStarted);
-        Ok(())
+    pub async fn get_audit_log(&self) -> Vec<AuditEntry> {
+        self.audit_log.read().await.clone()
     }
 
     // ----------------------------------------------------------
-    // STOP EMERGENCY
+    // IS CONNECTED
     // ----------------------------------------------------------
-    pub async fn stop_emergency(&self) -> Result<(), String> {
-        self.log_info("Stopping emergency broadcast").await;
-        self.stop_broadcast().await
+    pub async fn is_connected(&self) -> bool {
+        self.state.read().await.connection == ConnectionState::Connected
     }
 }
 
-
+// ============================================================
+// TOKIO READ TRAIT (needed for BufReader)
+// ============================================================
+use tokio::io::AsyncRead;

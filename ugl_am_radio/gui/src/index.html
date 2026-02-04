@@ -700,7 +700,7 @@
       0%, 100% { transform: translateX(0) scale(1.1); }
       25% { transform: translateX(-5px) scale(1.1); }
       75% { transform: translateX(5px) scale(1.1); }
-    
+
     }
 
     .live-badge {
@@ -1216,6 +1216,66 @@
     .dial-knob.enabled-pulse {
       animation: enablePulse 0.4s ease-out;
     }
+    .broadcast-buttons {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .arm-btn {
+      flex: 1;
+      padding: 16px 24px;
+      background: var(--accent-amber);
+      color: var(--bg-primary);
+      border: none;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .arm-btn:hover {
+      background: var(--accent-amber-dim);
+    }
+
+    .arm-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .emergency-btn {
+      flex: 1;
+      padding: 16px 24px;
+      background: var(--accent-red);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .emergency-btn:hover {
+      background: var(--accent-red-dim);
+      box-shadow: 0 0 20px var(--accent-red-glow);
+    }
+
+    .broadcast-state {
+      display: block;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
   </style>
 </head>
 <body>
@@ -1344,7 +1404,10 @@
           </div>
           <p class="broadcast-status">● Ready to Broadcast</p>
 
-          <button class="broadcast-btn start" id="broadcastBtn">Start Broadcast</button>
+          <div class="broadcast-buttons">
+            <button class="broadcast-btn start" id="broadcastBtn">Start Broadcast</button>
+          </div>
+          <span class="broadcast-state" id="broadcastStateDisplay">IDLE</span>
           <div class="broadcast-info">
             <div class="info-item">
               <div class="value" id="infoChannelCount">0</div>
@@ -1435,644 +1498,10 @@
       <div class="log-container" id="logContainer"></div>
     </footer>
   </div>
+  <script src="js/event_bus.js"></script>
+  <script src="js/model.js"></script>
+  <script src="js/view.js"></script>
+  <script src="js/controller.js"></script>
 
-  <script>
-    // === Tauri API ===
-    let invoke;
-    if (window.__TAURI__ && window.__TAURI__.invoke) {
-      invoke = window.__TAURI__.invoke;
-    } else if (window.__TAURI__ && window.__TAURI__.tauri) {
-      invoke = window.__TAURI__.tauri.invoke;
-    } else {
-      // Fallback for browser testing
-      invoke = async (cmd, args) => {
-        console.log('Mock invoke:', cmd, args);
-        return null;
-      };
-    }
-
-    // === State ===
-    let isConnectedToFPGA = false;
-    let isBroadcasting = false;
-    let broadcastTimer = null;
-    let broadcastSeconds = 0;
-    let selectedChannel = 12;
-    let currentFreq = 540;
-    const minFreq = 500;
-    const maxFreq = 1700;
-
-    const channelData = {};
-    for (let i = 1; i <= 12; i++) {
-      channelData[i] = { freq: null, active: false };
-    }
-
-    // === DOM Elements ===
-    const app = document.getElementById('app');
-    const dialKnob = document.getElementById('dialKnob');
-    const channelDisplay = document.getElementById('channelDisplay');
-    const freqMiniDisplay = document.getElementById('freqMiniDisplay');
-    const connectBtn = document.getElementById('connectBtn');
-    const statusBadge = document.getElementById('statusBadge');
-    const statusText = document.getElementById('statusText');
-    const ipInput = document.getElementById('ipInput');
-    const portInput = document.getElementById('portInput');
-    const broadcastBtn = document.getElementById('broadcastBtn');
-    const broadcastCard = document.getElementById('broadcastCard');
-    const confirmModal = document.getElementById('confirmModal');
-    const sourceToggle = document.getElementById('sourceToggle');
-    const sourceLabel = document.getElementById('sourceLabel');
-    const channelToggle = document.getElementById('channelToggle');
-
-    // === Logging ===
-    function addLog(message, type = '') {
-      const container = document.getElementById('logContainer');
-      const time = new Date().toLocaleTimeString('en-US', {
-        hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'
-      });
-      const entry = document.createElement('div');
-      entry.className = 'log-entry';
-      entry.innerHTML = `
-        <span class="log-time">${time}</span>
-        <span class="log-msg ${type}">${message}</span>
-      `;
-      container.insertBefore(entry, container.firstChild);
-    }
-
-    // === Connection ===
-    async function toggleConnection() {
-      if (isConnectedToFPGA) {
-        await doDisconnect();
-      } else {
-        await doConnect();
-      }
-    }
-
-    async function doConnect() {
-      const ip = ipInput.value || '192.168.0.100';
-      const port = parseInt(portInput.value) || 5000;
-
-      connectBtn.textContent = 'CONNECTING...';
-      connectBtn.disabled = true;
-
-      try {
-        await invoke('connect', { ip, port });
-        isConnectedToFPGA = true;
-        updateConnectionUI();
-        addLog(`Connected to ${ip}:${port}`, 'success');
-      } catch (err) {
-        addLog(`Connection failed: ${err}`, 'error');
-        connectBtn.textContent = 'CONNECT';
-        connectBtn.disabled = false;
-      }
-    }
-
-    async function doDisconnect() {
-      try {
-        await invoke('disconnect');
-      } catch (err) {
-        // Ignore
-      }
-      isConnectedToFPGA = false;
-      updateConnectionUI();
-      addLog('Disconnected', 'warning');
-    }
-
-    function updateConnectionUI() {
-      if (isConnectedToFPGA) {
-        connectBtn.textContent = 'DISCONNECT';
-        connectBtn.disabled = false;
-        statusBadge.className = 'status-badge connected';
-        statusText.textContent = 'CONNECTED';
-        app.classList.remove('disconnected');
-      } else {
-        connectBtn.textContent = 'CONNECT';
-        connectBtn.disabled = false;
-        statusBadge.className = 'status-badge disconnected';
-        statusText.textContent = 'DISCONNECTED';
-        app.classList.add('disconnected');
-      }
-    }
-
-    connectBtn.addEventListener('click', toggleConnection);
-
-    // === Dial Control ===
-    let isDragging = false;
-    let currentRotation = 0;
-
-    function getAngleFromCenter(e, element) {
-      const rect = element.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const x = e.clientX - centerX;
-      const y = e.clientY - centerY;
-      let angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
-      if (angle < 0) angle += 360;
-      return angle;
-    }
-
-    function angleToChannel(angle) {
-      const normalized = (angle + 15) % 360;
-      const channel = Math.floor(normalized / 30);
-      return channel === 0 ? 12 : channel;
-    }
-
-    function channelToAngle(channel) {
-      return ((channel % 12) * 30);
-    }
-
-    function updateDialRotation(angle, snap = false) {
-      if (snap) {
-        const channel = angleToChannel(angle);
-        angle = channelToAngle(channel);
-      }
-      currentRotation = angle;
-      dialKnob.style.transform = `rotate(${angle}deg)`;
-    }
-
-    function selectChannel(channel) {
-      selectedChannel = channel;
-      channelDisplay.textContent = channel;
-
-      // Update markers
-      document.querySelectorAll('.channel-marker').forEach(m => {
-        m.classList.remove('selected');
-        if (parseInt(m.dataset.channel) === channel) {
-          m.classList.add('selected');
-        }
-      });
-
-      // Update summary grid
-      document.querySelectorAll('.summary-item').forEach(item => {
-        item.classList.remove('selected');
-        if (parseInt(item.dataset.channel) === channel) {
-          item.classList.add('selected');
-        }
-      });
-
-      // Update config panel
-      document.getElementById('configChannelTitle').textContent = `Channel ${channel}`;
-
-      const data = channelData[channel];
-      if (data.active) {
-        channelToggle.classList.add('active');
-        currentFreq = data.freq || 540;
-      } else {
-        channelToggle.classList.remove('active');
-        currentFreq = 540;
-      }
-
-      updateEnableBadge();
-      updateFreqDisplay();
-
-      // Update mini display
-      if (data.active && data.freq) {
-        freqMiniDisplay.textContent = `${data.freq} kHz`;
-      } else {
-        freqMiniDisplay.textContent = '-- kHz';
-      }
-
-      // Rotate dial
-      updateDialRotation(channelToAngle(channel), false);
-    }
-
-    dialKnob.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      dialKnob.classList.add('dragging');
-      e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const angle = getAngleFromCenter(e, dialKnob.parentElement);
-      dialKnob.style.transform = `rotate(${angle}deg)`;
-      currentRotation = angle;
-    });
-
-    document.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
-        dialKnob.classList.remove('dragging');
-        const channel = angleToChannel(currentRotation);
-        selectChannel(channel);
-        updateDialRotation(currentRotation, true);
-      }
-    });
-
-    // Click on channel markers
-    document.querySelectorAll('.channel-marker').forEach(marker => {
-      marker.addEventListener('click', () => {
-        selectChannel(parseInt(marker.dataset.channel));
-      });
-    });
-
-    // Click on summary items
-    document.querySelectorAll('.summary-item').forEach(item => {
-      item.addEventListener('click', () => {
-        selectChannel(parseInt(item.dataset.channel));
-      });
-      item.addEventListener('dblclick', () => {
-        selectChannel(parseInt(item.dataset.channel));
-        toggleSelectedChannel();
-      });
-    });
-
-    // Double-click dial to toggle
-    dialKnob.addEventListener('dblclick', toggleSelectedChannel);
-
-    // === Channel Enable/Disable ===
-    async function toggleSelectedChannel() {
-      channelToggle.classList.toggle('active');
-      const isActive = channelToggle.classList.contains('active');
-
-      channelData[selectedChannel].active = isActive;
-      if (isActive) {
-        channelData[selectedChannel].freq = currentFreq;
-        dialKnob.classList.add('enabled-pulse');
-        setTimeout(() => dialKnob.classList.remove('enabled-pulse'), 400);
-      } else {
-        channelData[selectedChannel].freq = null;
-      }
-
-      // Call Rust backend
-      if (isConnectedToFPGA) {
-        try {
-          await invoke('update_channel', {
-            channelId: selectedChannel,
-            update: {
-              enabled: isActive,
-              frequency: isActive ? currentFreq * 1000 : null
-            }
-          });
-        } catch (err) {
-          addLog(`Channel update failed: ${err}`, 'error');
-        }
-      }
-
-      updateEnableBadge();
-      updateChannelVisuals();
-
-      const status = isActive ? 'enabled' : 'disabled';
-      addLog(`CH${selectedChannel} ${status}`, isActive ? 'success' : 'warning');
-    }
-
-    channelToggle.addEventListener('click', toggleSelectedChannel);
-
-    function updateEnableBadge() {
-      const badge = document.getElementById('enableBadge');
-      if (channelToggle.classList.contains('active')) {
-        badge.textContent = 'Enabled';
-        badge.className = 'enable-badge on';
-      } else {
-        badge.textContent = 'Disabled';
-        badge.className = 'enable-badge off';
-      }
-    }
-
-    function updateChannelVisuals() {
-      // Update markers
-      document.querySelectorAll('.channel-marker').forEach(m => {
-        const ch = parseInt(m.dataset.channel);
-        m.classList.toggle('active', channelData[ch].active);
-      });
-
-      // Update summary grid
-      document.querySelectorAll('.summary-item').forEach(item => {
-        const ch = parseInt(item.dataset.channel);
-        const freqSpan = item.querySelector('.freq');
-        if (channelData[ch].active) {
-          item.classList.add('active');
-          freqSpan.textContent = channelData[ch].freq || currentFreq;
-        } else {
-          item.classList.remove('active');
-          freqSpan.textContent = '--';
-        }
-      });
-
-      // Update counts
-      const activeCount = Object.values(channelData).filter(c => c.active).length;
-      document.getElementById('activeCount').textContent = activeCount;
-      document.getElementById('infoChannelCount').textContent = activeCount;
-
-      // Update mini display
-      const data = channelData[selectedChannel];
-      freqMiniDisplay.textContent = (data.active && data.freq) ? `${data.freq} kHz` : '-- kHz';
-    }
-
-    // === Frequency Control ===
-    function updateFreqDisplayFast() {
-      const percent = ((currentFreq - minFreq) / (maxFreq - minFreq)) * 100;
-      document.getElementById('freqDisplay').textContent = currentFreq;
-      document.getElementById('freqFill').style.width = `${percent}%`;
-      document.getElementById('freqHandle').style.left = `${percent}%`;
-    }
-    function updateFreqDisplay() {
-      updateFreqDisplayFast();
-      document.getElementById('freqInput').value = currentFreq;
-      document.querySelectorAll('.freq-tick').forEach(tick => {
-        tick.classList.toggle('active', parseInt(tick.dataset.freq) === currentFreq);
-      });
-    }
-
-    function setFreq(freq) {
-      currentFreq = Math.max(minFreq, Math.min(maxFreq, freq));
-      updateFreqDisplay();
-
-      // Update channel data if active
-      if (channelData[selectedChannel].active) {
-        channelData[selectedChannel].freq = currentFreq;
-        updateChannelVisuals();
-      }
-    }
-
-    let isSliding = false;
-    let rafId = null;
-
-    freqSlider.addEventListener('mousedown', (e) => {
-      isSliding = true;
-      updateFreqFromSlider(e);
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (!isSliding) return;
-
-      // Cancel previous frame request
-      if (rafId) cancelAnimationFrame(rafId);
-
-      // Schedule update for next frame
-      rafId = requestAnimationFrame(() => {
-        const rect = freqSlider.getBoundingClientRect();
-        const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-        currentFreq = Math.round((percent * (maxFreq - minFreq) + minFreq) / 10) * 10;
-        document.getElementById('freqDisplay').textContent = currentFreq;
-        document.getElementById('freqFill').style.width = `${percent * 100}%`;
-        document.getElementById('freqHandle').style.left = `${percent * 100}%`;
-      });
-    });
-
-    document.addEventListener('mouseup', () => {
-      if (isSliding) {
-        isSliding = false;
-        if (rafId) cancelAnimationFrame(rafId);
-        updateFreqDisplay();
-        if (channelData[selectedChannel].active) {
-          channelData[selectedChannel].freq = currentFreq;
-          updateChannelVisuals();
-        }
-      }
-    });
-
-    function updateFreqFromSlider(e) {
-      const rect = freqSlider.getBoundingClientRect();
-      const percent = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      currentFreq = Math.round((percent * (maxFreq - minFreq) + minFreq) / 10) * 10;
-      updateFreqDisplay();
-    }
-    // end
-
-    // Click on tick marks
-    document.querySelectorAll('.freq-tick').forEach(tick => {
-      tick.addEventListener('click', () => {
-        setFreq(parseInt(tick.dataset.freq));
-      });
-    });
-
-    // Frequency input
-    const freqInput = document.getElementById('freqInput');
-    freqInput.addEventListener('change', () => {
-      const freq = parseInt(freqInput.value);
-      if (!isNaN(freq)) setFreq(freq);
-    });
-    freqInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const freq = parseInt(freqInput.value);
-        if (!isNaN(freq)) setFreq(freq);
-        freqInput.blur();
-      }
-    });
-
-    // === Quick Channel Presets ===
-    async function enableChannels(count) {
-      // Reset all
-      for (let i = 1; i <= 12; i++) {
-        channelData[i].active = false;
-        channelData[i].freq = null;
-      }
-
-      const freqPresets = [540, 640, 740, 840, 940, 1040, 1140, 1240, 1340, 1440, 1540, 1640];
-      const distribution = {
-        1: [1],
-        2: [1, 7],
-        3: [12, 4, 8],
-        4: [12, 3, 6, 9],
-        6: [12, 2, 4, 6, 8, 10],
-        8: [12, 1, 3, 4, 6, 7, 9, 10],
-        12: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-      };
-
-      const channels = distribution[count] || distribution[1];
-      channels.forEach((ch, i) => {
-        channelData[ch].active = true;
-        channelData[ch].freq = freqPresets[ch - 1];
-      });
-
-      // Call Rust backend
-      if (isConnectedToFPGA) {
-        try {
-          await invoke('enable_preset_channels', { count });
-        } catch (err) {
-          addLog(`Preset failed: ${err}`, 'error');
-        }
-      }
-
-      updateChannelVisuals();
-      selectChannel(selectedChannel); // Refresh current selection
-      addLog(`Enabled ${count} channel${count > 1 ? 's' : ''}`, 'success');
-    }
-
-    document.querySelectorAll('.quick-ch-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        enableChannels(parseInt(btn.dataset.count));
-      });
-    });
-
-    // === Broadcast Control ===
-    function toggleBroadcast() {
-      if (isBroadcasting) {
-        stopBroadcast();
-      } else {
-        const activeCount = Object.values(channelData).filter(c => c.active).length;
-        if (activeCount === 0) {
-          addLog('No active channels to broadcast', 'error');
-          return;
-        }
-        document.getElementById('confirmChannelCount').textContent = activeCount;
-        confirmModal.classList.add('show');
-      }
-    }
-
-    function closeModal() {
-      confirmModal.classList.remove('show');
-    }
-
-    async function startBroadcast() {
-      closeModal();
-
-      if (isConnectedToFPGA) {
-        try {
-          await invoke('start_broadcast');
-        } catch (err) {
-          addLog(`Broadcast failed: ${err}`, 'error');
-          return;
-        }
-      }
-
-      isBroadcasting = true;
-      app.classList.add('broadcasting');
-      broadcastCard.classList.add('broadcasting');
-      broadcastBtn.textContent = 'Stop Broadcast';
-      broadcastBtn.className = 'broadcast-btn stop';
-
-      const activeCount = Object.values(channelData).filter(c => c.active).length;
-      addLog(`Broadcast started on ${activeCount} channel${activeCount !== 1 ? 's' : ''}`, 'success');
-
-      broadcastSeconds = 0;
-      broadcastTimer = setInterval(() => {
-        broadcastSeconds++;
-        const mins = Math.floor(broadcastSeconds / 60).toString().padStart(2, '0');
-        const secs = (broadcastSeconds % 60).toString().padStart(2, '0');
-        document.getElementById('durationDisplay').textContent = `${mins}:${secs}`;
-      }, 1000);
-    }
-
-    async function stopBroadcast() {
-      if (isConnectedToFPGA) {
-        try {
-          await invoke('stop_broadcast');
-        } catch (err) {
-          addLog(`Stop failed: ${err}`, 'error');
-        }
-      }
-
-      isBroadcasting = false;
-      app.classList.remove('broadcasting');
-
-      broadcastCard.classList.remove('broadcasting');
-      broadcastBtn.textContent = 'Start Broadcast';
-      broadcastBtn.className = 'broadcast-btn start';
-      addLog('Broadcast stopped', 'warning');
-
-      clearInterval(broadcastTimer);
-      document.getElementById('durationDisplay').textContent = '00:00';
-    }
-
-    broadcastBtn.addEventListener('click', toggleBroadcast);
-    document.getElementById('modalCancel').addEventListener('click', closeModal);
-    document.getElementById('modalConfirm').addEventListener('click', startBroadcast);
-
-    confirmModal.addEventListener('click', (e) => {
-      if (e.target === confirmModal) closeModal();
-    });
-
-    // === Source Toggle ===
-    sourceToggle.addEventListener('click', async () => {
-      sourceToggle.classList.toggle('active');
-      const isBram = sourceToggle.classList.contains('active');
-      sourceLabel.textContent = isBram ? 'BRAM' : 'ADC';
-      sourceLabel.style.color = isBram ? 'var(--accent-green)' : 'var(--accent-amber)';
-
-      if (isConnectedToFPGA) {
-        try {
-          await invoke('set_source', { source: isBram ? 'BRAM' : 'ADC' });
-        } catch (err) {
-          addLog(`Source change failed: ${err}`, 'error');
-        }
-      }
-
-      addLog(`Source set to ${isBram ? 'BRAM' : 'ADC'}`, 'success');
-    });
-
-    // === Keyboard Shortcuts ===
-    document.addEventListener('keydown', (e) => {
-      if (e.target.tagName === 'INPUT') return;
-
-      switch(e.key) {
-        case 'ArrowRight':
-        case 'ArrowDown':
-          e.preventDefault();
-          selectChannel(selectedChannel === 12 ? 1 : selectedChannel + 1);
-          break;
-        case 'ArrowLeft':
-        case 'ArrowUp':
-          e.preventDefault();
-          selectChannel(selectedChannel === 1 ? 12 : selectedChannel - 1);
-          break;
-        case 'Enter':
-        case ' ':
-          e.preventDefault();
-          toggleSelectedChannel();
-          break;
-        case 'b':
-        case 'B':
-          if (!e.ctrlKey && !e.metaKey) {
-            e.preventDefault();
-            toggleBroadcast();
-          }
-          break;
-        case 'Escape':
-          closeModal();
-          break;
-      }
-    });
-
-    // === State Polling ===
-    async function pollState() {
-      if (!isConnectedToFPGA) return;
-
-      try {
-        const state = await invoke('get_state');
-        if (!state) return;
-
-        // Update channels from backend
-        if (state.channels) {
-          state.channels.forEach(ch => {
-            channelData[ch.id] = {
-              active: ch.enabled,
-              freq: ch.enabled ? Math.round(ch.frequency / 1000) : null
-            };
-          });
-          updateChannelVisuals();
-        }
-
-        // Update watchdog status
-        if (state.watchdog_state) {
-          const wd = document.getElementById('watchdogStatus');
-          const wdText = document.getElementById('watchdogText');
-          wd.className = 'watchdog';
-          if (state.watchdog_state === 'TRIGGERED') {
-            wd.classList.add('triggered');
-            wdText.textContent = 'WATCHDOG TRIGGERED!';
-          } else if (state.watchdog_state === 'WARNING') {
-            wd.classList.add('warning');
-            wdText.textContent = 'WATCHDOG WARNING';
-          } else {
-            wdText.textContent = 'WATCHDOG OK';
-          }
-        }
-
-      } catch (err) {
-        isConnectedToFPGA = false;
-        updateConnectionUI();
-        addLog('Connection lost', 'error');
-      }
-    }
-
-    setInterval(pollState, 2000);
-
-    // === Initialize ===
-    selectChannel(12);
-    updateChannelVisuals();
-    updateConnectionUI();
-    addLog('System ready', 'success');
-  </script>
 </body>
 </html>

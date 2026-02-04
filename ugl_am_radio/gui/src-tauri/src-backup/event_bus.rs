@@ -6,7 +6,7 @@
 use tokio::sync::broadcast;
 use serde::Serialize;
 
-use crate::state_machine::{ConnectionState, SourceMode};
+use crate::model::{ConnectionState, SourceMode};
 
 // ============================================================
 // EVENT TYPES
