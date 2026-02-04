@@ -4,6 +4,7 @@
 
 const Controller = {
   // Local UI state (only for things Rust doesn't track)
+  cachedState: null,
   isEditingFreq: false,
   selectedChannel: 12,
   currentFreq: 540,
@@ -52,6 +53,7 @@ const Controller = {
 
   onStateChanged(state) {
     if (!state) return;
+    this.cachedState = state;
 
     // Handle broadcast timer
     const isBroadcasting = state.broadcast === 'BROADCASTING' || state.broadcast === 'EMERGENCY';

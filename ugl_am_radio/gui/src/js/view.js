@@ -131,7 +131,7 @@ const View = {
     if (can_stop) {
       this.elements.broadcastBtn.textContent = is_emergency ? 'STOP EMERGENCY' : 'STOP BROADCAST';
       this.elements.broadcastBtn.className = 'broadcast-btn stop';
-    } else if (can_broadcast) {
+    } else if (state.connection === "CONNECTED") {
       this.elements.broadcastBtn.textContent = 'START BROADCAST';
       this.elements.broadcastBtn.className = 'broadcast-btn start';
     } else {
@@ -218,7 +218,7 @@ const View = {
 
     // Frequency
     const freq = channel?.frequency ? Math.round(channel.frequency / 1000) : currentFreq;
-    this.renderFrequency(freq);
+    // this.renderFrequency(freq); // disabled - slider controls freq
 
     // Mini display
     this.elements.freqMiniDisplay.textContent = isEnabled ? `${freq} kHz` : '-- kHz';
