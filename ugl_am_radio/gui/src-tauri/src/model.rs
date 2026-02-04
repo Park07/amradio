@@ -11,6 +11,7 @@ use tokio::net::TcpStream;
 use tokio::sync::{broadcast, RwLock};
 use tokio::time::{timeout, sleep, Instant};
 use serde::{Deserialize, Serialize};
+use crate::retry::{RetryConfig, RetryResult, with_retry};
 
 use crate::config::{Config, ScpiCommands};
 use crate::event_bus::EventType;
@@ -26,6 +27,13 @@ pub struct Channel {
     pub frequency: u32,      // Hz (540000 = 540 kHz)
     pub amplitude: f32,      // 0.0 - 1.0
     pub phase: f32,          // degrees
+}
+
+#[derive(Clone, Debug)]
+pub struct ChannelChange {
+    pub channel_id: u8,
+    pub frequency: Option<u32>,
+    pub enabled: Option<bool>,
 }
 
 impl Channel {
@@ -91,6 +99,7 @@ pub struct AuditEntry {
 pub struct NetworkManager {
     // TCP connection (wrapped for async access)
     stream: Arc<RwLock<Option<TcpStream>>>,
+    pending_changes: RwLock<Vec<ChannelChange>>,
 
     // Device state
     state: Arc<RwLock<DeviceState>>,
@@ -127,6 +136,7 @@ impl NetworkManager {
             current_port: Arc::new(RwLock::new(None)),
             is_running: Arc::new(RwLock::new(false)),
             reconnect_attempts: Arc::new(RwLock::new(0)),
+            pending_changes: RwLock::new(Vec::new()),
             last_watchdog_reset: Arc::new(RwLock::new(Instant::now())),
         }
     }
@@ -195,20 +205,29 @@ impl NetworkManager {
         *self.current_ip.write().await = Some(ip.to_string());
         *self.current_port.write().await = Some(port);
 
-        // Try to connect with timeout
+        // Try to connect with retry/backoff
         let addr = format!("{}:{}", ip, port);
-        let stream = match timeout(
-            Duration::from_secs(Config::CONNECTION_TIMEOUT_SECS),
-            TcpStream::connect(&addr)
-        ).await {
-            Ok(Ok(s)) => s,
-            Ok(Err(e)) => {
-                self.handle_connect_failure(&format!("Connection refused: {}", e)).await;
-                return Err(format!("Connection failed: {}", e));
+        let retry_config = RetryConfig::default();
+
+        let stream = match with_retry(&retry_config, || {
+            let addr = addr.clone();
+            async move {
+                timeout(
+                    Duration::from_secs(Config::CONNECTION_TIMEOUT_SECS),
+                    TcpStream::connect(&addr)
+                ).await
+                .map_err(|_| "Connection timeout".to_string())?
+                .map_err(|e| format!("Connection refused: {}", e))
             }
-            Err(_) => {
-                self.handle_connect_failure("Connection timeout").await;
-                return Err(format!("Connection timeout after {} seconds", Config::CONNECTION_TIMEOUT_SECS));
+        }).await {
+            RetryResult::Success(s) => s,
+            RetryResult::Failed { attempts, last_error } => {
+                self.handle_connect_failure(&format!(
+                    "Connection failed after {} attempts: {}",
+                    attempts,
+                    last_error
+                )).await;
+                return Err(format!("Connection failed after {} attempts", attempts));
             }
         };
 
@@ -298,6 +317,7 @@ impl NetworkManager {
 
         // Stop polling
         *self.is_running.write().await = false;
+        self.pending_changes.write().await.clear();
 
         // If broadcasting, stop first
         {

@@ -7,6 +7,7 @@ mod config;
 mod event_bus;
 mod model;
 mod state_machine;
+mod retry;
 
 use std::sync::Arc;
 use tokio::sync::RwLock;
