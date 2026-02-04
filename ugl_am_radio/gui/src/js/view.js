@@ -132,12 +132,15 @@ const View = {
       this.elements.broadcastBtn.textContent = is_emergency ? 'STOP EMERGENCY' : 'STOP BROADCAST';
       this.elements.broadcastBtn.className = 'broadcast-btn stop';
     } else if (state.connection === "CONNECTED") {
+      this.elements.broadcastBtn.disabled = false;
+      this.elements.broadcastBtn.disabled = false;
+      this.elements.broadcastBtn.disabled = false;
       this.elements.broadcastBtn.textContent = 'START BROADCAST';
       this.elements.broadcastBtn.className = 'broadcast-btn start';
     } else {
       this.elements.broadcastBtn.textContent = broadcast === 'STARTING...' ? 'STARTING...' : 'START BROADCAST';
       this.elements.broadcastBtn.className = 'broadcast-btn start';
-      this.elements.broadcastBtn.disabled = !can_broadcast;
+      this.elements.broadcastBtn.disabled = (state.connection !== "CONNECTED");
     }
 
     // Active channel count

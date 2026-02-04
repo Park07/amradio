@@ -55,6 +55,10 @@ const Controller = {
     if (!state) return;
     this.cachedState = state;
 
+    // Update channel panel
+    const channel = state.channels?.find(c => c.id === this.selectedChannel);
+    View.renderChannelConfig(channel, this.currentFreq);
+
     // Handle broadcast timer
     const isBroadcasting = state.broadcast === 'BROADCASTING' || state.broadcast === 'EMERGENCY';
 
