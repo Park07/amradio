@@ -1,8 +1,3 @@
-//! UGL AM Radio Control - Pure Rust
-//!
-//! Single binary desktop application
-//! Author: William Park
-
 #![cfg_attr(
     all(not(debug_assertions), target_os = "windows"),
     windows_subsystem = "windows"
@@ -13,37 +8,35 @@ mod event_bus;
 mod model;
 mod commands;
 
-use commands::*;
-use tracing_subscriber;
+use std::sync::Arc;
+use tokio::sync::Mutex;
+
+use event_bus::EventBus;
+use model::NetworkManager;
+use commands::AppState;
 
 fn main() {
-    // Initialize logging
-    tracing_subscriber::fmt::init();
-    
-    // Initialize tokio runtime for async operations
-    let runtime = tokio::runtime::Runtime::new().expect("Failed to create Tokio runtime");
-    
-    // Enter the runtime context so model can spawn tasks
-    let _guard = runtime.enter();
-    
-    // Initialize the model (this starts the event listener)
-    let _ = model::model();
+    let event_bus = EventBus::new();
+    let event_tx = event_bus.get_sender();
+    let network_manager = NetworkManager::new(event_tx);
+    let app_state: AppState = Arc::new(Mutex::new(network_manager));
     
     tauri::Builder::default()
+        .manage(app_state)
         .invoke_handler(tauri::generate_handler![
-            get_state,
-            connect,
-            disconnect,
-            start_broadcast,
-            stop_broadcast,
-            update_channel,
-            enable_preset_channels,
-            set_source,
-            set_message,
-            reset_watchdog,
-            get_log,
-            get_config,
+            commands::connect,
+            commands::disconnect,
+            commands::start_broadcast,
+            commands::stop_broadcast,
+            commands::update_channel,
+            commands::enable_preset_channels,
+            commands::set_source,
+            commands::get_state,
         ])
+        .setup(|_app| {
+            println!("UGL AM Radio Control - Rust Backend Ready");
+            Ok(())
+        })
         .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .expect("Error running tauri application");
 }

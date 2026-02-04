@@ -1,121 +1,177 @@
-//! Configuration for UGL AM Radio Control System
-//! 
-//! Direct port from Python config.py
-//! Author: William Park
-
-use serde::{Deserialize, Serialize};
+// ============================================================
+// config.rs - ALL CONFIGURATION CONSTANTS
+// Same as Python's config.py
+// ============================================================
 
 /// Application configuration constants
 pub struct Config;
 
 impl Config {
-    // Connection defaults
+    // ----------------------------------------------------------
+    // NETWORK
+    // ----------------------------------------------------------
     pub const DEFAULT_IP: &'static str = "192.168.0.100";
     pub const DEFAULT_PORT: u16 = 5000;
-    pub const SOCKET_TIMEOUT_SECS: u64 = 5;
+    pub const CONNECTION_TIMEOUT_SECS: u64 = 5;
+    pub const COMMAND_TIMEOUT_SECS: u64 = 2;
 
-    // Polling settings
-    pub const POLL_INTERVAL_MS: u64 = 500;
-    pub const HEARTBEAT_INTERVAL_MS: u64 = 1000;
-    pub const HEARTBEAT_TIMEOUT_SECS: u64 = 3;
-
-    // Watchdog settings
+    // ----------------------------------------------------------
+    // POLLING
+    // ----------------------------------------------------------
+    pub const POLL_INTERVAL_MS: u64 = 500;  // 500ms = 2Hz polling
     pub const WATCHDOG_TIMEOUT_SECS: u64 = 5;
-    pub const WATCHDOG_WARNING_THRESHOLD: f64 = 0.8;
 
-    // Auto-reconnect settings
-    pub const AUTO_RECONNECT: bool = true;
-    pub const RECONNECT_DELAY_MS: u64 = 2000;
-    pub const MAX_RECONNECT_ATTEMPTS: u32 = 5;
+    // ----------------------------------------------------------
+    // RECONNECTION
+    // ----------------------------------------------------------
+    pub const MAX_RECONNECT_ATTEMPTS: u8 = 5;
+    pub const RECONNECT_DELAY_SECS: u64 = 2;
+    pub const MAX_CONSECUTIVE_ERRORS: u8 = 3;
 
-    // Audio sources
-    pub const SOURCE_ADC: &'static str = "ADC";
-    pub const SOURCE_BRAM: &'static str = "BRAM";
+    // ----------------------------------------------------------
+    // FREQUENCY LIMITS (Hz)
+    // ----------------------------------------------------------
+    pub const MIN_FREQUENCY: u32 = 500_000;    // 500 kHz
+    pub const MAX_FREQUENCY: u32 = 1_700_000;  // 1700 kHz
+    pub const DEFAULT_FREQUENCY: u32 = 540_000; // 540 kHz
 
-    // Frequency limits (Hz)
-    pub const FREQ_MIN: u32 = 530_000;
-    pub const FREQ_MAX: u32 = 1_700_000;
+    // ----------------------------------------------------------
+    // CHANNELS
+    // ----------------------------------------------------------
+    pub const NUM_CHANNELS: u8 = 12;
 
-    // Number of channels
-    pub const NUM_CHANNELS: usize = 12;
+    // ----------------------------------------------------------
+    // AUDIT LOG
+    // ----------------------------------------------------------
+    pub const MAX_LOG_ENTRIES: usize = 100;
 }
 
-/// Channel configuration
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct ChannelConfig {
-    pub id: u8,
-    pub default_freq: u32,
-    pub name: String,
-}
-
-/// Get default channel configurations
-pub fn get_default_channels() -> Vec<ChannelConfig> {
-    vec![
-        ChannelConfig { id: 1,  default_freq: 540_000,  name: "CH1".into() },
-        ChannelConfig { id: 2,  default_freq: 640_000,  name: "CH2".into() },
-        ChannelConfig { id: 3,  default_freq: 740_000,  name: "CH3".into() },
-        ChannelConfig { id: 4,  default_freq: 840_000,  name: "CH4".into() },
-        ChannelConfig { id: 5,  default_freq: 940_000,  name: "CH5".into() },
-        ChannelConfig { id: 6,  default_freq: 1_040_000, name: "CH6".into() },
-        ChannelConfig { id: 7,  default_freq: 1_140_000, name: "CH7".into() },
-        ChannelConfig { id: 8,  default_freq: 1_240_000, name: "CH8".into() },
-        ChannelConfig { id: 9,  default_freq: 1_340_000, name: "CH9".into() },
-        ChannelConfig { id: 10, default_freq: 1_440_000, name: "CH10".into() },
-        ChannelConfig { id: 11, default_freq: 1_540_000, name: "CH11".into() },
-        ChannelConfig { id: 12, default_freq: 1_640_000, name: "CH12".into() },
-    ]
-}
-
-/// Message presets
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct MessagePreset {
-    pub id: u8,
-    pub name: String,
-    pub duration: String,
-}
-
-pub fn get_message_presets() -> Vec<MessagePreset> {
-    vec![
-        MessagePreset { id: 1, name: "Emergency Evacuation".into(), duration: "45s".into() },
-        MessagePreset { id: 2, name: "Fire Alert".into(), duration: "30s".into() },
-        MessagePreset { id: 3, name: "Traffic Advisory".into(), duration: "60s".into() },
-        MessagePreset { id: 4, name: "Test Tone".into(), duration: "10s".into() },
-    ]
-}
-
-/// SCPI command templates
+/// SCPI Commands - matches FPGA firmware protocol
 pub struct ScpiCommands;
 
 impl ScpiCommands {
-    pub const QUERY_ID: &'static str = "*IDN?";
-    pub const QUERY_STATUS: &'static str = "STATUS?";
-    
-    pub fn set_source(source: &str) -> String {
-        format!("SOURCE:INPUT {}", source)
-    }
-    
-    pub fn set_message(id: u8) -> String {
-        format!("SOURCE:MSG {}", id)
-    }
-    
-    pub fn set_freq(channel_id: u8, freq_hz: u32) -> String {
-        format!("FREQ:CH{} {}", channel_id, freq_hz)
-    }
-    
-    pub fn set_output(channel_id: u8, enabled: bool) -> String {
-        let state = if enabled { "ON" } else { "OFF" };
-        format!("CH{}:OUTPUT {}", channel_id, state)
-    }
-    
-    pub fn set_broadcast(active: bool) -> String {
-        let state = if active { "ON" } else { "OFF" };
-        format!("OUTPUT:STATE {}", state)
-    }
-    
+    // ----------------------------------------------------------
+    // SYSTEM COMMANDS
+    // ----------------------------------------------------------
+    pub const IDENTITY: &'static str = "*IDN?";
+    pub const RESET: &'static str = "*RST";
+    pub const STATUS: &'static str = "STATUS?";
+
+    // ----------------------------------------------------------
+    // WATCHDOG (CRITICAL FOR SAFETY)
+    // ----------------------------------------------------------
     pub const WATCHDOG_RESET: &'static str = "WATCHDOG:RESET";
-    
-    pub fn watchdog_enable(enabled: bool) -> String {
-        let state = if enabled { "ON" } else { "OFF" };
-        format!("WATCHDOG:ENABLE {}", state)
+    pub const WATCHDOG_STATUS: &'static str = "WATCHDOG:STATUS?";
+    pub const WATCHDOG_TIMEOUT: &'static str = "WATCHDOG:TIMEOUT";  // Set timeout
+
+    // ----------------------------------------------------------
+    // OUTPUT CONTROL
+    // ----------------------------------------------------------
+    pub const OUTPUT_ON: &'static str = "OUTPUT:STATE ON";
+    pub const OUTPUT_OFF: &'static str = "OUTPUT:STATE OFF";
+    pub const OUTPUT_STATUS: &'static str = "OUTPUT:STATE?";
+    pub const OUTPUT_CH_PREFIX: &'static str = "OUTPUT:CH";  // OUTPUT:CH1 ON
+
+    // ----------------------------------------------------------
+    // FREQUENCY CONTROL
+    // ----------------------------------------------------------
+    pub const FREQ_PREFIX: &'static str = "FREQ:CH";  // FREQ:CH1 540000
+    pub const FREQ_QUERY_PREFIX: &'static str = "FREQ:CH";  // FREQ:CH1?
+
+    // ----------------------------------------------------------
+    // AMPLITUDE CONTROL
+    // ----------------------------------------------------------
+    pub const AMP_PREFIX: &'static str = "AMP:CH";  // AMP:CH1 0.5
+
+    // ----------------------------------------------------------
+    // PHASE CONTROL
+    // ----------------------------------------------------------
+    pub const PHASE_PREFIX: &'static str = "PHASE:CH";  // PHASE:CH1 90
+
+    // ----------------------------------------------------------
+    // SOURCE CONTROL
+    // ----------------------------------------------------------
+    pub const SOURCE_MODE: &'static str = "SOURCE:MODE";  // SOURCE:MODE BRAM
+    pub const SOURCE_BRAM: &'static str = "SOURCE:MODE BRAM";
+    pub const SOURCE_ADC: &'static str = "SOURCE:MODE ADC";
+    pub const SOURCE_STATUS: &'static str = "SOURCE:MODE?";
+
+    // ----------------------------------------------------------
+    // BRAM (Pre-recorded audio) CONTROL
+    // ----------------------------------------------------------
+    pub const BRAM_SELECT: &'static str = "BRAM:SELECT";  // BRAM:SELECT 0 (message index)
+    pub const BRAM_LIST: &'static str = "BRAM:LIST?";
+
+    // ----------------------------------------------------------
+    // DIAGNOSTIC COMMANDS
+    // ----------------------------------------------------------
+    pub const TEMP_QUERY: &'static str = "SYSTEM:TEMP?";
+    pub const UPTIME_QUERY: &'static str = "SYSTEM:UPTIME?";
+    pub const ERROR_QUERY: &'static str = "SYSTEM:ERROR?";
+}
+
+/// Frequency presets for quick channel setup
+pub struct FrequencyPresets;
+
+impl FrequencyPresets {
+    /// Get frequency for channel (100kHz spacing starting at 540kHz)
+    pub fn for_channel(ch: u8) -> u32 {
+        let base = 540_000u32;
+        let spacing = 100_000u32;
+        base + (ch.saturating_sub(1) as u32) * spacing
+    }
+
+    /// Get all 12 preset frequencies
+    pub fn all() -> [u32; 12] {
+        [
+            540_000,   // CH1
+            640_000,   // CH2
+            740_000,   // CH3
+            840_000,   // CH4
+            940_000,   // CH5
+            1_040_000, // CH6
+            1_140_000, // CH7
+            1_240_000, // CH8
+            1_340_000, // CH9
+            1_440_000, // CH10
+            1_540_000, // CH11
+            1_640_000, // CH12
+        ]
+    }
+}
+
+/// Channel distribution presets
+pub struct ChannelPresets;
+
+impl ChannelPresets {
+    /// Get channel IDs for a given preset count
+    pub fn for_count(count: u8) -> Vec<u8> {
+        match count {
+            1 => vec![1],
+            2 => vec![1, 7],
+            3 => vec![12, 4, 8],
+            4 => vec![12, 3, 6, 9],
+            6 => vec![12, 2, 4, 6, 8, 10],
+            8 => vec![12, 1, 3, 4, 6, 7, 9, 10],
+            12 => (1..=12).collect(),
+            _ => vec![1],
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_frequency_presets() {
+        assert_eq!(FrequencyPresets::for_channel(1), 540_000);
+        assert_eq!(FrequencyPresets::for_channel(12), 1_640_000);
+    }
+
+    #[test]
+    fn test_channel_presets() {
+        assert_eq!(ChannelPresets::for_count(3), vec![12, 4, 8]);
+        assert_eq!(ChannelPresets::for_count(12).len(), 12);
     }
 }

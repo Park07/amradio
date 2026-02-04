@@ -1,181 +1,175 @@
-// ============================================================
-// commands.rs - TAURI COMMANDS
-// These are the functions JavaScript calls via invoke()
-// ============================================================
-
 use tauri::State;
-use crate::model::{NetworkManager, DeviceState};
+use serde::{Deserialize, Serialize};
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
-// The model is stored in Tauri's state management
-type AppState = Arc<Mutex<NetworkManager>>;
+use crate::model::{NetworkManager, ConnectionState, BroadcastState, WatchdogState, SourceMode};
 
-// ============================================================
-// CONNECT COMMAND
-// JavaScript: await invoke('connect', { ip, port })
-// ============================================================
-#[tauri::command]
-pub async fn connect(
-    ip: String,
-    port: u16,
-    state: State<'_, AppState>
-) -> Result<String, String> {
-    let mut manager = state.lock().await;
-    manager.connect(&ip, port).await?;
-    Ok("Connected".to_string())
+// Make this PUBLIC so main.rs can use it
+pub type AppState = Arc<Mutex<NetworkManager>>;
+
+#[derive(Serialize)]
+pub struct ConnectResponse {
+    pub success: bool,
+    pub message: String,
 }
 
-// ============================================================
-// DISCONNECT COMMAND
-// JavaScript: await invoke('disconnect')
-// ============================================================
-#[tauri::command]
-pub async fn disconnect(state: State<'_, AppState>) -> Result<String, String> {
-    let mut manager = state.lock().await;
-    manager.disconnect().await?;
-    Ok("Disconnected".to_string())
-}
-
-// ============================================================
-// START BROADCAST COMMAND
-// JavaScript: await invoke('start_broadcast')
-// Rust sends: "OUTPUT:STATE ON" to FPGA
-// ============================================================
-#[tauri::command]
-pub async fn start_broadcast(state: State<'_, AppState>) -> Result<String, String> {
-    let mut manager = state.lock().await;
-    manager.start_broadcast().await?;
-    Ok("Broadcast started".to_string())
-}
-
-// ============================================================
-// STOP BROADCAST COMMAND
-// JavaScript: await invoke('stop_broadcast')
-// Rust sends: "OUTPUT:STATE OFF" to FPGA
-// ============================================================
-#[tauri::command]
-pub async fn stop_broadcast(state: State<'_, AppState>) -> Result<String, String> {
-    let mut manager = state.lock().await;
-    manager.stop_broadcast().await?;
-    Ok("Broadcast stopped".to_string())
-}
-
-// ============================================================
-// UPDATE CHANNEL COMMAND
-// JavaScript: await invoke('update_channel', { channelId, update })
-// Rust sends: "FREQ:CH1 540000" and "OUTPUT:CH1 ON" to FPGA
-// ============================================================
-#[derive(serde::Deserialize)]
-pub struct ChannelUpdate {
-    pub enabled: bool,
-    pub frequency: Option<u32>,
-}
-
-#[tauri::command]
-pub async fn update_channel(
-    channel_id: u8,
-    update: ChannelUpdate,
-    state: State<'_, AppState>
-) -> Result<String, String> {
-    let mut manager = state.lock().await;
-    let freq = update.frequency.unwrap_or(540000);
-    manager.set_channel(channel_id, freq, update.enabled).await?;
-    Ok(format!("Channel {} updated", channel_id))
-}
-
-// ============================================================
-// SET SOURCE COMMAND
-// JavaScript: await invoke('set_source', { source: 'BRAM' })
-// Rust sends: "SOURCE:MODE BRAM" to FPGA
-// ============================================================
-#[tauri::command]
-pub async fn set_source(
-    source: String,
-    state: State<'_, AppState>
-) -> Result<String, String> {
-    let mut manager = state.lock().await;
-    manager.set_source(&source).await?;
-    Ok(format!("Source set to {}", source))
-}
-
-// ============================================================
-// GET STATE COMMAND
-// JavaScript: const state = await invoke('get_state')
-// Returns current device state to UI for display
-// ============================================================
-#[derive(serde::Serialize)]
+#[derive(Serialize)]
 pub struct StateResponse {
     pub connection_state: String,
     pub broadcast_state: String,
     pub watchdog_state: String,
-    pub channels: Vec<ChannelInfo>,
+    pub channels: Vec<ChannelResponse>,
     pub source: String,
+    pub fpga_temperature: Option<f32>,
+    pub error_count: u32,
 }
 
-#[derive(serde::Serialize)]
-pub struct ChannelInfo {
+#[derive(Serialize)]
+pub struct ChannelResponse {
     pub id: u8,
     pub enabled: bool,
     pub frequency: u32,
+    pub amplitude: f32,
 }
 
+#[derive(Deserialize)]
+pub struct ChannelUpdate {
+    pub enabled: Option<bool>,
+    pub frequency: Option<u32>,
+}
+
+// CONNECT
+#[tauri::command]
+pub async fn connect(
+    ip: String,
+    port: u16,
+    state: State<'_, AppState>,
+) -> Result<ConnectResponse, String> {
+    let manager = state.lock().await;
+    
+    match manager.connect(&ip, port).await {
+        Ok(_) => Ok(ConnectResponse {
+            success: true,
+            message: format!("Connected to {}:{}", ip, port),
+        }),
+        Err(e) => Err(e),
+    }
+}
+
+// DISCONNECT
+#[tauri::command]
+pub async fn disconnect(state: State<'_, AppState>) -> Result<String, String> {
+    let manager = state.lock().await;
+    manager.disconnect().await?;
+    Ok("Disconnected".to_string())
+}
+
+// START BROADCAST
+#[tauri::command]
+pub async fn start_broadcast(state: State<'_, AppState>) -> Result<String, String> {
+    let manager = state.lock().await;
+    manager.start_broadcast().await?;
+    Ok("Broadcast started".to_string())
+}
+
+// STOP BROADCAST
+#[tauri::command]
+pub async fn stop_broadcast(state: State<'_, AppState>) -> Result<String, String> {
+    let manager = state.lock().await;
+    manager.stop_broadcast().await?;
+    Ok("Broadcast stopped".to_string())
+}
+
+// UPDATE CHANNEL
+#[tauri::command]
+pub async fn update_channel(
+    channel_id: u8,
+    update: ChannelUpdate,
+    state: State<'_, AppState>,
+) -> Result<String, String> {
+    let manager = state.lock().await;
+    let device_state = manager.get_state().await;
+    
+    let current = device_state.channels
+        .iter()
+        .find(|c| c.id == channel_id)
+        .ok_or_else(|| format!("Channel {} not found", channel_id))?;
+    
+    let enabled = update.enabled.unwrap_or(current.enabled);
+    let frequency = update.frequency.unwrap_or(current.frequency);
+    
+    manager.set_channel(channel_id, frequency, enabled).await?;
+    Ok(format!("Channel {} updated", channel_id))
+}
+
+// SET SOURCE
+#[tauri::command]
+pub async fn set_source(
+    source: String,
+    state: State<'_, AppState>,
+) -> Result<String, String> {
+    let manager = state.lock().await;
+    
+    let mode = match source.to_uppercase().as_str() {
+        "BRAM" => SourceMode::Bram,
+        "ADC" => SourceMode::Adc,
+        _ => return Err(format!("Invalid source: {}", source)),
+    };
+    
+    manager.set_source(mode).await?;
+    Ok(format!("Source set to {}", source))
+}
+
+// ENABLE PRESET CHANNELS
+#[tauri::command]
+pub async fn enable_preset_channels(
+    count: u8,
+    state: State<'_, AppState>,
+) -> Result<String, String> {
+    let manager = state.lock().await;
+    manager.enable_preset(count).await?;
+    Ok(format!("Enabled {} channels", count))
+}
+
+// GET STATE
 #[tauri::command]
 pub async fn get_state(state: State<'_, AppState>) -> Result<StateResponse, String> {
     let manager = state.lock().await;
     let device_state = manager.get_state().await;
-
+    
     Ok(StateResponse {
-        connection_state: format!("{:?}", device_state.connection),
-        broadcast_state: format!("{:?}", device_state.broadcast),
-        watchdog_state: format!("{:?}", device_state.watchdog),
-        channels: device_state.channels.iter().map(|c| ChannelInfo {
+        connection_state: match device_state.connection {
+            ConnectionState::Disconnected => "DISCONNECTED",
+            ConnectionState::Connecting => "CONNECTING",
+            ConnectionState::Connected => "CONNECTED",
+            ConnectionState::Reconnecting => "RECONNECTING",
+        }.to_string(),
+        
+        broadcast_state: match device_state.broadcast {
+            BroadcastState::Idle => "IDLE",
+            BroadcastState::Broadcasting => "BROADCASTING",
+        }.to_string(),
+        
+        watchdog_state: match device_state.watchdog {
+            WatchdogState::Ok => "OK",
+            WatchdogState::Warning => "WARNING",
+            WatchdogState::Triggered => "TRIGGERED",
+        }.to_string(),
+        
+        channels: device_state.channels.iter().map(|c| ChannelResponse {
             id: c.id,
             enabled: c.enabled,
             frequency: c.frequency,
+            amplitude: c.amplitude,
         }).collect(),
-        source: device_state.source.clone(),
+        
+        source: match device_state.source {
+            SourceMode::Bram => "BRAM",
+            SourceMode::Adc => "ADC",
+        }.to_string(),
+        
+        fpga_temperature: device_state.fpga_temperature,
+        error_count: device_state.error_count,
     })
-}
-
-// ============================================================
-// ENABLE PRESET CHANNELS COMMAND
-// JavaScript: await invoke('enable_preset_channels', { count: 3 })
-// Enables N channels with distributed frequencies
-// ============================================================
-#[tauri::command]
-pub async fn enable_preset_channels(
-    count: u8,
-    state: State<'_, AppState>
-) -> Result<String, String> {
-    let mut manager = state.lock().await;
-
-    // Frequency presets (100kHz spacing)
-    let freqs = [540000, 640000, 740000, 840000, 940000, 1040000,
-                 1140000, 1240000, 1340000, 1440000, 1540000, 1640000];
-
-    // Distribution patterns (same as Python)
-    let channels: Vec<u8> = match count {
-        1 => vec![1],
-        2 => vec![1, 7],
-        3 => vec![12, 4, 8],
-        4 => vec![12, 3, 6, 9],
-        6 => vec![12, 2, 4, 6, 8, 10],
-        8 => vec![12, 1, 3, 4, 6, 7, 9, 10],
-        12 => (1..=12).collect(),
-        _ => vec![1],
-    };
-
-    // Disable all channels first
-    for ch in 1..=12 {
-        manager.set_channel(ch, 540000, false).await?;
-    }
-
-    // Enable selected channels with frequencies
-    for &ch in &channels {
-        let freq = freqs[(ch - 1) as usize];
-        manager.set_channel(ch, freq, true).await?;
-    }
-
-    Ok(format!("Enabled {} channels", count))
 }
