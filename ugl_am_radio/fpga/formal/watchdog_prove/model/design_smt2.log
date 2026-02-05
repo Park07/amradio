@@ -1,0 +1,69 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 17.0.0 -fPIC -O3)
+
+-- Executing script file `design_smt2.ys' --
+
+1. Executing RTLIL frontend.
+Input filename: design_prep.il
+
+2. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `watchdog_timer'. Setting top module to watchdog_timer.
+
+2.1. Analyzing design hierarchy..
+Top module:  \watchdog_timer
+
+2.2. Analyzing design hierarchy..
+Top module:  \watchdog_timer
+Removed 0 unused modules.
+Module watchdog_timer directly or indirectly contains formal properties -> setting "keep" attribute.
+
+3. Executing FORMALFF pass.
+
+4. Executing DFFUNMAP pass (unmap clock enable and synchronous reset from FFs).
+
+5. Printing statistics.
+
+=== watchdog_timer ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       95 wires
+      412 wire bits
+       25 public wires
+      156 public wire bits
+        8 ports
+       15 port bits
+      105 cells
+        1   $add
+       13   $anyinit
+       13   $assert
+        2   $assume
+        1   $div
+       18   $ff
+        3   $ge
+        1   $gt
+        1   $initstate
+        1   $le
+       14   $logic_and
+        6   $logic_not
+        1   $logic_or
+        2   $lt
+       23   $mux
+        4   $not
+        1   $sub
+
+6. Executing SMT2 backend.
+
+6.1. Executing BMUXMAP pass.
+
+6.2. Executing DEMUXMAP pass.
+Creating SMT-LIBv2 representation of module watchdog_timer.
+
+End of script. Logfile hash: a129ed9756, CPU: user 0.01s system 0.01s, MEM: 13.28 MB peak
+Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 17.0.0 -fPIC -O3)
+Time spent: 67% 2x write_smt2 (0 sec), 18% 2x read_rtlil (0 sec), ...

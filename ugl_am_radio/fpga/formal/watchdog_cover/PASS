@@ -1,0 +1,15 @@
+Elapsed clock time [H:MM:SS (secs)]: 0:00:10 (10)
+Elapsed process time [H:MM:SS (secs)]: 0:00:06 (6)
+engine_0 (smtbmc z3) returned pass
+cover trace: engine_0/trace0.vcd
+cover trace: engine_0/trace0.yw
+  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_178_103 at watchdog_formal.v:178.27-178.64 step 19
+cover trace: engine_0/trace1.vcd
+cover trace: engine_0/trace1.yw
+  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_179_108 at watchdog_formal.v:179.27-179.76 step 21
+cover trace: engine_0/trace2.vcd
+cover trace: engine_0/trace2.yw
+  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_177_100 at watchdog_formal.v:177.27-177.48 step 23
+cover trace: engine_0/trace3.vcd
+cover trace: engine_0/trace3.yw
+  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_180_113 at watchdog_formal.v:180.27-180.80 step 24

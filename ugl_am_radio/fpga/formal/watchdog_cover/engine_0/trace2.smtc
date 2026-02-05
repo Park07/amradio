@@ -1,0 +1,178 @@
+initial
+assume (= [$auto$async2sync.cc:116:execute$289] true)
+assume (= [$auto$async2sync.cc:116:execute$295] true)
+assume (= [$auto$async2sync.cc:116:execute$301] true)
+assume (= [$auto$async2sync.cc:116:execute$307] true)
+assume (= [_witness_.anyinit_procdff_185] false)
+assume (= [counter] #x00000000)
+assume (= [f_past_valid] false)
+assume (= [triggered] false)
+assume (= [warning] false)
+
+state 0
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] false)
+
+state 1
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 2
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 3
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 4
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 5
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 6
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 7
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 8
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 9
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 10
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 11
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 12
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 13
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 14
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 15
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 16
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 17
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 18
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 19
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 20
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 21
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 22
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 23
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
