@@ -35,17 +35,17 @@ Module watchdog_timer directly or indirectly contains formal properties -> setti
 Cleaned up 0 empty switches.
 
 2.3.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
-Marked 5 switch rules as full_case in process $proc$watchdog_formal.v:44$21 in module watchdog_timer.
+Marked 5 switch rules as full_case in process $proc$watchdog_formal.v:44$36 in module watchdog_timer.
 Removed a total of 0 dead cases.
 
 2.3.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
-Removed 7 redundant assignments.
-Promoted 25 assignments to connections.
+Removed 9 redundant assignments.
+Promoted 42 assignments to connections.
 
 2.3.4. Executing PROC_INIT pass (extract init attributes).
-Found init rule in `\watchdog_timer.$proc$watchdog_formal.v:79$121'.
+Found init rule in `\watchdog_timer.$proc$watchdog_formal.v:79$212'.
   Set init value: \f_past_valid = 1'0
-Found init rule in `\watchdog_timer.$proc$watchdog_formal.v:34$117'.
+Found init rule in `\watchdog_timer.$proc$watchdog_formal.v:34$208'.
   Set init value: \triggered = 1'0
   Set init value: \warning = 1'0
   Set init value: \counter = 0
@@ -54,39 +54,59 @@ Found init rule in `\watchdog_timer.$proc$watchdog_formal.v:34$117'.
 
 2.3.6. Executing PROC_ROM pass (convert switches to ROMs).
 Converted 0 switches.
-<suppressed ~13 debug messages>
+<suppressed ~20 debug messages>
 
 2.3.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:79$121'.
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:76$118'.
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:34$117'.
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:180$111'.
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:179$107'.
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:178$102'.
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:177$99'.
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:169$93'.
-     1/1: $assert$watchdog_formal.v:171$97_EN
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:159$84'.
-     1/1: $assert$watchdog_formal.v:161$91_EN
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:151$81'.
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:141$73'.
-     1/2: $assert$watchdog_formal.v:144$78_EN
-     2/2: $assert$watchdog_formal.v:143$76_EN
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:132$70'.
-     1/1: $assert$watchdog_formal.v:134$71_EN
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:120$54'.
-     1/1: $assert$watchdog_formal.v:125$68_EN
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:110$50'.
-     1/1: $assert$watchdog_formal.v:112$52_EN
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:99$39'.
-     1/2: $assert$watchdog_formal.v:102$48_EN
-     2/2: $assert$watchdog_formal.v:101$46_EN
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:87$29'.
-     1/3: $assert$watchdog_formal.v:91$36_EN
-     2/3: $assert$watchdog_formal.v:90$34_EN
-     3/3: $assert$watchdog_formal.v:89$32_EN
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:80$28'.
-Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:44$21'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:79$212'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:76$209'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:34$208'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:267$200'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:264$197'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:261$191'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:258$187'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:255$182'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:252$179'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:239$162'.
+     1/1: $assert$watchdog_formal.v:244$177_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:230$159'.
+     1/1: $assert$watchdog_formal.v:232$160_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:222$155'.
+     1/1: $assert$watchdog_formal.v:224$157_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:211$137'.
+     1/1: $assert$watchdog_formal.v:216$152_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:202$131'.
+     1/1: $assert$watchdog_formal.v:204$135_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:193$125'.
+     1/1: $assert$watchdog_formal.v:195$129_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:180$112'.
+     1/3: $assert$watchdog_formal.v:184$123_EN
+     2/3: $assert$watchdog_formal.v:183$121_EN
+     3/3: $assert$watchdog_formal.v:182$119_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:172$109'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:161$99'.
+     1/3: $assert$watchdog_formal.v:165$106_EN
+     2/3: $assert$watchdog_formal.v:164$104_EN
+     3/3: $assert$watchdog_formal.v:163$102_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:152$95'.
+     1/1: $assert$watchdog_formal.v:154$97_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:143$92'.
+     1/1: $assert$watchdog_formal.v:145$93_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:131$76'.
+     1/1: $assert$watchdog_formal.v:136$90_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:121$72'.
+     1/1: $assert$watchdog_formal.v:123$74_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:109$59'.
+     1/3: $assert$watchdog_formal.v:113$70_EN
+     2/3: $assert$watchdog_formal.v:112$68_EN
+     3/3: $assert$watchdog_formal.v:111$66_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:97$49'.
+     1/3: $assert$watchdog_formal.v:101$56_EN
+     2/3: $assert$watchdog_formal.v:100$54_EN
+     3/3: $assert$watchdog_formal.v:99$52_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:88$44'.
+     1/1: $assume$watchdog_formal.v:90$47_EN
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:80$43'.
+Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:44$36'.
      1/3: $0\warning[0:0]
      2/3: $0\counter[31:0]
      3/3: $0\triggered[0:0]
@@ -94,78 +114,124 @@ Creating decoders for process `\watchdog_timer.$proc$watchdog_formal.v:44$21'.
 2.3.8. Executing PROC_DLATCH pass (convert process syncs to latches).
 
 2.3.9. Executing PROC_DFF pass (convert process syncs to FFs).
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:180$14$0' using process `\watchdog_timer.$proc$watchdog_formal.v:180$111'.
-  created $dff cell `$procdff$185' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:160$11$0' using process `\watchdog_timer.$proc$watchdog_formal.v:159$84'.
-  created $dff cell `$procdff$186' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:160$12$0' using process `\watchdog_timer.$proc$watchdog_formal.v:159$84'.
-  created $dff cell `$procdff$187' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:160$13$0' using process `\watchdog_timer.$proc$watchdog_formal.v:159$84'.
-  created $dff cell `$procdff$188' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:142$10$0' using process `\watchdog_timer.$proc$watchdog_formal.v:141$73'.
-  created $dff cell `$procdff$189' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:122$5$0' using process `\watchdog_timer.$proc$watchdog_formal.v:120$54'.
-  created $dff cell `$procdff$190' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:122$6$0' using process `\watchdog_timer.$proc$watchdog_formal.v:120$54'.
-  created $dff cell `$procdff$191' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:123$7$0' using process `\watchdog_timer.$proc$watchdog_formal.v:120$54'.
-  created $dff cell `$procdff$192' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:123$8$0' using process `\watchdog_timer.$proc$watchdog_formal.v:120$54'.
-  created $dff cell `$procdff$193' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:124$9$0' using process `\watchdog_timer.$proc$watchdog_formal.v:120$54'.
-  created $dff cell `$procdff$194' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:100$2$0' using process `\watchdog_timer.$proc$watchdog_formal.v:99$39'.
-  created $dff cell `$procdff$195' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:100$3$0' using process `\watchdog_timer.$proc$watchdog_formal.v:99$39'.
-  created $dff cell `$procdff$196' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:100$4$0' using process `\watchdog_timer.$proc$watchdog_formal.v:99$39'.
-  created $dff cell `$procdff$197' with positive edge clock.
-Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:88$1$0' using process `\watchdog_timer.$proc$watchdog_formal.v:87$29'.
-  created $dff cell `$procdff$198' with positive edge clock.
-Creating register for signal `\watchdog_timer.\f_past_valid' using process `\watchdog_timer.$proc$watchdog_formal.v:80$28'.
-  created $dff cell `$procdff$199' with positive edge clock.
-Creating register for signal `\watchdog_timer.\triggered' using process `\watchdog_timer.$proc$watchdog_formal.v:44$21'.
-  created $dff cell `$procdff$200' with positive edge clock.
-Creating register for signal `\watchdog_timer.\warning' using process `\watchdog_timer.$proc$watchdog_formal.v:44$21'.
-  created $dff cell `$procdff$201' with positive edge clock.
-Creating register for signal `\watchdog_timer.\counter' using process `\watchdog_timer.$proc$watchdog_formal.v:44$21'.
-  created $dff cell `$procdff$202' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:267$28$0' using process `\watchdog_timer.$proc$watchdog_formal.v:267$200'.
+  created $dff cell `$procdff$298' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:267$29$0' using process `\watchdog_timer.$proc$watchdog_formal.v:267$200'.
+  created $dff cell `$procdff$299' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:261$27$0' using process `\watchdog_timer.$proc$watchdog_formal.v:261$191'.
+  created $dff cell `$procdff$300' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:241$21$0' using process `\watchdog_timer.$proc$watchdog_formal.v:239$162'.
+  created $dff cell `$procdff$301' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:241$22$0' using process `\watchdog_timer.$proc$watchdog_formal.v:239$162'.
+  created $dff cell `$procdff$302' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:242$23$0' using process `\watchdog_timer.$proc$watchdog_formal.v:239$162'.
+  created $dff cell `$procdff$303' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:242$24$0' using process `\watchdog_timer.$proc$watchdog_formal.v:239$162'.
+  created $dff cell `$procdff$304' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:243$25$0' using process `\watchdog_timer.$proc$watchdog_formal.v:239$162'.
+  created $dff cell `$procdff$305' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:244$26$0' using process `\watchdog_timer.$proc$watchdog_formal.v:239$162'.
+  created $dff cell `$procdff$306' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:213$15$0' using process `\watchdog_timer.$proc$watchdog_formal.v:211$137'.
+  created $dff cell `$procdff$307' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:213$16$0' using process `\watchdog_timer.$proc$watchdog_formal.v:211$137'.
+  created $dff cell `$procdff$308' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:214$17$0' using process `\watchdog_timer.$proc$watchdog_formal.v:211$137'.
+  created $dff cell `$procdff$309' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:214$18$0' using process `\watchdog_timer.$proc$watchdog_formal.v:211$137'.
+  created $dff cell `$procdff$310' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:215$19$0' using process `\watchdog_timer.$proc$watchdog_formal.v:211$137'.
+  created $dff cell `$procdff$311' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:216$20$0' using process `\watchdog_timer.$proc$watchdog_formal.v:211$137'.
+  created $dff cell `$procdff$312' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:181$12$0' using process `\watchdog_timer.$proc$watchdog_formal.v:180$112'.
+  created $dff cell `$procdff$313' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:181$13$0' using process `\watchdog_timer.$proc$watchdog_formal.v:180$112'.
+  created $dff cell `$procdff$314' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:181$14$0' using process `\watchdog_timer.$proc$watchdog_formal.v:180$112'.
+  created $dff cell `$procdff$315' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:162$11$0' using process `\watchdog_timer.$proc$watchdog_formal.v:161$99'.
+  created $dff cell `$procdff$316' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:133$6$0' using process `\watchdog_timer.$proc$watchdog_formal.v:131$76'.
+  created $dff cell `$procdff$317' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:133$7$0' using process `\watchdog_timer.$proc$watchdog_formal.v:131$76'.
+  created $dff cell `$procdff$318' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:134$8$0' using process `\watchdog_timer.$proc$watchdog_formal.v:131$76'.
+  created $dff cell `$procdff$319' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:134$9$0' using process `\watchdog_timer.$proc$watchdog_formal.v:131$76'.
+  created $dff cell `$procdff$320' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:135$10$0' using process `\watchdog_timer.$proc$watchdog_formal.v:131$76'.
+  created $dff cell `$procdff$321' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:110$3$0' using process `\watchdog_timer.$proc$watchdog_formal.v:109$59'.
+  created $dff cell `$procdff$322' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:110$4$0' using process `\watchdog_timer.$proc$watchdog_formal.v:109$59'.
+  created $dff cell `$procdff$323' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:110$5$0' using process `\watchdog_timer.$proc$watchdog_formal.v:109$59'.
+  created $dff cell `$procdff$324' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:98$2$0' using process `\watchdog_timer.$proc$watchdog_formal.v:97$49'.
+  created $dff cell `$procdff$325' with positive edge clock.
+Creating register for signal `\watchdog_timer.$past$watchdog_formal.v:89$1$0' using process `\watchdog_timer.$proc$watchdog_formal.v:88$44'.
+  created $dff cell `$procdff$326' with positive edge clock.
+Creating register for signal `\watchdog_timer.\f_past_valid' using process `\watchdog_timer.$proc$watchdog_formal.v:80$43'.
+  created $dff cell `$procdff$327' with positive edge clock.
+Creating register for signal `\watchdog_timer.\triggered' using process `\watchdog_timer.$proc$watchdog_formal.v:44$36'.
+  created $dff cell `$procdff$328' with positive edge clock.
+Creating register for signal `\watchdog_timer.\warning' using process `\watchdog_timer.$proc$watchdog_formal.v:44$36'.
+  created $dff cell `$procdff$329' with positive edge clock.
+Creating register for signal `\watchdog_timer.\counter' using process `\watchdog_timer.$proc$watchdog_formal.v:44$36'.
+  created $dff cell `$procdff$330' with positive edge clock.
 
 2.3.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
 
 2.3.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:79$121'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:76$118'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:34$117'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:180$111'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:179$107'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:178$102'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:177$99'.
-Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:169$93'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:169$93'.
-Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:159$84'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:159$84'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:151$81'.
-Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:141$73'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:141$73'.
-Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:132$70'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:132$70'.
-Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:120$54'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:120$54'.
-Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:110$50'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:110$50'.
-Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:99$39'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:99$39'.
-Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:87$29'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:87$29'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:80$28'.
-Found and cleaned up 5 empty switches in `\watchdog_timer.$proc$watchdog_formal.v:44$21'.
-Removing empty process `watchdog_timer.$proc$watchdog_formal.v:44$21'.
-Cleaned up 13 empty switches.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:79$212'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:76$209'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:34$208'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:267$200'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:264$197'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:261$191'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:258$187'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:255$182'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:252$179'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:239$162'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:239$162'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:230$159'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:230$159'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:222$155'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:222$155'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:211$137'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:211$137'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:202$131'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:202$131'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:193$125'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:193$125'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:180$112'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:180$112'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:172$109'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:161$99'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:161$99'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:152$95'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:152$95'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:143$92'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:143$92'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:131$76'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:131$76'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:121$72'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:121$72'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:109$59'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:109$59'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:97$49'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:97$49'.
+Found and cleaned up 1 empty switch in `\watchdog_timer.$proc$watchdog_formal.v:88$44'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:88$44'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:80$43'.
+Found and cleaned up 5 empty switches in `\watchdog_timer.$proc$watchdog_formal.v:44$36'.
+Removing empty process `watchdog_timer.$proc$watchdog_formal.v:44$36'.
+Cleaned up 20 empty switches.
 
 2.3.12. Executing OPT_EXPR pass (perform const folding).
 Optimizing module watchdog_timer.
-<suppressed ~22 debug messages>
+<suppressed ~30 debug messages>
 
 2.4. Executing FUTURE pass.
 
@@ -174,8 +240,8 @@ Optimizing module watchdog_timer.
 
 2.6. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \watchdog_timer..
-Removed 2 unused cells and 74 unused wires.
-<suppressed ~3 debug messages>
+Removed 3 unused cells and 115 unused wires.
+<suppressed ~4 debug messages>
 
 2.7. Executing CHECK pass (checking for obvious problems).
 Checking module watchdog_timer...
@@ -188,12 +254,12 @@ Optimizing module watchdog_timer.
 
 2.8.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\watchdog_timer'.
-Computing hashes of 112 cells of `\watchdog_timer'.
+Computing hashes of 188 cells of `\watchdog_timer'.
 Finding duplicate cells in `\watchdog_timer'.
-Computing hashes of 102 cells of `\watchdog_timer'.
+Computing hashes of 171 cells of `\watchdog_timer'.
 Finding duplicate cells in `\watchdog_timer'.
-<suppressed ~30 debug messages>
-Removed a total of 10 cells.
+<suppressed ~51 debug messages>
+Removed a total of 17 cells.
 
 2.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
 Running muxtree optimizer on module \watchdog_timer..
@@ -201,7 +267,7 @@ Running muxtree optimizer on module \watchdog_timer..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~44 debug messages>
+<suppressed ~66 debug messages>
 
 2.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \watchdog_timer.
@@ -209,16 +275,16 @@ Performed a total of 0 changes.
 
 2.8.5. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\watchdog_timer'.
-Computing hashes of 102 cells of `\watchdog_timer'.
+Computing hashes of 171 cells of `\watchdog_timer'.
 Finding duplicate cells in `\watchdog_timer'.
-Computing hashes of 98 cells of `\watchdog_timer'.
+Computing hashes of 162 cells of `\watchdog_timer'.
 Finding duplicate cells in `\watchdog_timer'.
-<suppressed ~12 debug messages>
-Removed a total of 4 cells.
+<suppressed ~27 debug messages>
+Removed a total of 9 cells.
 
 2.8.6. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \watchdog_timer..
-Removed 0 unused cells and 14 unused wires.
+Removed 0 unused cells and 26 unused wires.
 <suppressed ~1 debug messages>
 
 2.8.7. Executing OPT_EXPR pass (perform const folding).
@@ -232,7 +298,7 @@ Running muxtree optimizer on module \watchdog_timer..
   Evaluating internal representation of mux trees.
   Analyzing evaluation results.
 Removed 0 multiplexer ports.
-<suppressed ~36 debug messages>
+<suppressed ~48 debug messages>
 
 2.8.10. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
   Optimizing cells in module \watchdog_timer.
@@ -240,7 +306,7 @@ Performed a total of 0 changes.
 
 2.8.11. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\watchdog_timer'.
-Computing hashes of 98 cells of `\watchdog_timer'.
+Computing hashes of 162 cells of `\watchdog_timer'.
 Finding duplicate cells in `\watchdog_timer'.
 Removed a total of 0 cells.
 
@@ -253,17 +319,23 @@ Optimizing module watchdog_timer.
 2.8.14. Finished fast OPT passes. (There is nothing left to do.)
 
 2.9. Executing WREDUCE pass (reducing word size of cells).
-Removed top 28 bits (of 32) from port B of cell watchdog_timer.$div$watchdog_formal.v:41$18 ($div).
-Removed top 27 bits (of 32) from port A of cell watchdog_timer.$sub$watchdog_formal.v:40$16 ($sub).
-Removed top 24 bits (of 32) from port B of cell watchdog_timer.$gt$watchdog_formal.v:42$19 ($gt).
-Removed top 27 bits (of 32) from port B of cell watchdog_timer.$ge$watchdog_formal.v:60$25 ($ge).
-Removed top 31 bits (of 32) from port B of cell watchdog_timer.$add$watchdog_formal.v:65$26 ($add).
-Removed top 27 bits (of 32) from port B of cell watchdog_timer.$ge$watchdog_formal.v:66$27 ($ge).
-Removed top 27 bits (of 32) from port B of cell watchdog_timer.$lt$watchdog_formal.v:111$51 ($lt).
-Removed top 27 bits (of 32) from port B of cell watchdog_timer.$ge$watchdog_formal.v:124$66 ($ge).
-Removed top 27 bits (of 32) from port B of cell watchdog_timer.$le$watchdog_formal.v:152$83 ($le).
-Removed top 27 bits (of 32) from port B of cell watchdog_timer.$lt$watchdog_formal.v:170$94 ($lt).
-Removed top 27 bits (of 32) from port B of cell watchdog_timer.$eq$watchdog_formal.v:179$109 ($eq).
+Removed top 28 bits (of 32) from port B of cell watchdog_timer.$div$watchdog_formal.v:41$33 ($div).
+Removed top 27 bits (of 32) from port A of cell watchdog_timer.$sub$watchdog_formal.v:40$31 ($sub).
+Removed top 24 bits (of 32) from port B of cell watchdog_timer.$gt$watchdog_formal.v:42$34 ($gt).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$ge$watchdog_formal.v:60$40 ($ge).
+Removed top 31 bits (of 32) from port B of cell watchdog_timer.$add$watchdog_formal.v:65$41 ($add).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$ge$watchdog_formal.v:66$42 ($ge).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$lt$watchdog_formal.v:122$73 ($lt).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$ge$watchdog_formal.v:135$88 ($ge).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$le$watchdog_formal.v:173$111 ($le).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$lt$watchdog_formal.v:194$126 ($lt).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$gt$watchdog_formal.v:203$132 ($gt).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$lt$watchdog_formal.v:215$150 ($lt).
+Removed top 31 bits (of 32) from port B of cell watchdog_timer.$add$watchdog_formal.v:216$153 ($add).
+Removed top 6 bits (of 8) from port B of cell watchdog_timer.$eq$watchdog_formal.v:224$158 ($eq).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$lt$watchdog_formal.v:243$175 ($lt).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$eq$watchdog_formal.v:258$189 ($eq).
+Removed top 27 bits (of 32) from port B of cell watchdog_timer.$eq$watchdog_formal.v:264$199 ($eq).
 
 2.10. Executing OPT_CLEAN pass (remove unused cells and wires).
 Finding unused cells or wires in module \watchdog_timer..
@@ -277,7 +349,7 @@ Optimizing module watchdog_timer.
 
 2.12.2. Executing OPT_MERGE pass (detect identical cells).
 Finding identical cells in module `\watchdog_timer'.
-Computing hashes of 98 cells of `\watchdog_timer'.
+Computing hashes of 162 cells of `\watchdog_timer'.
 Finding duplicate cells in `\watchdog_timer'.
 Removed a total of 0 cells.
 
@@ -292,26 +364,26 @@ Finding unused cells or wires in module \watchdog_timer..
 
         +----------Local Count, excluding submodules.
         | 
-       85 wires
-      402 wire bits
+      136 wires
+      584 wire bits
        12 public wires
       112 public wire bits
         8 ports
        15 port bits
-       98 cells
-        1   $add
-       18   $check
-       18   $dff
+      162 cells
+        2   $add
+       31   $check
+       33   $dff
         1   $div
-        1   $eq
+        4   $eq
         3   $ge
-        1   $gt
-        1   $le
-       18   $logic_and
-        6   $logic_not
+        2   $gt
+        2   $le
+       33   $logic_and
+       13   $logic_not
         1   $logic_or
-        2   $lt
-       23   $mux
+        4   $lt
+       29   $mux
         3   $not
         1   $sub
 
@@ -335,6 +407,6 @@ Module watchdog_timer directly or indirectly contains formal properties -> setti
 5. Executing RTLIL backend.
 Output filename: ../model/design.il
 
-End of script. Logfile hash: 252a0f2957, CPU: user 0.06s system 0.02s, MEM: 16.22 MB peak
+End of script. Logfile hash: c4e7118c5e, CPU: user 0.07s system 0.03s, MEM: 17.20 MB peak
 Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 17.0.0 -fPIC -O3)
-Time spent: 25% 5x opt_clean (0 sec), 19% 6x opt_expr (0 sec), ...
+Time spent: 24% 5x opt_clean (0 sec), 16% 6x opt_expr (0 sec), ...

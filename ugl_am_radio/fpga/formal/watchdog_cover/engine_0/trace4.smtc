@@ -142,12 +142,47 @@ assume (= [rstn] true)
 
 state 18
 assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 19
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 20
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 21
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 22
+assume (= [clk] false)
 assume (= [enable] false)
 assume (= [force_reset] false)
 assume (= [heartbeat] false)
 assume (= [rstn] false)
 
-state 19
+state 23
+assume (= [clk] false)
+assume (= [enable] false)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] false)
+
+state 24
 assume (= [clk] false)
 assume (= [enable] true)
 assume (= [force_reset] false)

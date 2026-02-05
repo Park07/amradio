@@ -1,15 +1,19 @@
-Elapsed clock time [H:MM:SS (secs)]: 0:00:10 (10)
-Elapsed process time [H:MM:SS (secs)]: 0:00:06 (6)
+Elapsed clock time [H:MM:SS (secs)]: 0:00:06 (6)
+Elapsed process time [H:MM:SS (secs)]: 0:00:03 (3)
 engine_0 (smtbmc z3) returned pass
 cover trace: engine_0/trace0.vcd
 cover trace: engine_0/trace0.yw
-  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_178_103 at watchdog_formal.v:178.27-178.64 step 19
+  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_255_183 at watchdog_formal.v:255.27-255.64 step 19
 cover trace: engine_0/trace1.vcd
 cover trace: engine_0/trace1.yw
-  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_179_108 at watchdog_formal.v:179.27-179.76 step 21
+  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_258_188 at watchdog_formal.v:258.27-258.76 step 21
 cover trace: engine_0/trace2.vcd
 cover trace: engine_0/trace2.yw
-  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_177_100 at watchdog_formal.v:177.27-177.48 step 23
+  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_264_198 at watchdog_formal.v:264.27-264.59 step 22
 cover trace: engine_0/trace3.vcd
 cover trace: engine_0/trace3.yw
-  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_180_113 at watchdog_formal.v:180.27-180.80 step 24
+  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_252_180 at watchdog_formal.v:252.27-252.48 step 23
+  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_267_203 at watchdog_formal.v:267.27-267.98 step 23
+cover trace: engine_0/trace4.vcd
+cover trace: engine_0/trace4.yw
+  reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_261_193 at watchdog_formal.v:261.27-261.80 step 24

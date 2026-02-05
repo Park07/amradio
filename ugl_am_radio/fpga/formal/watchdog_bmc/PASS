@@ -1,4 +1,4 @@
-Elapsed clock time [H:MM:SS (secs)]: 0:00:10 (10)
-Elapsed process time [H:MM:SS (secs)]: 0:00:02 (2)
+Elapsed clock time [H:MM:SS (secs)]: 0:00:11 (11)
+Elapsed process time [H:MM:SS (secs)]: 0:00:18 (18)
 engine_0 (smtbmc z3) returned pass
 engine_0 did not produce any traces

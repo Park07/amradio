@@ -81,6 +81,16 @@ module watchdog_timer #(
         f_past_valid <= 1;
 
     // ========================================================================
+    // INPUT CONSTRAINTS
+    // ========================================================================
+
+    // Heartbeat should be a single-cycle pulse, not held high
+    always @(posedge clk) begin
+        if (f_past_valid && $past(heartbeat))
+            assume(!heartbeat);
+    end
+
+    // ========================================================================
     // PROPERTY 1: Reset clears everything
     // If reset was active last cycle, registers are now 0
     // ========================================================================
@@ -100,6 +110,7 @@ module watchdog_timer #(
         if (f_past_valid && $past(rstn) && $past(enable) && $past(heartbeat)) begin
             assert(counter == 0);
             assert(triggered == 0);
+            assert(warning == 0);
         end
     end
 
@@ -135,11 +146,21 @@ module watchdog_timer #(
     end
 
     // ========================================================================
-    // PROPERTY 6: Disable kills everything
-    // If enable was LOW last cycle, registers are now 0
+    // PROPERTY 5b: Contrapositive — no warning means no trigger
+    // Tightens the solver's invariant space
+    // ========================================================================
+    always @(posedge clk) begin
+        if (!warning)
+            assert(!triggered);
+    end
+
+    // ========================================================================
+    // PROPERTY 6: Disable kills everything (FIXED — includes counter)
+    // If enable was LOW last cycle, all state is now 0
     // ========================================================================
     always @(posedge clk) begin
         if (f_past_valid && $past(!enable)) begin
+            assert(counter == 0);
             assert(triggered == 0);
             assert(warning == 0);
         end
@@ -157,12 +178,15 @@ module watchdog_timer #(
     // If force_reset was active last cycle (with enable), triggered is now 0
     // ========================================================================
     always @(posedge clk) begin
-        if (f_past_valid && $past(rstn) && $past(enable) && $past(force_reset))
+        if (f_past_valid && $past(rstn) && $past(enable) && $past(force_reset)) begin
+            assert(counter == 0);
             assert(triggered == 0);
+            assert(warning == 0);
+        end
     end
 
     // ========================================================================
-    // PROPERTY 9: Warning timing correct (state invariant)
+    // PROPERTY 9: Warning timing — negative direction (state invariant)
     // If counter hasn't reached warning threshold and not triggered,
     // warning must be LOW
     // ========================================================================
@@ -172,12 +196,75 @@ module watchdog_timer #(
     end
 
     // ========================================================================
+    // PROPERTY 10: Warning timing — positive direction (state invariant)
+    // If counter is in the warning zone, warning must be HIGH
+    // ========================================================================
+    always @(posedge clk) begin
+        if (counter > WARNING_CYCLES && counter < TIMEOUT_CYCLES)
+            assert(warning == 1);
+    end
+
+    // ========================================================================
+    // PROPERTY 11: Counter increments correctly
+    // In normal counting mode, counter advances by exactly 1
+    // ========================================================================
+    always @(posedge clk) begin
+        if (f_past_valid
+            && $past(rstn) && $past(enable)
+            && !$past(heartbeat) && !$past(force_reset)
+            && $past(counter) < TIMEOUT_CYCLES)
+            assert(counter == $past(counter) + 1);
+    end
+
+    // ========================================================================
+    // PROPERTY 12: time_remaining correct at counter == 0
+    // ========================================================================
+    always @(posedge clk) begin
+        if (counter == 0)
+            assert(time_remaining == TIMEOUT_SEC);
+    end
+
+    // ========================================================================
+    // PROPERTY 13: time_remaining == 0 when triggered
+    // ========================================================================
+    always @(posedge clk) begin
+        if (triggered)
+            assert(time_remaining == 0);
+    end
+
+    // ========================================================================
+    // PROPERTY 14: time_remaining monotonically decreases during counting
+    // If counter incremented normally, time_remaining must not increase
+    // ========================================================================
+    always @(posedge clk) begin
+        if (f_past_valid
+            && $past(rstn) && $past(enable)
+            && !$past(heartbeat) && !$past(force_reset)
+            && $past(counter) < TIMEOUT_CYCLES)
+            assert(time_remaining <= $past(time_remaining));
+    end
+
+    // ========================================================================
     // COVER: Prove these scenarios are reachable
     // ========================================================================
+
+    // Trigger fires
     always @(posedge clk) cover(triggered == 1);
+
+    // Warning without trigger (in the warning zone)
     always @(posedge clk) cover(warning == 1 && triggered == 0);
+
+    // Last-second heartbeat save
     always @(posedge clk) cover(counter == TIMEOUT_CYCLES - 1 && heartbeat);
+
+    // Recovery from triggered state
     always @(posedge clk) cover(f_past_valid && $past(triggered) && !triggered);
+
+    // Exact timeout boundary reachable
+    always @(posedge clk) cover(counter == TIMEOUT_CYCLES);
+
+    // Full lifecycle: warning zone then trigger on next observable step
+    always @(posedge clk) cover(f_past_valid && $past(warning) && !$past(triggered) && triggered);
 
 `endif
 

@@ -213,9 +213,9 @@ module testbench(input clock, output reg genclock);
 
     // state 20
     if (cycle == 19) begin
-      PI_enable <= 1'b0;
-      PI_rstn <= 1'b0;
-      PI_heartbeat <= 1'b1;
+      PI_enable <= 1'b1;
+      PI_rstn <= 1'b1;
+      PI_heartbeat <= 1'b0;
       PI_force_reset <= 1'b0;
     end
 
@@ -227,7 +227,31 @@ module testbench(input clock, output reg genclock);
       PI_force_reset <= 1'b0;
     end
 
-    genclock <= cycle < 21;
+    // state 22
+    if (cycle == 21) begin
+      PI_enable <= 1'b0;
+      PI_rstn <= 1'b0;
+      PI_heartbeat <= 1'b0;
+      PI_force_reset <= 1'b0;
+    end
+
+    // state 23
+    if (cycle == 22) begin
+      PI_enable <= 1'b0;
+      PI_rstn <= 1'b0;
+      PI_heartbeat <= 1'b0;
+      PI_force_reset <= 1'b0;
+    end
+
+    // state 24
+    if (cycle == 23) begin
+      PI_enable <= 1'b1;
+      PI_rstn <= 1'b1;
+      PI_heartbeat <= 1'b0;
+      PI_force_reset <= 1'b0;
+    end
+
+    genclock <= cycle < 24;
     cycle <= cycle + 1;
   end
 endmodule

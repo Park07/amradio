@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-<testsuite timestamp="2026-02-06T03:38:41" hostname="William-MacBook-Pro.local" package="watchdog" id="0" name="cover" tests="17" errors="0" failures="0" time="6" skipped="13">
+<testsuite timestamp="2026-02-06T09:58:07" hostname="William-MacBook-Pro.local" package="watchdog" id="0" name="cover" tests="29" errors="0" failures="0" time="3" skipped="23">
 <properties>
 <property name="os" value="Darwin"/>
 <property name="expect" value="PASS"/>
@@ -8,129 +8,173 @@
 </properties>
 <testcase classname="cover" name="build execution" time="0">
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:101.13-101.33" time="0" type="ASSERT" location="watchdog_formal.v:101.13-101.33" id="_witness_.check_assert_watchdog_formal_v_101_46">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:100.13-100.35" time="0" type="ASSERT" location="watchdog_formal.v:100.13-100.35" id="_witness_.check_assert_watchdog_formal_v_100_54">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:102.13-102.35" time="0" type="ASSERT" location="watchdog_formal.v:102.13-102.35" id="_witness_.check_assert_watchdog_formal_v_102_48">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:101.13-101.33" time="0" type="ASSERT" location="watchdog_formal.v:101.13-101.33" id="_witness_.check_assert_watchdog_formal_v_101_56">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:112.13-112.35" time="0" type="ASSERT" location="watchdog_formal.v:112.13-112.35" id="_witness_.check_assert_watchdog_formal_v_112_52">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:111.13-111.33" time="0" type="ASSERT" location="watchdog_formal.v:111.13-111.33" id="_witness_.check_assert_watchdog_formal_v_111_66">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:125.13-125.35" time="0" type="ASSERT" location="watchdog_formal.v:125.13-125.35" id="_witness_.check_assert_watchdog_formal_v_125_68">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:112.13-112.35" time="0" type="ASSERT" location="watchdog_formal.v:112.13-112.35" id="_witness_.check_assert_watchdog_formal_v_112_68">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:134.13-134.33" time="0" type="ASSERT" location="watchdog_formal.v:134.13-134.33" id="_witness_.check_assert_watchdog_formal_v_134_71">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:113.13-113.33" time="0" type="ASSERT" location="watchdog_formal.v:113.13-113.33" id="_witness_.check_assert_watchdog_formal_v_113_70">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:143.13-143.35" time="0" type="ASSERT" location="watchdog_formal.v:143.13-143.35" id="_witness_.check_assert_watchdog_formal_v_143_76">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:123.13-123.35" time="0" type="ASSERT" location="watchdog_formal.v:123.13-123.35" id="_witness_.check_assert_watchdog_formal_v_123_74">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:144.13-144.33" time="0" type="ASSERT" location="watchdog_formal.v:144.13-144.33" id="_witness_.check_assert_watchdog_formal_v_144_78">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:136.13-136.35" time="0" type="ASSERT" location="watchdog_formal.v:136.13-136.35" id="_witness_.check_assert_watchdog_formal_v_136_90">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:152.9-152.42" time="0" type="ASSERT" location="watchdog_formal.v:152.9-152.42" id="_witness_.check_assert_watchdog_formal_v_152_82">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:145.13-145.33" time="0" type="ASSERT" location="watchdog_formal.v:145.13-145.33" id="_witness_.check_assert_watchdog_formal_v_145_93">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:161.13-161.35" time="0" type="ASSERT" location="watchdog_formal.v:161.13-161.35" id="_witness_.check_assert_watchdog_formal_v_161_91">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:154.13-154.31" time="0" type="ASSERT" location="watchdog_formal.v:154.13-154.31" id="_witness_.check_assert_watchdog_formal_v_154_97">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:171.13-171.33" time="0" type="ASSERT" location="watchdog_formal.v:171.13-171.33" id="_witness_.check_assert_watchdog_formal_v_171_97">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:163.13-163.33" time="0" type="ASSERT" location="watchdog_formal.v:163.13-163.33" id="_witness_.check_assert_watchdog_formal_v_163_102">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:89.13-89.33" time="0" type="ASSERT" location="watchdog_formal.v:89.13-89.33" id="_witness_.check_assert_watchdog_formal_v_89_32">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:164.13-164.35" time="0" type="ASSERT" location="watchdog_formal.v:164.13-164.35" id="_witness_.check_assert_watchdog_formal_v_164_104">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:90.13-90.35" time="0" type="ASSERT" location="watchdog_formal.v:90.13-90.35" id="_witness_.check_assert_watchdog_formal_v_90_34">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:165.13-165.33" time="0" type="ASSERT" location="watchdog_formal.v:165.13-165.33" id="_witness_.check_assert_watchdog_formal_v_165_106">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:91.13-91.33" time="0" type="ASSERT" location="watchdog_formal.v:91.13-91.33" id="_witness_.check_assert_watchdog_formal_v_91_36">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:173.9-173.42" time="0" type="ASSERT" location="watchdog_formal.v:173.9-173.42" id="_witness_.check_assert_watchdog_formal_v_173_110">
 <skipped />
 </testcase>
-<testcase classname="cover" name="Property COVER in watchdog_timer at watchdog_formal.v:177.27-177.48" time="0" type="COVER" location="watchdog_formal.v:177.27-177.48" id="_witness_.check_cover_watchdog_formal_v_177_100" tracefile="engine_0/trace2.vcd">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:182.13-182.33" time="0" type="ASSERT" location="watchdog_formal.v:182.13-182.33" id="_witness_.check_assert_watchdog_formal_v_182_119">
+<skipped />
 </testcase>
-<testcase classname="cover" name="Property COVER in watchdog_timer at watchdog_formal.v:178.27-178.64" time="0" type="COVER" location="watchdog_formal.v:178.27-178.64" id="_witness_.check_cover_watchdog_formal_v_178_103" tracefile="engine_0/trace0.vcd">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:183.13-183.35" time="0" type="ASSERT" location="watchdog_formal.v:183.13-183.35" id="_witness_.check_assert_watchdog_formal_v_183_121">
+<skipped />
 </testcase>
-<testcase classname="cover" name="Property COVER in watchdog_timer at watchdog_formal.v:179.27-179.76" time="0" type="COVER" location="watchdog_formal.v:179.27-179.76" id="_witness_.check_cover_watchdog_formal_v_179_108" tracefile="engine_0/trace1.vcd">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:184.13-184.33" time="0" type="ASSERT" location="watchdog_formal.v:184.13-184.33" id="_witness_.check_assert_watchdog_formal_v_184_123">
+<skipped />
 </testcase>
-<testcase classname="cover" name="Property COVER in watchdog_timer at watchdog_formal.v:180.27-180.80" time="0" type="COVER" location="watchdog_formal.v:180.27-180.80" id="_witness_.check_cover_watchdog_formal_v_180_113" tracefile="engine_0/trace3.vcd">
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:195.13-195.33" time="0" type="ASSERT" location="watchdog_formal.v:195.13-195.33" id="_witness_.check_assert_watchdog_formal_v_195_129">
+<skipped />
 </testcase>
-<system-out>SBY  3:38:30 [watchdog_bmc] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_bmc'.
-SBY  3:38:30 [watchdog_prove] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_prove'.
-SBY  3:38:30 [watchdog_cover] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_cover'.
-SBY  3:38:31 [watchdog_cover] Copy '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_formal.v' to '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_cover/src/watchdog_formal.v'.
-SBY  3:38:31 [watchdog_cover] engine_0: smtbmc z3
-SBY  3:38:31 [watchdog_cover] base: starting process &quot;cd watchdog_cover/src; yosys -ql ../model/design.log ../model/design.ys&quot;
-SBY  3:38:32 [watchdog_cover] base: finished (returncode=0)
-SBY  3:38:32 [watchdog_cover] prep: starting process &quot;cd watchdog_cover/model; yosys -ql design_prep.log design_prep.ys&quot;
-SBY  3:38:32 [watchdog_cover] prep: finished (returncode=0)
-SBY  3:38:32 [watchdog_cover] smt2: starting process &quot;cd watchdog_cover/model; yosys -ql design_smt2.log design_smt2.ys&quot;
-SBY  3:38:33 [watchdog_cover] smt2: finished (returncode=0)
-SBY  3:38:33 [watchdog_cover] engine_0: starting process &quot;cd watchdog_cover; yosys-smtbmc -s z3 --presat -c --noprogress -t 60  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2&quot;
-SBY  3:38:33 [watchdog_cover] engine_0: ##   0:00:00  Solver: z3
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 1..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 2..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 4..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 5..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 6..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 7..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 8..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 9..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 10..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 11..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 12..
-SBY  3:38:34 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 13..
-SBY  3:38:36 [watchdog_cover] engine_0: ##   0:00:02  Checking cover reachability in step 14..
-SBY  3:38:37 [watchdog_cover] engine_0: ##   0:00:03  Checking cover reachability in step 15..
-SBY  3:38:37 [watchdog_cover] engine_0: ##   0:00:03  Checking cover reachability in step 16..
-SBY  3:38:37 [watchdog_cover] engine_0: ##   0:00:03  Checking cover reachability in step 17..
-SBY  3:38:37 [watchdog_cover] engine_0: ##   0:00:04  Checking cover reachability in step 18..
-SBY  3:38:38 [watchdog_cover] engine_0: ##   0:00:04  Checking cover reachability in step 19..
-SBY  3:38:38 [watchdog_cover] engine_0: ##   0:00:05  Reached cover statement in step 19 at watchdog_timer: watchdog_formal.v:178.27-178.64 (_witness_.check_cover_watchdog_formal_v_178_103)
-SBY  3:38:39 [watchdog_cover] engine_0: ##   0:00:05  Writing trace to VCD file: engine_0/trace0.vcd
-SBY  3:38:39 [watchdog_cover] engine_0: ##   0:00:05  Writing trace to Verilog testbench: engine_0/trace0_tb.v
-SBY  3:38:39 [watchdog_cover] engine_0: ##   0:00:05  Writing trace to constraints file: engine_0/trace0.smtc
-SBY  3:38:39 [watchdog_cover] engine_0: ##   0:00:05  Writing trace to Yosys witness file: engine_0/trace0.yw
-SBY  3:38:39 [watchdog_cover] engine_0: ##   0:00:05  Checking cover reachability in step 19..
-SBY  3:38:39 [watchdog_cover] engine_0: ##   0:00:05  Checking cover reachability in step 20..
-SBY  3:38:39 [watchdog_cover] engine_0: ##   0:00:05  Checking cover reachability in step 21..
-SBY  3:38:40 [watchdog_cover] engine_0: ##   0:00:06  Reached cover statement in step 21 at watchdog_timer: watchdog_formal.v:179.27-179.76 (_witness_.check_cover_watchdog_formal_v_179_108)
-SBY  3:38:40 [watchdog_cover] engine_0: ##   0:00:06  Writing trace to VCD file: engine_0/trace1.vcd
-SBY  3:38:40 [watchdog_cover] engine_0: ##   0:00:06  Writing trace to Verilog testbench: engine_0/trace1_tb.v
-SBY  3:38:40 [watchdog_cover] engine_0: ##   0:00:06  Writing trace to constraints file: engine_0/trace1.smtc
-SBY  3:38:40 [watchdog_cover] engine_0: ##   0:00:06  Writing trace to Yosys witness file: engine_0/trace1.yw
-SBY  3:38:40 [watchdog_cover] engine_0: ##   0:00:06  Checking cover reachability in step 21..
-SBY  3:38:40 [watchdog_cover] engine_0: ##   0:00:07  Checking cover reachability in step 22..
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Checking cover reachability in step 23..
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Reached cover statement in step 23 at watchdog_timer: watchdog_formal.v:177.27-177.48 (_witness_.check_cover_watchdog_formal_v_177_100)
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Writing trace to VCD file: engine_0/trace2.vcd
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Writing trace to Verilog testbench: engine_0/trace2_tb.v
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Writing trace to constraints file: engine_0/trace2.smtc
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Writing trace to Yosys witness file: engine_0/trace2.yw
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Checking cover reachability in step 23..
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Checking cover reachability in step 24..
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Reached cover statement in step 24 at watchdog_timer: watchdog_formal.v:180.27-180.80 (_witness_.check_cover_watchdog_formal_v_180_113)
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Writing trace to VCD file: engine_0/trace3.vcd
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Writing trace to Verilog testbench: engine_0/trace3_tb.v
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Writing trace to constraints file: engine_0/trace3.smtc
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Writing trace to Yosys witness file: engine_0/trace3.yw
-SBY  3:38:41 [watchdog_cover] engine_0: ##   0:00:07  Status: passed
-SBY  3:38:41 [watchdog_cover] engine_0: finished (returncode=0)
-SBY  3:38:41 [watchdog_cover] engine_0: Status returned by engine: pass
-SBY  3:38:41 [watchdog_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:10 (10)
-SBY  3:38:41 [watchdog_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:06 (6)
-SBY  3:38:41 [watchdog_cover] summary: engine_0 (smtbmc z3) returned pass
-SBY  3:38:41 [watchdog_cover] summary: cover trace: watchdog_cover/engine_0/trace0.vcd
-SBY  3:38:41 [watchdog_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_178_103 at watchdog_formal.v:178.27-178.64 step 19
-SBY  3:38:41 [watchdog_cover] summary: cover trace: watchdog_cover/engine_0/trace1.vcd
-SBY  3:38:41 [watchdog_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_179_108 at watchdog_formal.v:179.27-179.76 step 21
-SBY  3:38:41 [watchdog_cover] summary: cover trace: watchdog_cover/engine_0/trace2.vcd
-SBY  3:38:41 [watchdog_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_177_100 at watchdog_formal.v:177.27-177.48 step 23
-SBY  3:38:41 [watchdog_cover] summary: cover trace: watchdog_cover/engine_0/trace3.vcd
-SBY  3:38:41 [watchdog_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_180_113 at watchdog_formal.v:180.27-180.80 step 24
-SBY  3:38:41 [watchdog_cover] DONE (PASS, rc=0)
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:204.13-204.33" time="0" type="ASSERT" location="watchdog_formal.v:204.13-204.33" id="_witness_.check_assert_watchdog_formal_v_204_135">
+<skipped />
+</testcase>
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:216.13-216.50" time="0" type="ASSERT" location="watchdog_formal.v:216.13-216.50" id="_witness_.check_assert_watchdog_formal_v_216_152">
+<skipped />
+</testcase>
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:224.13-224.50" time="0" type="ASSERT" location="watchdog_formal.v:224.13-224.50" id="_witness_.check_assert_watchdog_formal_v_224_157">
+<skipped />
+</testcase>
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:232.13-232.40" time="0" type="ASSERT" location="watchdog_formal.v:232.13-232.40" id="_witness_.check_assert_watchdog_formal_v_232_160">
+<skipped />
+</testcase>
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:244.13-244.60" time="0" type="ASSERT" location="watchdog_formal.v:244.13-244.60" id="_witness_.check_assert_watchdog_formal_v_244_177">
+<skipped />
+</testcase>
+<testcase classname="cover" name="Property ASSERT in watchdog_timer at watchdog_formal.v:99.13-99.33" time="0" type="ASSERT" location="watchdog_formal.v:99.13-99.33" id="_witness_.check_assert_watchdog_formal_v_99_52">
+<skipped />
+</testcase>
+<testcase classname="cover" name="Property COVER in watchdog_timer at watchdog_formal.v:252.27-252.48" time="0" type="COVER" location="watchdog_formal.v:252.27-252.48" id="_witness_.check_cover_watchdog_formal_v_252_180" tracefile="engine_0/trace3.vcd">
+</testcase>
+<testcase classname="cover" name="Property COVER in watchdog_timer at watchdog_formal.v:255.27-255.64" time="0" type="COVER" location="watchdog_formal.v:255.27-255.64" id="_witness_.check_cover_watchdog_formal_v_255_183" tracefile="engine_0/trace0.vcd">
+</testcase>
+<testcase classname="cover" name="Property COVER in watchdog_timer at watchdog_formal.v:258.27-258.76" time="0" type="COVER" location="watchdog_formal.v:258.27-258.76" id="_witness_.check_cover_watchdog_formal_v_258_188" tracefile="engine_0/trace1.vcd">
+</testcase>
+<testcase classname="cover" name="Property COVER in watchdog_timer at watchdog_formal.v:261.27-261.80" time="0" type="COVER" location="watchdog_formal.v:261.27-261.80" id="_witness_.check_cover_watchdog_formal_v_261_193" tracefile="engine_0/trace4.vcd">
+</testcase>
+<testcase classname="cover" name="Property COVER in watchdog_timer at watchdog_formal.v:264.27-264.59" time="0" type="COVER" location="watchdog_formal.v:264.27-264.59" id="_witness_.check_cover_watchdog_formal_v_264_198" tracefile="engine_0/trace2.vcd">
+</testcase>
+<testcase classname="cover" name="Property COVER in watchdog_timer at watchdog_formal.v:267.27-267.98" time="0" type="COVER" location="watchdog_formal.v:267.27-267.98" id="_witness_.check_cover_watchdog_formal_v_267_203" tracefile="engine_0/trace3.vcd">
+</testcase>
+<system-out>SBY  9:58:01 [watchdog_bmc] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_bmc'.
+SBY  9:58:01 [watchdog_prove] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_prove'.
+SBY  9:58:01 [watchdog_cover] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_cover'.
+SBY  9:58:01 [watchdog_cover] Copy '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_formal.v' to '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_cover/src/watchdog_formal.v'.
+SBY  9:58:01 [watchdog_cover] engine_0: smtbmc z3
+SBY  9:58:01 [watchdog_cover] base: starting process &quot;cd watchdog_cover/src; yosys -ql ../model/design.log ../model/design.ys&quot;
+SBY  9:58:01 [watchdog_cover] base: finished (returncode=0)
+SBY  9:58:01 [watchdog_cover] prep: starting process &quot;cd watchdog_cover/model; yosys -ql design_prep.log design_prep.ys&quot;
+SBY  9:58:01 [watchdog_cover] prep: finished (returncode=0)
+SBY  9:58:01 [watchdog_cover] smt2: starting process &quot;cd watchdog_cover/model; yosys -ql design_smt2.log design_smt2.ys&quot;
+SBY  9:58:02 [watchdog_cover] smt2: finished (returncode=0)
+SBY  9:58:02 [watchdog_cover] engine_0: starting process &quot;cd watchdog_cover; yosys-smtbmc -s z3 --presat -c --noprogress -t 60  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2&quot;
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Solver: z3
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 1..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 2..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 4..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 5..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 6..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 7..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 8..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 9..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 10..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 11..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 12..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 13..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 14..
+SBY  9:58:02 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 15..
+SBY  9:58:03 [watchdog_cover] engine_0: ##   0:00:00  Checking cover reachability in step 16..
+SBY  9:58:03 [watchdog_cover] engine_0: ##   0:00:01  Checking cover reachability in step 17..
+SBY  9:58:03 [watchdog_cover] engine_0: ##   0:00:01  Checking cover reachability in step 18..
+SBY  9:58:03 [watchdog_cover] engine_0: ##   0:00:01  Checking cover reachability in step 19..
+SBY  9:58:03 [watchdog_cover] engine_0: ##   0:00:01  Reached cover statement in step 19 at watchdog_timer: watchdog_formal.v:255.27-255.64 (_witness_.check_cover_watchdog_formal_v_255_183)
+SBY  9:58:03 [watchdog_cover] engine_0: ##   0:00:01  Writing trace to VCD file: engine_0/trace0.vcd
+SBY  9:58:04 [watchdog_cover] engine_0: ##   0:00:01  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY  9:58:04 [watchdog_cover] engine_0: ##   0:00:01  Writing trace to constraints file: engine_0/trace0.smtc
+SBY  9:58:04 [watchdog_cover] engine_0: ##   0:00:01  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY  9:58:04 [watchdog_cover] engine_0: ##   0:00:01  Checking cover reachability in step 19..
+SBY  9:58:04 [watchdog_cover] engine_0: ##   0:00:02  Checking cover reachability in step 20..
+SBY  9:58:05 [watchdog_cover] engine_0: ##   0:00:02  Checking cover reachability in step 21..
+SBY  9:58:05 [watchdog_cover] engine_0: ##   0:00:03  Reached cover statement in step 21 at watchdog_timer: watchdog_formal.v:258.27-258.76 (_witness_.check_cover_watchdog_formal_v_258_188)
+SBY  9:58:05 [watchdog_cover] engine_0: ##   0:00:03  Writing trace to VCD file: engine_0/trace1.vcd
+SBY  9:58:05 [watchdog_cover] engine_0: ##   0:00:03  Writing trace to Verilog testbench: engine_0/trace1_tb.v
+SBY  9:58:05 [watchdog_cover] engine_0: ##   0:00:03  Writing trace to constraints file: engine_0/trace1.smtc
+SBY  9:58:05 [watchdog_cover] engine_0: ##   0:00:03  Writing trace to Yosys witness file: engine_0/trace1.yw
+SBY  9:58:05 [watchdog_cover] engine_0: ##   0:00:03  Checking cover reachability in step 21..
+SBY  9:58:05 [watchdog_cover] engine_0: ##   0:00:03  Checking cover reachability in step 22..
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:03  Reached cover statement in step 22 at watchdog_timer: watchdog_formal.v:264.27-264.59 (_witness_.check_cover_watchdog_formal_v_264_198)
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:03  Writing trace to VCD file: engine_0/trace2.vcd
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:03  Writing trace to Verilog testbench: engine_0/trace2_tb.v
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:03  Writing trace to constraints file: engine_0/trace2.smtc
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:03  Writing trace to Yosys witness file: engine_0/trace2.yw
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:03  Checking cover reachability in step 22..
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:04  Checking cover reachability in step 23..
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:04  Reached cover statement in step 23 at watchdog_timer: watchdog_formal.v:252.27-252.48 (_witness_.check_cover_watchdog_formal_v_252_180)
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:04  Reached cover statement in step 23 at watchdog_timer: watchdog_formal.v:267.27-267.98 (_witness_.check_cover_watchdog_formal_v_267_203)
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:04  Writing trace to VCD file: engine_0/trace3.vcd
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:04  Writing trace to Verilog testbench: engine_0/trace3_tb.v
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:04  Writing trace to constraints file: engine_0/trace3.smtc
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:04  Writing trace to Yosys witness file: engine_0/trace3.yw
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:04  Checking cover reachability in step 23..
+SBY  9:58:06 [watchdog_cover] engine_0: ##   0:00:04  Checking cover reachability in step 24..
+SBY  9:58:07 [watchdog_cover] engine_0: ##   0:00:05  Reached cover statement in step 24 at watchdog_timer: watchdog_formal.v:261.27-261.80 (_witness_.check_cover_watchdog_formal_v_261_193)
+SBY  9:58:07 [watchdog_cover] engine_0: ##   0:00:05  Writing trace to VCD file: engine_0/trace4.vcd
+SBY  9:58:07 [watchdog_cover] engine_0: ##   0:00:05  Writing trace to Verilog testbench: engine_0/trace4_tb.v
+SBY  9:58:07 [watchdog_cover] engine_0: ##   0:00:05  Writing trace to constraints file: engine_0/trace4.smtc
+SBY  9:58:07 [watchdog_cover] engine_0: ##   0:00:05  Writing trace to Yosys witness file: engine_0/trace4.yw
+SBY  9:58:07 [watchdog_cover] engine_0: ##   0:00:05  Status: passed
+SBY  9:58:07 [watchdog_cover] engine_0: finished (returncode=0)
+SBY  9:58:07 [watchdog_cover] engine_0: Status returned by engine: pass
+SBY  9:58:07 [watchdog_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:06 (6)
+SBY  9:58:07 [watchdog_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:03 (3)
+SBY  9:58:07 [watchdog_cover] summary: engine_0 (smtbmc z3) returned pass
+SBY  9:58:07 [watchdog_cover] summary: cover trace: watchdog_cover/engine_0/trace0.vcd
+SBY  9:58:07 [watchdog_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_255_183 at watchdog_formal.v:255.27-255.64 step 19
+SBY  9:58:07 [watchdog_cover] summary: cover trace: watchdog_cover/engine_0/trace1.vcd
+SBY  9:58:07 [watchdog_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_258_188 at watchdog_formal.v:258.27-258.76 step 21
+SBY  9:58:07 [watchdog_cover] summary: cover trace: watchdog_cover/engine_0/trace2.vcd
+SBY  9:58:07 [watchdog_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_264_198 at watchdog_formal.v:264.27-264.59 step 22
+SBY  9:58:07 [watchdog_cover] summary: cover trace: watchdog_cover/engine_0/trace3.vcd
+SBY  9:58:07 [watchdog_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_252_180 at watchdog_formal.v:252.27-252.48 step 23
+SBY  9:58:07 [watchdog_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_267_203 at watchdog_formal.v:267.27-267.98 step 23
+SBY  9:58:07 [watchdog_cover] summary: cover trace: watchdog_cover/engine_0/trace4.vcd
+SBY  9:58:07 [watchdog_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_watchdog_formal_v_261_193 at watchdog_formal.v:261.27-261.80 step 24
+SBY  9:58:07 [watchdog_cover] DONE (PASS, rc=0)
 </system-out>
 <system-err>
 </system-err>

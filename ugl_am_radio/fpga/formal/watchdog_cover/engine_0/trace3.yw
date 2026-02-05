@@ -10,10 +10,13 @@
     {"path": ["\\force_reset"], "width": 1, "offset": 0, "init_only": false},
     {"path": ["\\heartbeat"], "width": 1, "offset": 0, "init_only": false},
     {"path": ["\\rstn"], "width": 1, "offset": 0, "init_only": false},
-    {"path": ["\\_witness_", "\\anyinit_procdff_185"], "width": 1, "offset": 0, "init_only": true}
+    {"path": ["\\_witness_", "\\anyinit_procdff_298"], "width": 1, "offset": 0, "init_only": true},
+    {"path": ["\\_witness_", "\\anyinit_procdff_299"], "width": 1, "offset": 0, "init_only": true},
+    {"path": ["\\_witness_", "\\anyinit_procdff_300"], "width": 1, "offset": 0, "init_only": true},
+    {"path": ["\\_witness_", "\\anyinit_procdff_326"], "width": 1, "offset": 0, "init_only": true}
   ],
   "steps": [
-    {"bits": "000010"},
+    {"bits": "000000010"},
     {"bits": "10010"},
     {"bits": "10010"},
     {"bits": "10010"},
@@ -35,7 +38,6 @@
     {"bits": "10010"},
     {"bits": "10010"},
     {"bits": "10010"},
-    {"bits": "10000"},
     {"bits": "00000"},
     {"bits": "10010"}
   ]
