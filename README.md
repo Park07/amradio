@@ -7,9 +7,7 @@ A 12-channel AM radio broadcast system using Red Pitaya FPGA for emergency alert
 ![GUI: DearPyGui](https://img.shields.io/badge/GUI-DearPyGui-green)
 
 ---
-....
-test
-bowen
+
 ## Features
 
 | Feature | Status |
@@ -20,7 +18,8 @@ bowen
 | Dynamic power scaling | ✅ |
 | True stateless UI architecture | ✅ |
 | Network polling & auto-reconnect | ✅ |
-| Fail-safe watchdog |  WIP |
+| Fail-safe hardware watchdog (5s timeout) | ✅ |
+| Formal verification (14 properties, all proven) | ✅ |
 
 ---
 
@@ -29,8 +28,8 @@ bowen
 ```
 ┌─────────────────┐         TCP/SCPI          ┌─────────────────┐
 │                 │ ────────────────────────► │                 │
-│   GUI (Python)  │        Port 5000          │   Red Pitaya    │
-│                 │ ◄──────────────────────── │     (FPGA)      │
+│   GUI (JS).     │        Port 5000          │   Red Pitaya    │
+│   Rust Tauri    │ ◄──────────────────────── │     (FPGA)      │
 └─────────────────┘         STATUS?           └─────────────────┘
                                                       │
                                                       ▼
@@ -53,6 +52,17 @@ bowen
 - **AM Modulator**: Combines audio with each carrier
 - **Dynamic Scaling**: Power automatically adjusts based on enabled channel count
 - **Audio Buffer**: BRAM stores pre-recorded emergency messages
+- **Watchdog Timer**: Hardware fail-safe kills RF output if GUI heartbeat stops for 5 seconds
+
+### Formal Verification
+
+The watchdog timer is mathematically proven correct using bounded model checking and k-induction (SymbiYosys + Z3). 14 safety and liveness properties verified, including:
+
+- **AG(c < T → ¬triggered)** — RF never disabled prematurely
+- **AG(c ≥ T → triggered)** — timeout always kills broadcast
+- **AG(hb → AX(c = 0))** — heartbeat always resets counter
+
+See [`fpga/formal/README.md`](ugl_am_radio/fpga/formal/README.md) for full details.
 
 ---
 
@@ -147,6 +157,12 @@ ugl_am_radio/
 ├── event_bus.py         # Observer pattern event system
 ├── config.py            # Configuration (frequencies, colors, etc.)
 ├── am_scpi_server.py    # Server for Red Pitaya
+├── fpga/
+│   ├── formal/
+│   │   ├── watchdog_formal.v   # Watchdog + 14 formal properties
+│   │   ├── watchdog.sby        # SymbiYosys config
+│   │   └── README.md           # Formal verification docs
+│   └── ...                     # FPGA source (Verilog)
 └── README.md
 ```
 
@@ -210,6 +226,8 @@ Frequencies can be adjusted at runtime via the GUI (500-1700 kHz range).
 | `CH1:FREQ 505000` | Set CH1 frequency (Hz) |
 | `CH1:OUTPUT ON/OFF` | Enable/disable CH1 |
 | `SOURCE:MSG 1` | Select audio message |
+| `WATCHDOG:RESET` | Reset watchdog timer |
+| `WATCHDOG:STATUS?` | Query watchdog state |
 
 ---
 
@@ -223,15 +241,15 @@ Frequencies can be adjusted at runtime via the GUI (500-1700 kHz range).
 
 ## Authors
 
-- **William Park** - GUI & Integration
-- **Bowen** - FPGA & Verilog
+- **William Park** - GUI, Watchdog, Formal Verification
+- **Bowen** - FPGA Development (NCO, AM Modulation, RF Output)
 
----
+## Acknowledgments
 
-## License
+- UGL Limited - Project sponsor
+- University of New South Wales - Facilities provision
+- Red Pitaya - Hardware platform
 
-University of Glasgow - UGL Project
+Special thanks to our supervisors: Robert Mahood (UGL) and Andrew Wong (UNSW).
 
----
-
-*Last updated: 30th January 2026*
+*Last updated: 6th February 2026*
