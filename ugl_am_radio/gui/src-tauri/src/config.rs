@@ -70,12 +70,12 @@ impl ScpiCommands {
     pub const OUTPUT_ON: &'static str = "OUTPUT:STATE ON";
     pub const OUTPUT_OFF: &'static str = "OUTPUT:STATE OFF";
     pub const OUTPUT_STATUS: &'static str = "OUTPUT:STATE?";
-    pub const OUTPUT_CH_PREFIX: &'static str = "OUTPUT:CH";  // OUTPUT:CH1 ON
+    pub const OUTPUT_CH_PREFIX: &'static str = "CH";  // OUTPUT:CH1 ON
 
     // ----------------------------------------------------------
     // FREQUENCY CONTROL
     // ----------------------------------------------------------
-    pub const FREQ_PREFIX: &'static str = "FREQ:CH";  // FREQ:CH1 540000
+    pub const FREQ_PREFIX: &'static str = "CH";  // FREQ:CH1 540000
     pub const FREQ_QUERY_PREFIX: &'static str = "FREQ:CH";  // FREQ:CH1?
 
     // ----------------------------------------------------------

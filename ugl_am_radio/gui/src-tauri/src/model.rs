@@ -785,15 +785,11 @@ impl NetworkManager {
         }
 
         // Set frequency
-        let freq_cmd = format!("{}:{} {}", ScpiCommands::FREQ_PREFIX, ch, freq);
+        let freq_cmd = format!("CH{}:FREQ {}", ch, freq);
         self.send_command(&freq_cmd).await?;
 
         // Set enabled state
-        let state_cmd = format!("{}:{} {}",
-            ScpiCommands::OUTPUT_CH_PREFIX,
-            ch,
-            if enabled { "ON" } else { "OFF" }
-        );
+        let state_cmd = format!("CH{}:OUTPUT {}", ch, if enabled { "ON" } else { "OFF" });
         self.send_command(&state_cmd).await?;
 
         // Update local state
