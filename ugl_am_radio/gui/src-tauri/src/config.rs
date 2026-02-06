@@ -175,3 +175,88 @@ mod tests {
         assert_eq!(ChannelPresets::for_count(12).len(), 12);
     }
 }
+
+#[cfg(test)]
+mod additional_tests {
+    use super::*;
+
+    #[test]
+    fn test_frequency_presets_spacing() {
+        for ch in 1..12u8 {
+            let diff = FrequencyPresets::for_channel(ch + 1) - FrequencyPresets::for_channel(ch);
+            assert_eq!(diff, 100_000, "Channel {} to {} spacing wrong", ch, ch + 1);
+        }
+    }
+
+    #[test]
+    fn test_frequency_within_am_band() {
+        for ch in 1..=12u8 {
+            let freq = FrequencyPresets::for_channel(ch);
+            assert!(freq >= Config::MIN_FREQUENCY,
+                "CH{} freq {} below min", ch, freq);
+            assert!(freq <= Config::MAX_FREQUENCY,
+                "CH{} freq {} above max", ch, freq);
+        }
+    }
+
+    #[test]
+    fn test_all_presets_match_for_channel() {
+        let all = FrequencyPresets::all();
+        for (i, &freq) in all.iter().enumerate() {
+            assert_eq!(freq, FrequencyPresets::for_channel((i + 1) as u8));
+        }
+    }
+
+    #[test]
+    fn test_channel_presets_no_duplicates() {
+        for count in [1, 2, 3, 4, 6, 8, 12] {
+            let channels = ChannelPresets::for_count(count);
+            let mut sorted = channels.clone();
+            sorted.sort();
+            sorted.dedup();
+            assert_eq!(channels.len(), sorted.len(),
+                "Duplicate channels in preset {}", count);
+        }
+    }
+
+    #[test]
+    fn test_channel_presets_valid_range() {
+        for count in [1, 2, 3, 4, 6, 8, 12] {
+            for &ch in &ChannelPresets::for_count(count) {
+                assert!(ch >= 1 && ch <= 12,
+                    "Channel {} out of range in preset {}", ch, count);
+            }
+        }
+    }
+
+    #[test]
+    fn test_channel_preset_counts() {
+        assert_eq!(ChannelPresets::for_count(1).len(), 1);
+        assert_eq!(ChannelPresets::for_count(2).len(), 2);
+        assert_eq!(ChannelPresets::for_count(3).len(), 3);
+        assert_eq!(ChannelPresets::for_count(4).len(), 4);
+        assert_eq!(ChannelPresets::for_count(6).len(), 6);
+        assert_eq!(ChannelPresets::for_count(8).len(), 8);
+        assert_eq!(ChannelPresets::for_count(12).len(), 12);
+    }
+
+    #[test]
+    fn test_invalid_preset_defaults_to_one() {
+        assert_eq!(ChannelPresets::for_count(5).len(), 1);
+        assert_eq!(ChannelPresets::for_count(0).len(), 1);
+        assert_eq!(ChannelPresets::for_count(99).len(), 1);
+    }
+
+    #[test]
+    fn test_polling_faster_than_watchdog() {
+        assert!(Config::POLL_INTERVAL_MS < Config::WATCHDOG_TIMEOUT_SECS * 1000,
+            "Polling slower than watchdog timeout!");
+    }
+
+    #[test]
+    fn test_reconnect_config_sane() {
+        assert!(Config::MAX_RECONNECT_ATTEMPTS > 0);
+        assert!(Config::MAX_CONSECUTIVE_ERRORS > 0);
+        assert!(Config::CONNECTION_TIMEOUT_SECS > 0);
+    }
+}

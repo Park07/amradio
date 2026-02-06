@@ -158,3 +158,40 @@ mod tests {
         assert_eq!(call_count, 3);
     }
 }
+#[cfg(test)]
+mod additional_tests {
+    use super::*;
+
+    #[test]
+    fn test_delay_never_exceeds_max() {
+        let config = RetryConfig::default();
+        for attempt in 0..100 {
+            assert!(config.delay_for_attempt(attempt) <= Duration::from_millis(config.max_delay_ms));
+        }
+    }
+
+    #[test]
+    fn test_delay_is_exponential() {
+        let config = RetryConfig::default();
+        let d1 = config.delay_for_attempt(1);
+        let d2 = config.delay_for_attempt(2);
+        let d3 = config.delay_for_attempt(3);
+        assert_eq!(d2.as_millis(), d1.as_millis() * 2);
+        assert_eq!(d3.as_millis(), d2.as_millis() * 2);
+    }
+
+    #[test]
+    fn test_custom_retry_config() {
+        let config = RetryConfig {
+            max_attempts: 10,
+            initial_delay_ms: 500,
+            max_delay_ms: 5000,
+            multiplier: 3.0,
+        };
+        assert_eq!(config.delay_for_attempt(0), Duration::ZERO);
+        assert_eq!(config.delay_for_attempt(1), Duration::from_millis(500));
+        assert_eq!(config.delay_for_attempt(2), Duration::from_millis(1500));
+        assert_eq!(config.delay_for_attempt(3), Duration::from_millis(4500));
+        assert_eq!(config.delay_for_attempt(4), Duration::from_millis(5000));
+    }
+}

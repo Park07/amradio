@@ -1,151 +1,151 @@
-SBY  9:58:01 [watchdog_bmc] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_bmc'.
-SBY  9:58:01 [watchdog_prove] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_prove'.
-SBY  9:58:01 [watchdog_prove] Copy '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_formal.v' to '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_prove/src/watchdog_formal.v'.
-SBY  9:58:01 [watchdog_prove] engine_0: smtbmc z3
-SBY  9:58:01 [watchdog_prove] base: starting process "cd watchdog_prove/src; yosys -ql ../model/design.log ../model/design.ys"
-SBY  9:58:01 [watchdog_prove] base: finished (returncode=0)
-SBY  9:58:01 [watchdog_prove] prep: starting process "cd watchdog_prove/model; yosys -ql design_prep.log design_prep.ys"
-SBY  9:58:01 [watchdog_prove] prep: finished (returncode=0)
-SBY  9:58:01 [watchdog_prove] smt2: starting process "cd watchdog_prove/model; yosys -ql design_smt2.log design_smt2.ys"
-SBY  9:58:02 [watchdog_prove] smt2: finished (returncode=0)
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: starting process "cd watchdog_prove; yosys-smtbmc -s z3 --presat --noprogress -t 60  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
-SBY  9:58:02 [watchdog_prove] engine_0.induction: starting process "cd watchdog_prove; yosys-smtbmc -s z3 --presat -i --noprogress -t 60  --append 0 --dump-vcd engine_0/trace_induct.vcd --dump-yw engine_0/trace_induct.yw --dump-vlogtb engine_0/trace_induct_tb.v --dump-smtc engine_0/trace_induct.smtc model/design_smt2.smt2"
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Solver: z3
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 0..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 0..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 1..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 1..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 2..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 2..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 3..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 3..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 4..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 4..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 5..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 5..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 6..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 6..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 7..
-SBY  9:58:02 [watchdog_prove] engine_0.induction: ##   0:00:00  Solver: z3
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 7..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 8..
-SBY  9:58:02 [watchdog_prove] engine_0.induction: ##   0:00:00  Trying induction in step 60..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 8..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 9..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 9..
-SBY  9:58:02 [watchdog_prove] engine_0.induction: ##   0:00:00  Trying induction in step 59..
-SBY  9:58:02 [watchdog_prove] engine_0.induction: ##   0:00:00  Trying induction in step 58..
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 10..
-SBY  9:58:02 [watchdog_prove] engine_0.induction: ##   0:00:00  Temporal induction successful.
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 10..
-SBY  9:58:02 [watchdog_prove] engine_0.induction: ##   0:00:00  Status: passed
-SBY  9:58:02 [watchdog_prove] engine_0.induction: finished (returncode=0)
-SBY  9:58:02 [watchdog_prove] engine_0.induction: Status returned by engine for induction: pass
-SBY  9:58:02 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 11..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 11..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 12..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 12..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 13..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 13..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 14..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 14..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 15..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 15..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 16..
-SBY  9:58:03 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 16..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 17..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 17..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assumptions in step 18..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assertions in step 18..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assumptions in step 19..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assertions in step 19..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assumptions in step 20..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assertions in step 20..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assumptions in step 21..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assertions in step 21..
-SBY  9:58:04 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assumptions in step 22..
-SBY  9:58:05 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assertions in step 22..
-SBY  9:58:05 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assumptions in step 23..
-SBY  9:58:05 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 23..
-SBY  9:58:05 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 24..
-SBY  9:58:05 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 24..
-SBY  9:58:05 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 25..
-SBY  9:58:05 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 25..
-SBY  9:58:05 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 26..
-SBY  9:58:05 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 26..
-SBY  9:58:05 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 27..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 27..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 28..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 28..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 29..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 29..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 30..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 30..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 31..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 31..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 32..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 32..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 33..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 33..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 34..
-SBY  9:58:06 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 34..
-SBY  9:58:07 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 35..
-SBY  9:58:07 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 35..
-SBY  9:58:07 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 36..
-SBY  9:58:07 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assertions in step 36..
-SBY  9:58:07 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assumptions in step 37..
-SBY  9:58:07 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assertions in step 37..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assumptions in step 38..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assertions in step 38..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assumptions in step 39..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assertions in step 39..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assumptions in step 40..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assertions in step 40..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assumptions in step 41..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assertions in step 41..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assumptions in step 42..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assertions in step 42..
-SBY  9:58:08 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assumptions in step 43..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assertions in step 43..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assumptions in step 44..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assertions in step 44..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 45..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 45..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 46..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 46..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 47..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 47..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 48..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 48..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 49..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 49..
-SBY  9:58:09 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 50..
-SBY  9:58:10 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 50..
-SBY  9:58:10 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 51..
-SBY  9:58:10 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 51..
-SBY  9:58:10 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assumptions in step 52..
-SBY  9:58:10 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assertions in step 52..
-SBY  9:58:10 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assumptions in step 53..
-SBY  9:58:10 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assertions in step 53..
-SBY  9:58:10 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assumptions in step 54..
-SBY  9:58:10 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assertions in step 54..
-SBY  9:58:11 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assumptions in step 55..
-SBY  9:58:11 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assertions in step 55..
-SBY  9:58:11 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assumptions in step 56..
-SBY  9:58:11 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assertions in step 56..
-SBY  9:58:11 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assumptions in step 57..
-SBY  9:58:12 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assertions in step 57..
-SBY  9:58:12 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assumptions in step 58..
-SBY  9:58:12 [watchdog_prove] engine_0.basecase: ##   0:00:10  Checking assertions in step 58..
-SBY  9:58:12 [watchdog_prove] engine_0.basecase: ##   0:00:10  Checking assumptions in step 59..
-SBY  9:58:12 [watchdog_prove] engine_0.basecase: ##   0:00:10  Checking assertions in step 59..
-SBY  9:58:12 [watchdog_prove] engine_0.basecase: ##   0:00:10  Status: passed
-SBY  9:58:12 [watchdog_prove] engine_0.basecase: finished (returncode=0)
-SBY  9:58:12 [watchdog_prove] engine_0.basecase: Status returned by engine for basecase: pass
-SBY  9:58:12 [watchdog_prove] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:11 (11)
-SBY  9:58:12 [watchdog_prove] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:11 (11)
-SBY  9:58:12 [watchdog_prove] summary: engine_0 (smtbmc z3) returned pass for basecase
-SBY  9:58:12 [watchdog_prove] summary: engine_0 (smtbmc z3) returned pass for induction
-SBY  9:58:12 [watchdog_prove] summary: engine_0 did not produce any traces
-SBY  9:58:12 [watchdog_prove] summary: successful proof by k-induction.
-SBY  9:58:12 [watchdog_prove] DONE (PASS, rc=0)
+SBY 10:53:05 [watchdog_bmc] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_bmc'.
+SBY 10:53:05 [watchdog_prove] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_prove'.
+SBY 10:53:05 [watchdog_prove] Copy '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_formal.v' to '/Users/williampark/amradio/ugl_am_radio/fpga/formal/watchdog_prove/src/watchdog_formal.v'.
+SBY 10:53:05 [watchdog_prove] engine_0: smtbmc z3
+SBY 10:53:05 [watchdog_prove] base: starting process "cd watchdog_prove/src; yosys -ql ../model/design.log ../model/design.ys"
+SBY 10:53:06 [watchdog_prove] base: finished (returncode=0)
+SBY 10:53:06 [watchdog_prove] prep: starting process "cd watchdog_prove/model; yosys -ql design_prep.log design_prep.ys"
+SBY 10:53:06 [watchdog_prove] prep: finished (returncode=0)
+SBY 10:53:06 [watchdog_prove] smt2: starting process "cd watchdog_prove/model; yosys -ql design_smt2.log design_smt2.ys"
+SBY 10:53:06 [watchdog_prove] smt2: finished (returncode=0)
+SBY 10:53:06 [watchdog_prove] engine_0.basecase: starting process "cd watchdog_prove; yosys-smtbmc -s z3 --presat --noprogress -t 60  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2"
+SBY 10:53:06 [watchdog_prove] engine_0.induction: starting process "cd watchdog_prove; yosys-smtbmc -s z3 --presat -i --noprogress -t 60  --append 0 --dump-vcd engine_0/trace_induct.vcd --dump-yw engine_0/trace_induct.yw --dump-vlogtb engine_0/trace_induct_tb.v --dump-smtc engine_0/trace_induct.smtc model/design_smt2.smt2"
+SBY 10:53:06 [watchdog_prove] engine_0.basecase: ##   0:00:00  Solver: z3
+SBY 10:53:06 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 0..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 0..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 1..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 1..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 2..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 2..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 3..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 3..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 4..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 4..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 5..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 5..
+SBY 10:53:07 [watchdog_prove] engine_0.induction: ##   0:00:00  Solver: z3
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 6..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 6..
+SBY 10:53:07 [watchdog_prove] engine_0.induction: ##   0:00:00  Trying induction in step 60..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 7..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 7..
+SBY 10:53:07 [watchdog_prove] engine_0.induction: ##   0:00:00  Trying induction in step 59..
+SBY 10:53:07 [watchdog_prove] engine_0.induction: ##   0:00:00  Trying induction in step 58..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 8..
+SBY 10:53:07 [watchdog_prove] engine_0.induction: ##   0:00:00  Temporal induction successful.
+SBY 10:53:07 [watchdog_prove] engine_0.induction: ##   0:00:00  Status: passed
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 8..
+SBY 10:53:07 [watchdog_prove] engine_0.induction: finished (returncode=0)
+SBY 10:53:07 [watchdog_prove] engine_0.induction: Status returned by engine for induction: pass
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 9..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 9..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 10..
+SBY 10:53:07 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 10..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 11..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 11..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 12..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 12..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 13..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 13..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 14..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 14..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 15..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assertions in step 15..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assumptions in step 16..
+SBY 10:53:08 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assertions in step 16..
+SBY 10:53:09 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assumptions in step 17..
+SBY 10:53:09 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assertions in step 17..
+SBY 10:53:09 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assumptions in step 18..
+SBY 10:53:09 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assertions in step 18..
+SBY 10:53:09 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assumptions in step 19..
+SBY 10:53:09 [watchdog_prove] engine_0.basecase: ##   0:00:02  Checking assertions in step 19..
+SBY 10:53:09 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 20..
+SBY 10:53:09 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 20..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 21..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 21..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 22..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 22..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 23..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 23..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 24..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assertions in step 24..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:03  Checking assumptions in step 25..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 25..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 26..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 26..
+SBY 10:53:10 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 27..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 27..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 28..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 28..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 29..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 29..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 30..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 30..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assumptions in step 31..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:04  Checking assertions in step 31..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assumptions in step 32..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assertions in step 32..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assumptions in step 33..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assertions in step 33..
+SBY 10:53:11 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assumptions in step 34..
+SBY 10:53:12 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assertions in step 34..
+SBY 10:53:12 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assumptions in step 35..
+SBY 10:53:12 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assertions in step 35..
+SBY 10:53:12 [watchdog_prove] engine_0.basecase: ##   0:00:05  Checking assumptions in step 36..
+SBY 10:53:13 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assertions in step 36..
+SBY 10:53:13 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assumptions in step 37..
+SBY 10:53:13 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assertions in step 37..
+SBY 10:53:13 [watchdog_prove] engine_0.basecase: ##   0:00:06  Checking assumptions in step 38..
+SBY 10:53:13 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 38..
+SBY 10:53:13 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 39..
+SBY 10:53:13 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 39..
+SBY 10:53:14 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 40..
+SBY 10:53:14 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 40..
+SBY 10:53:14 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 41..
+SBY 10:53:14 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assertions in step 41..
+SBY 10:53:14 [watchdog_prove] engine_0.basecase: ##   0:00:07  Checking assumptions in step 42..
+SBY 10:53:14 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assertions in step 42..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assumptions in step 43..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assertions in step 43..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assumptions in step 44..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assertions in step 44..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assumptions in step 45..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:08  Checking assertions in step 45..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assumptions in step 46..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assertions in step 46..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assumptions in step 47..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assertions in step 47..
+SBY 10:53:15 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assumptions in step 48..
+SBY 10:53:16 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assertions in step 48..
+SBY 10:53:16 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assumptions in step 49..
+SBY 10:53:16 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assertions in step 49..
+SBY 10:53:16 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assumptions in step 50..
+SBY 10:53:16 [watchdog_prove] engine_0.basecase: ##   0:00:09  Checking assertions in step 50..
+SBY 10:53:16 [watchdog_prove] engine_0.basecase: ##   0:00:10  Checking assumptions in step 51..
+SBY 10:53:16 [watchdog_prove] engine_0.basecase: ##   0:00:10  Checking assertions in step 51..
+SBY 10:53:16 [watchdog_prove] engine_0.basecase: ##   0:00:10  Checking assumptions in step 52..
+SBY 10:53:16 [watchdog_prove] engine_0.basecase: ##   0:00:10  Checking assertions in step 52..
+SBY 10:53:17 [watchdog_prove] engine_0.basecase: ##   0:00:10  Checking assumptions in step 53..
+SBY 10:53:17 [watchdog_prove] engine_0.basecase: ##   0:00:10  Checking assertions in step 53..
+SBY 10:53:17 [watchdog_prove] engine_0.basecase: ##   0:00:10  Checking assumptions in step 54..
+SBY 10:53:17 [watchdog_prove] engine_0.basecase: ##   0:00:11  Checking assertions in step 54..
+SBY 10:53:17 [watchdog_prove] engine_0.basecase: ##   0:00:11  Checking assumptions in step 55..
+SBY 10:53:17 [watchdog_prove] engine_0.basecase: ##   0:00:11  Checking assertions in step 55..
+SBY 10:53:17 [watchdog_prove] engine_0.basecase: ##   0:00:11  Checking assumptions in step 56..
+SBY 10:53:18 [watchdog_prove] engine_0.basecase: ##   0:00:11  Checking assertions in step 56..
+SBY 10:53:18 [watchdog_prove] engine_0.basecase: ##   0:00:11  Checking assumptions in step 57..
+SBY 10:53:18 [watchdog_prove] engine_0.basecase: ##   0:00:11  Checking assertions in step 57..
+SBY 10:53:18 [watchdog_prove] engine_0.basecase: ##   0:00:12  Checking assumptions in step 58..
+SBY 10:53:18 [watchdog_prove] engine_0.basecase: ##   0:00:12  Checking assertions in step 58..
+SBY 10:53:18 [watchdog_prove] engine_0.basecase: ##   0:00:12  Checking assumptions in step 59..
+SBY 10:53:19 [watchdog_prove] engine_0.basecase: ##   0:00:12  Checking assertions in step 59..
+SBY 10:53:19 [watchdog_prove] engine_0.basecase: ##   0:00:12  Status: passed
+SBY 10:53:19 [watchdog_prove] engine_0.basecase: finished (returncode=0)
+SBY 10:53:19 [watchdog_prove] engine_0.basecase: Status returned by engine for basecase: pass
+SBY 10:53:19 [watchdog_prove] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:14 (14)
+SBY 10:53:19 [watchdog_prove] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:18 (18)
+SBY 10:53:19 [watchdog_prove] summary: engine_0 (smtbmc z3) returned pass for basecase
+SBY 10:53:19 [watchdog_prove] summary: engine_0 (smtbmc z3) returned pass for induction
+SBY 10:53:19 [watchdog_prove] summary: engine_0 did not produce any traces
+SBY 10:53:19 [watchdog_prove] summary: successful proof by k-induction.
+SBY 10:53:19 [watchdog_prove] DONE (PASS, rc=0)

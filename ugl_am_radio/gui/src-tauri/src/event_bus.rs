@@ -192,3 +192,41 @@ mod tests {
         assert!(matches!(rx2.recv().await.unwrap(), EventType::BroadcastStarted));
     }
 }
+
+#[cfg(test)]
+mod additional_tests {
+    use super::*;
+
+    #[tokio::test]
+    async fn test_watchdog_event_types() {
+        let bus = EventBus::new();
+        let mut rx = bus.subscribe();
+
+        bus.emit(EventType::WatchdogTriggered);
+        assert!(matches!(rx.recv().await.unwrap(), EventType::WatchdogTriggered));
+
+        bus.emit(EventType::WatchdogWarning);
+        assert!(matches!(rx.recv().await.unwrap(), EventType::WatchdogWarning));
+    }
+
+    #[tokio::test]
+    async fn test_event_ordering() {
+        let bus = EventBus::new();
+        let mut rx = bus.subscribe();
+
+        bus.emit(EventType::ConnectSuccess);
+        bus.emit(EventType::BroadcastStarted);
+        bus.emit(EventType::WatchdogTriggered);
+
+        assert!(matches!(rx.recv().await.unwrap(), EventType::ConnectSuccess));
+        assert!(matches!(rx.recv().await.unwrap(), EventType::BroadcastStarted));
+        assert!(matches!(rx.recv().await.unwrap(), EventType::WatchdogTriggered));
+    }
+
+    #[test]
+    fn test_no_subscribers_doesnt_panic() {
+        let bus = EventBus::new();
+        bus.emit(EventType::ConnectSuccess);
+        bus.emit(EventType::WatchdogTriggered);
+    }
+}
