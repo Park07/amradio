@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-<testsuite timestamp="2026-02-08T12:23:42" hostname="William-MacBook-Pro.local" package="wd" id="0" name="prove" tests="29" errors="0" failures="0" time="1" skipped="6">
+<testsuite timestamp="2026-02-08T17:49:00" hostname="William-MacBook-Pro.local" package="wd" id="0" name="prove" tests="29" errors="0" failures="0" time="0" skipped="6">
 <properties>
 <property name="os" value="Darwin"/>
 <property name="expect" value="PASS"/>
@@ -8,140 +8,140 @@
 </properties>
 <testcase classname="prove" name="build execution" time="0">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:102.13-102.35" time="0" type="ASSERT" location="wd.v:102.13-102.35" id="_witness_.check_assert_wd_v_102_74">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:104.13-104.35" time="0" type="ASSERT" location="wd.v:104.13-104.35" id="_witness_.check_assert_wd_v_104_74">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:111.13-111.35" time="0" type="ASSERT" location="wd.v:111.13-111.35" id="_witness_.check_assert_wd_v_111_90">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:113.13-113.35" time="0" type="ASSERT" location="wd.v:113.13-113.35" id="_witness_.check_assert_wd_v_113_90">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:117.13-117.33" time="0" type="ASSERT" location="wd.v:117.13-117.33" id="_witness_.check_assert_wd_v_117_93">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:119.13-119.33" time="0" type="ASSERT" location="wd.v:119.13-119.33" id="_witness_.check_assert_wd_v_119_93">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:123.13-123.31" time="0" type="ASSERT" location="wd.v:123.13-123.31" id="_witness_.check_assert_wd_v_123_97">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:125.13-125.31" time="0" type="ASSERT" location="wd.v:125.13-125.31" id="_witness_.check_assert_wd_v_125_97">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:129.13-129.33" time="0" type="ASSERT" location="wd.v:129.13-129.33" id="_witness_.check_assert_wd_v_129_102">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:131.13-131.33" time="0" type="ASSERT" location="wd.v:131.13-131.33" id="_witness_.check_assert_wd_v_131_102">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:130.13-130.35" time="0" type="ASSERT" location="wd.v:130.13-130.35" id="_witness_.check_assert_wd_v_130_104">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:132.13-132.35" time="0" type="ASSERT" location="wd.v:132.13-132.35" id="_witness_.check_assert_wd_v_132_104">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:131.13-131.33" time="0" type="ASSERT" location="wd.v:131.13-131.33" id="_witness_.check_assert_wd_v_131_106">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:133.13-133.33" time="0" type="ASSERT" location="wd.v:133.13-133.33" id="_witness_.check_assert_wd_v_133_106">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:137.9-137.42" time="0" type="ASSERT" location="wd.v:137.9-137.42" id="_witness_.check_assert_wd_v_137_110">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:139.9-139.42" time="0" type="ASSERT" location="wd.v:139.9-139.42" id="_witness_.check_assert_wd_v_139_110">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:143.13-143.33" time="0" type="ASSERT" location="wd.v:143.13-143.33" id="_witness_.check_assert_wd_v_143_119">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:145.13-145.33" time="0" type="ASSERT" location="wd.v:145.13-145.33" id="_witness_.check_assert_wd_v_145_119">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:144.13-144.35" time="0" type="ASSERT" location="wd.v:144.13-144.35" id="_witness_.check_assert_wd_v_144_121">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:146.13-146.35" time="0" type="ASSERT" location="wd.v:146.13-146.35" id="_witness_.check_assert_wd_v_146_121">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:145.13-145.33" time="0" type="ASSERT" location="wd.v:145.13-145.33" id="_witness_.check_assert_wd_v_145_123">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:147.13-147.33" time="0" type="ASSERT" location="wd.v:147.13-147.33" id="_witness_.check_assert_wd_v_147_123">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:152.13-152.33" time="0" type="ASSERT" location="wd.v:152.13-152.33" id="_witness_.check_assert_wd_v_152_129">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:154.13-154.33" time="0" type="ASSERT" location="wd.v:154.13-154.33" id="_witness_.check_assert_wd_v_154_129">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:158.13-158.33" time="0" type="ASSERT" location="wd.v:158.13-158.33" id="_witness_.check_assert_wd_v_158_135">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:160.13-160.33" time="0" type="ASSERT" location="wd.v:160.13-160.33" id="_witness_.check_assert_wd_v_160_135">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:167.13-167.50" time="0" type="ASSERT" location="wd.v:167.13-167.50" id="_witness_.check_assert_wd_v_167_152">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:169.13-169.50" time="0" type="ASSERT" location="wd.v:169.13-169.50" id="_witness_.check_assert_wd_v_169_152">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:173.13-173.50" time="0" type="ASSERT" location="wd.v:173.13-173.50" id="_witness_.check_assert_wd_v_173_157">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:175.13-175.50" time="0" type="ASSERT" location="wd.v:175.13-175.50" id="_witness_.check_assert_wd_v_175_157">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:179.13-179.40" time="0" type="ASSERT" location="wd.v:179.13-179.40" id="_witness_.check_assert_wd_v_179_160">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:181.13-181.40" time="0" type="ASSERT" location="wd.v:181.13-181.40" id="_witness_.check_assert_wd_v_181_160">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:188.13-188.60" time="0" type="ASSERT" location="wd.v:188.13-188.60" id="_witness_.check_assert_wd_v_188_177">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:190.13-190.60" time="0" type="ASSERT" location="wd.v:190.13-190.60" id="_witness_.check_assert_wd_v_190_177">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:84.13-84.33" time="0" type="ASSERT" location="wd.v:84.13-84.33" id="_witness_.check_assert_wd_v_84_52">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:86.13-86.33" time="0" type="ASSERT" location="wd.v:86.13-86.33" id="_witness_.check_assert_wd_v_86_52">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:85.13-85.35" time="0" type="ASSERT" location="wd.v:85.13-85.35" id="_witness_.check_assert_wd_v_85_54">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:87.13-87.35" time="0" type="ASSERT" location="wd.v:87.13-87.35" id="_witness_.check_assert_wd_v_87_54">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:86.13-86.33" time="0" type="ASSERT" location="wd.v:86.13-86.33" id="_witness_.check_assert_wd_v_86_56">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:88.13-88.33" time="0" type="ASSERT" location="wd.v:88.13-88.33" id="_witness_.check_assert_wd_v_88_56">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:93.13-93.33" time="0" type="ASSERT" location="wd.v:93.13-93.33" id="_witness_.check_assert_wd_v_93_66">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:95.13-95.33" time="0" type="ASSERT" location="wd.v:95.13-95.33" id="_witness_.check_assert_wd_v_95_66">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:94.13-94.35" time="0" type="ASSERT" location="wd.v:94.13-94.35" id="_witness_.check_assert_wd_v_94_68">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:96.13-96.35" time="0" type="ASSERT" location="wd.v:96.13-96.35" id="_witness_.check_assert_wd_v_96_68">
 </testcase>
-<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:95.13-95.33" time="0" type="ASSERT" location="wd.v:95.13-95.33" id="_witness_.check_assert_wd_v_95_70">
+<testcase classname="prove" name="Property ASSERT in watchdog_timer at wd.v:97.13-97.33" time="0" type="ASSERT" location="wd.v:97.13-97.33" id="_witness_.check_assert_wd_v_97_70">
 </testcase>
-<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:192.27-192.48" time="0" type="COVER" location="wd.v:192.27-192.48" id="_witness_.check_cover_wd_v_192_180">
+<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:194.27-194.48" time="0" type="COVER" location="wd.v:194.27-194.48" id="_witness_.check_cover_wd_v_194_180">
 <skipped />
 </testcase>
-<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:193.27-193.64" time="0" type="COVER" location="wd.v:193.27-193.64" id="_witness_.check_cover_wd_v_193_183">
+<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:195.27-195.64" time="0" type="COVER" location="wd.v:195.27-195.64" id="_witness_.check_cover_wd_v_195_183">
 <skipped />
 </testcase>
-<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:194.27-194.76" time="0" type="COVER" location="wd.v:194.27-194.76" id="_witness_.check_cover_wd_v_194_188">
+<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:196.27-196.76" time="0" type="COVER" location="wd.v:196.27-196.76" id="_witness_.check_cover_wd_v_196_188">
 <skipped />
 </testcase>
-<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:195.27-195.80" time="0" type="COVER" location="wd.v:195.27-195.80" id="_witness_.check_cover_wd_v_195_193">
+<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:197.27-197.80" time="0" type="COVER" location="wd.v:197.27-197.80" id="_witness_.check_cover_wd_v_197_193">
 <skipped />
 </testcase>
-<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:196.27-196.59" time="0" type="COVER" location="wd.v:196.27-196.59" id="_witness_.check_cover_wd_v_196_198">
+<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:198.27-198.59" time="0" type="COVER" location="wd.v:198.27-198.59" id="_witness_.check_cover_wd_v_198_198">
 <skipped />
 </testcase>
-<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:197.27-197.98" time="0" type="COVER" location="wd.v:197.27-197.98" id="_witness_.check_cover_wd_v_197_203">
+<testcase classname="prove" name="Property COVER in watchdog_timer at wd.v:199.27-199.98" time="0" type="COVER" location="wd.v:199.27-199.98" id="_witness_.check_cover_wd_v_199_203">
 <skipped />
 </testcase>
-<system-out>SBY 12:23:39 [wd_prove] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd_prove'.
-SBY 12:23:39 [wd_prove] Copy '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd.v' to '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd_prove/src/wd.v'.
-SBY 12:23:39 [wd_prove] engine_0: smtbmc z3
-SBY 12:23:39 [wd_prove] base: starting process &quot;cd wd_prove/src; yosys -ql ../model/design.log ../model/design.ys&quot;
-SBY 12:23:40 [wd_prove] base: finished (returncode=0)
-SBY 12:23:40 [wd_prove] prep: starting process &quot;cd wd_prove/model; yosys -ql design_prep.log design_prep.ys&quot;
-SBY 12:23:40 [wd_prove] prep: finished (returncode=0)
-SBY 12:23:40 [wd_prove] smt2: starting process &quot;cd wd_prove/model; yosys -ql design_smt2.log design_smt2.ys&quot;
-SBY 12:23:40 [wd_prove] smt2: finished (returncode=0)
-SBY 12:23:40 [wd_prove] engine_0.basecase: starting process &quot;cd wd_prove; yosys-smtbmc -s z3 --presat --noprogress -t 20  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2&quot;
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Solver: z3
-SBY 12:23:40 [wd_prove] engine_0.induction: starting process &quot;cd wd_prove; yosys-smtbmc -s z3 --presat -i --noprogress -t 20  --append 0 --dump-vcd engine_0/trace_induct.vcd --dump-yw engine_0/trace_induct.yw --dump-vlogtb engine_0/trace_induct_tb.v --dump-smtc engine_0/trace_induct.smtc model/design_smt2.smt2&quot;
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 0..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 0..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 1..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 1..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 2..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 2..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 3..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 3..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 4..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 4..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 5..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 5..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 6..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 6..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 7..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 7..
-SBY 12:23:40 [wd_prove] engine_0.induction: ##   0:00:00  Solver: z3
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 8..
-SBY 12:23:40 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 8..
-SBY 12:23:40 [wd_prove] engine_0.induction: ##   0:00:00  Trying induction in step 20..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 9..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 9..
-SBY 12:23:41 [wd_prove] engine_0.induction: ##   0:00:00  Trying induction in step 19..
-SBY 12:23:41 [wd_prove] engine_0.induction: ##   0:00:00  Trying induction in step 18..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 10..
-SBY 12:23:41 [wd_prove] engine_0.induction: ##   0:00:00  Temporal induction successful.
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 10..
-SBY 12:23:41 [wd_prove] engine_0.induction: ##   0:00:00  Status: passed
-SBY 12:23:41 [wd_prove] engine_0.induction: finished (returncode=0)
-SBY 12:23:41 [wd_prove] engine_0.induction: Status returned by engine for induction: pass
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 11..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 11..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 12..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 12..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 13..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 13..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 14..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 14..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 15..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 15..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 16..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 16..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 17..
-SBY 12:23:41 [wd_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 17..
-SBY 12:23:42 [wd_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 18..
-SBY 12:23:42 [wd_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 18..
-SBY 12:23:42 [wd_prove] engine_0.basecase: ##   0:00:01  Checking assumptions in step 19..
-SBY 12:23:42 [wd_prove] engine_0.basecase: ##   0:00:01  Checking assertions in step 19..
-SBY 12:23:42 [wd_prove] engine_0.basecase: ##   0:00:02  Status: passed
-SBY 12:23:42 [wd_prove] engine_0.basecase: finished (returncode=0)
-SBY 12:23:42 [wd_prove] engine_0.basecase: Status returned by engine for basecase: pass
-SBY 12:23:42 [wd_prove] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:03 (3)
-SBY 12:23:42 [wd_prove] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:01 (1)
-SBY 12:23:42 [wd_prove] summary: engine_0 (smtbmc z3) returned pass for basecase
-SBY 12:23:42 [wd_prove] summary: engine_0 (smtbmc z3) returned pass for induction
-SBY 12:23:42 [wd_prove] summary: engine_0 did not produce any traces
-SBY 12:23:42 [wd_prove] summary: successful proof by k-induction.
-SBY 12:23:42 [wd_prove] DONE (PASS, rc=0)
+<system-out>SBY 17:48:59 [wd_prove] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd_prove'.
+SBY 17:48:59 [wd_prove] Copy '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd.v' to '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd_prove/src/wd.v'.
+SBY 17:48:59 [wd_prove] engine_0: smtbmc z3
+SBY 17:48:59 [wd_prove] base: starting process &quot;cd wd_prove/src; yosys -ql ../model/design.log ../model/design.ys&quot;
+SBY 17:48:59 [wd_prove] base: finished (returncode=0)
+SBY 17:48:59 [wd_prove] prep: starting process &quot;cd wd_prove/model; yosys -ql design_prep.log design_prep.ys&quot;
+SBY 17:48:59 [wd_prove] prep: finished (returncode=0)
+SBY 17:48:59 [wd_prove] smt2: starting process &quot;cd wd_prove/model; yosys -ql design_smt2.log design_smt2.ys&quot;
+SBY 17:48:59 [wd_prove] smt2: finished (returncode=0)
+SBY 17:48:59 [wd_prove] engine_0.basecase: starting process &quot;cd wd_prove; yosys-smtbmc -s z3 --presat --noprogress -t 20  --append 0 --dump-vcd engine_0/trace.vcd --dump-yw engine_0/trace.yw --dump-vlogtb engine_0/trace_tb.v --dump-smtc engine_0/trace.smtc model/design_smt2.smt2&quot;
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Solver: z3
+SBY 17:48:59 [wd_prove] engine_0.induction: starting process &quot;cd wd_prove; yosys-smtbmc -s z3 --presat -i --noprogress -t 20  --append 0 --dump-vcd engine_0/trace_induct.vcd --dump-yw engine_0/trace_induct.yw --dump-vlogtb engine_0/trace_induct_tb.v --dump-smtc engine_0/trace_induct.smtc model/design_smt2.smt2&quot;
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 0..
+SBY 17:48:59 [wd_prove] engine_0.induction: ##   0:00:00  Solver: z3
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 0..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 1..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 1..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 2..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 2..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 3..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 3..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 4..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 4..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 5..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 5..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 6..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 6..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 7..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 7..
+SBY 17:48:59 [wd_prove] engine_0.induction: ##   0:00:00  Trying induction in step 20..
+SBY 17:48:59 [wd_prove] engine_0.induction: ##   0:00:00  Trying induction in step 19..
+SBY 17:48:59 [wd_prove] engine_0.induction: ##   0:00:00  Trying induction in step 18..
+SBY 17:48:59 [wd_prove] engine_0.induction: ##   0:00:00  Temporal induction successful.
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 8..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 8..
+SBY 17:48:59 [wd_prove] engine_0.induction: ##   0:00:00  Status: passed
+SBY 17:48:59 [wd_prove] engine_0.induction: finished (returncode=0)
+SBY 17:48:59 [wd_prove] engine_0.induction: Status returned by engine for induction: pass
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 9..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 9..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 10..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 10..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 11..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 11..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 12..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 12..
+SBY 17:48:59 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 13..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 13..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 14..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 14..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 15..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 15..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 16..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 16..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 17..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 17..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 18..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 18..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assumptions in step 19..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Checking assertions in step 19..
+SBY 17:49:00 [wd_prove] engine_0.basecase: ##   0:00:00  Status: passed
+SBY 17:49:00 [wd_prove] engine_0.basecase: finished (returncode=0)
+SBY 17:49:00 [wd_prove] engine_0.basecase: Status returned by engine for basecase: pass
+SBY 17:49:00 [wd_prove] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:00 (0)
+SBY 17:49:00 [wd_prove] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:00 (0)
+SBY 17:49:00 [wd_prove] summary: engine_0 (smtbmc z3) returned pass for basecase
+SBY 17:49:00 [wd_prove] summary: engine_0 (smtbmc z3) returned pass for induction
+SBY 17:49:00 [wd_prove] summary: engine_0 did not produce any traces
+SBY 17:49:00 [wd_prove] summary: successful proof by k-induction.
+SBY 17:49:00 [wd_prove] DONE (PASS, rc=0)
 </system-out>
 <system-err>
 </system-err>

@@ -58,13 +58,6 @@ assume (= [rstn] true)
 
 state 6
 assume (= [clk] false)
-assume (= [enable] false)
-assume (= [force_reset] false)
-assume (= [heartbeat] false)
-assume (= [rstn] false)
-
-state 7
-assume (= [clk] false)
 assume (= [enable] true)
 assume (= [force_reset] false)
 assume (= [heartbeat] false)

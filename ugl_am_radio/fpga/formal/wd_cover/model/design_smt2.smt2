@@ -26,25 +26,25 @@
 (declare-fun |watchdog_timer#5| (|watchdog_timer_s|) (_ BitVec 1)) ; $auto$async2sync.cc:116:execute$513
 ; yosys-smt2-register $auto$async2sync.cc:116:execute$513 1
 (define-fun |watchdog_timer_n $auto$async2sync.cc:116:execute$513| ((state |watchdog_timer_s|)) Bool (= ((_ extract 0 0) (|watchdog_timer#5| state)) #b1))
-; yosys-smt2-anyinit watchdog_timer#6 1 wd.v:197.5-197.99
+; yosys-smt2-anyinit watchdog_timer#6 1 wd.v:199.5-199.99
 ; yosys-smt2-witness {"offset": 0, "path": ["\\_witness_", "\\anyinit_procdff_298"], "smtname": 6, "smtoffset": 0, "type": "init", "width": 1}
 (declare-fun |watchdog_timer#6| (|watchdog_timer_s|) (_ BitVec 1)) ; \_witness_.anyinit_procdff_298
 ; yosys-smt2-register _witness_.anyinit_procdff_298 1
 ; yosys-smt2-wire _witness_.anyinit_procdff_298 1
 (define-fun |watchdog_timer_n _witness_.anyinit_procdff_298| ((state |watchdog_timer_s|)) Bool (= ((_ extract 0 0) (|watchdog_timer#6| state)) #b1))
-; yosys-smt2-anyinit watchdog_timer#7 1 wd.v:197.5-197.99
+; yosys-smt2-anyinit watchdog_timer#7 1 wd.v:199.5-199.99
 ; yosys-smt2-witness {"offset": 0, "path": ["\\_witness_", "\\anyinit_procdff_299"], "smtname": 7, "smtoffset": 0, "type": "init", "width": 1}
 (declare-fun |watchdog_timer#7| (|watchdog_timer_s|) (_ BitVec 1)) ; \_witness_.anyinit_procdff_299
 ; yosys-smt2-register _witness_.anyinit_procdff_299 1
 ; yosys-smt2-wire _witness_.anyinit_procdff_299 1
 (define-fun |watchdog_timer_n _witness_.anyinit_procdff_299| ((state |watchdog_timer_s|)) Bool (= ((_ extract 0 0) (|watchdog_timer#7| state)) #b1))
-; yosys-smt2-anyinit watchdog_timer#8 1 wd.v:195.5-195.81
+; yosys-smt2-anyinit watchdog_timer#8 1 wd.v:197.5-197.81
 ; yosys-smt2-witness {"offset": 0, "path": ["\\_witness_", "\\anyinit_procdff_300"], "smtname": 8, "smtoffset": 0, "type": "init", "width": 1}
 (declare-fun |watchdog_timer#8| (|watchdog_timer_s|) (_ BitVec 1)) ; \_witness_.anyinit_procdff_300
 ; yosys-smt2-register _witness_.anyinit_procdff_300 1
 ; yosys-smt2-wire _witness_.anyinit_procdff_300 1
 (define-fun |watchdog_timer_n _witness_.anyinit_procdff_300| ((state |watchdog_timer_s|)) Bool (= ((_ extract 0 0) (|watchdog_timer#8| state)) #b1))
-; yosys-smt2-anyinit watchdog_timer#9 1 wd.v:76.5-79.8
+; yosys-smt2-anyinit watchdog_timer#9 1 wd.v:78.5-81.8
 ; yosys-smt2-witness {"offset": 0, "path": ["\\_witness_", "\\anyinit_procdff_326"], "smtname": 9, "smtoffset": 0, "type": "init", "width": 1}
 (declare-fun |watchdog_timer#9| (|watchdog_timer_s|) (_ BitVec 1)) ; \_witness_.anyinit_procdff_326
 ; yosys-smt2-register _witness_.anyinit_procdff_326 1
@@ -82,8 +82,8 @@
 ; yosys-smt2-wire heartbeat 1
 ; yosys-smt2-witness {"offset": 0, "path": ["\\heartbeat"], "smtname": "heartbeat", "smtoffset": 0, "type": "input", "width": 1}
 (define-fun |watchdog_timer_n heartbeat| ((state |watchdog_timer_s|)) Bool (|watchdog_timer#15| state))
-(define-fun |watchdog_timer#16| ((state |watchdog_timer_s|)) (_ BitVec 32) (bvsub #b00000000000000000000000000000101 (|watchdog_timer#11| state))) ; $sub$wd.v:33$31_Y
-(define-fun |watchdog_timer#17| ((state |watchdog_timer_s|)) Bool (bvult (|watchdog_timer#11| state) #b00000000000000000000000000000101)) ; $lt$wd.v:101$73_Y
+(define-fun |watchdog_timer#16| ((state |watchdog_timer_s|)) (_ BitVec 32) (bvsub #b00000000000000000000000000000101 (|watchdog_timer#11| state))) ; $sub$wd.v:35$31_Y
+(define-fun |watchdog_timer#17| ((state |watchdog_timer_s|)) Bool (bvult (|watchdog_timer#11| state) #b00000000000000000000000000000100)) ; $lt$wd.v:103$73_Y
 (define-fun |watchdog_timer#18| ((state |watchdog_timer_s|)) (_ BitVec 32) (ite (|watchdog_timer#17| state) (|watchdog_timer#16| state) #b00000000000000000000000000000000)) ; \remaining_cycles
 ; yosys-smt2-wire remaining_cycles 32
 (define-fun |watchdog_timer_n remaining_cycles| ((state |watchdog_timer_s|)) (_ BitVec 32) (|watchdog_timer#18| state))
@@ -94,7 +94,7 @@
 ; yosys-smt2-wire rstn 1
 ; yosys-smt2-witness {"offset": 0, "path": ["\\rstn"], "smtname": "rstn", "smtoffset": 0, "type": "input", "width": 1}
 (define-fun |watchdog_timer_n rstn| ((state |watchdog_timer_s|)) Bool (|watchdog_timer#19| state))
-(define-fun |watchdog_timer#20| ((state |watchdog_timer_s|)) Bool (bvugt (|watchdog_timer#18| state) #b00000000000000000000000011111111)) ; $gt$wd.v:35$34_Y
+(define-fun |watchdog_timer#20| ((state |watchdog_timer_s|)) Bool (bvugt (|watchdog_timer#18| state) #b00000000000000000000000011111111)) ; $gt$wd.v:37$34_Y
 (define-fun |watchdog_timer#21| ((state |watchdog_timer_s|)) (_ BitVec 8) (ite (|watchdog_timer#20| state) #b11111111 ((_ extract 7 0) (|watchdog_timer#18| state)))) ; \time_remaining
 ; yosys-smt2-output time_remaining 8
 ; yosys-smt2-wire time_remaining 8
@@ -114,32 +114,32 @@
 (define-fun |watchdog_timer#24| ((state |watchdog_timer_s|)) (_ BitVec 1) (bvnot (ite (|watchdog_timer#10| state) #b1 #b0))) ; $auto$rtlil.cc:3337:Not$661
 ; yosys-smt2-assume 0 $auto$formalff.cc:987:execute$662
 (define-fun |watchdog_timer_u 0| ((state |watchdog_timer_s|)) Bool (or (= ((_ extract 0 0) (|watchdog_timer#24| state)) #b1) (not true))) ; $auto$formalff.cc:987:execute$662
-(define-fun |watchdog_timer#25| ((state |watchdog_timer_s|)) (_ BitVec 1) (bvnot (ite (|watchdog_timer#19| state) #b1 #b0))) ; $eq$wd.v:68$211_Y
+(define-fun |watchdog_timer#25| ((state |watchdog_timer_s|)) (_ BitVec 1) (bvnot (ite (|watchdog_timer#19| state) #b1 #b0))) ; $eq$wd.v:70$211_Y
 (define-fun |watchdog_timer#26| ((state |watchdog_timer_s|)) Bool (|watchdog_timer_is| state)) ; $auto$rtlil.cc:3384:And$472
-; yosys-smt2-assume 1 _witness_.check_assume_wd_v_68_210 wd.v:68.13-68.30
-(define-fun |watchdog_timer_u 1| ((state |watchdog_timer_s|)) Bool (or (= ((_ extract 0 0) (|watchdog_timer#25| state)) #b1) (not (|watchdog_timer#26| state)))) ; _witness_.check_assume_wd_v_68_210
-(define-fun |watchdog_timer#27| ((state |watchdog_timer_s|)) Bool (not (or  (|watchdog_timer#15| state) false))) ; $logic_not$wd.v:78$48_Y
-(define-fun |watchdog_timer#28| ((state |watchdog_timer_s|)) Bool (and (or  (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1) false) (or  (= ((_ extract 0 0) (|watchdog_timer#9| state)) #b1) false))) ; $logic_and$wd.v:77$46_Y
-(define-fun |watchdog_timer#29| ((state |watchdog_timer_s|)) (_ BitVec 1) (ite (|watchdog_timer#28| state) #b1 #b0)) ; $assume$wd.v:78$47_EN
-; yosys-smt2-assume 2 _witness_.check_assume_wd_v_78_47 wd.v:78.13-78.31
-(define-fun |watchdog_timer_u 2| ((state |watchdog_timer_s|)) Bool (or (|watchdog_timer#27| state) (not (= ((_ extract 0 0) (|watchdog_timer#29| state)) #b1)))) ; _witness_.check_assume_wd_v_78_47
-; yosys-smt2-cover 0 _witness_.check_cover_wd_v_192_180 wd.v:192.27-192.48
-(define-fun |watchdog_timer_c 0| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#0| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_192_180
-; yosys-smt2-cover 1 _witness_.check_cover_wd_v_193_183 wd.v:193.27-193.64
-(define-fun |watchdog_timer_c 1| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#1| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_193_183
-; yosys-smt2-cover 2 _witness_.check_cover_wd_v_194_188 wd.v:194.27-194.76
-(define-fun |watchdog_timer_c 2| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#2| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_194_188
-; yosys-smt2-cover 3 _witness_.check_cover_wd_v_195_193 wd.v:195.27-195.80
-(define-fun |watchdog_timer_c 3| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#3| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_195_193
-; yosys-smt2-cover 4 _witness_.check_cover_wd_v_196_198 wd.v:196.27-196.59
-(define-fun |watchdog_timer_c 4| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#4| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_196_198
-; yosys-smt2-cover 5 _witness_.check_cover_wd_v_197_203 wd.v:197.27-197.98
-(define-fun |watchdog_timer_c 5| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#5| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_197_203
-(define-fun |watchdog_timer#30| ((state |watchdog_timer_s|)) Bool (bvuge (|watchdog_timer#11| state) #b00000000000000000000000000000100)) ; $ge$wd.v:59$42_Y
+; yosys-smt2-assume 1 _witness_.check_assume_wd_v_70_210 wd.v:70.13-70.30
+(define-fun |watchdog_timer_u 1| ((state |watchdog_timer_s|)) Bool (or (= ((_ extract 0 0) (|watchdog_timer#25| state)) #b1) (not (|watchdog_timer#26| state)))) ; _witness_.check_assume_wd_v_70_210
+(define-fun |watchdog_timer#27| ((state |watchdog_timer_s|)) Bool (not (or  (|watchdog_timer#15| state) false))) ; $logic_not$wd.v:80$48_Y
+(define-fun |watchdog_timer#28| ((state |watchdog_timer_s|)) Bool (and (or  (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1) false) (or  (= ((_ extract 0 0) (|watchdog_timer#9| state)) #b1) false))) ; $logic_and$wd.v:79$46_Y
+(define-fun |watchdog_timer#29| ((state |watchdog_timer_s|)) (_ BitVec 1) (ite (|watchdog_timer#28| state) #b1 #b0)) ; $assume$wd.v:80$47_EN
+; yosys-smt2-assume 2 _witness_.check_assume_wd_v_80_47 wd.v:80.13-80.31
+(define-fun |watchdog_timer_u 2| ((state |watchdog_timer_s|)) Bool (or (|watchdog_timer#27| state) (not (= ((_ extract 0 0) (|watchdog_timer#29| state)) #b1)))) ; _witness_.check_assume_wd_v_80_47
+; yosys-smt2-cover 0 _witness_.check_cover_wd_v_194_180 wd.v:194.27-194.48
+(define-fun |watchdog_timer_c 0| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#0| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_194_180
+; yosys-smt2-cover 1 _witness_.check_cover_wd_v_195_183 wd.v:195.27-195.64
+(define-fun |watchdog_timer_c 1| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#1| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_195_183
+; yosys-smt2-cover 2 _witness_.check_cover_wd_v_196_188 wd.v:196.27-196.76
+(define-fun |watchdog_timer_c 2| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#2| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_196_188
+; yosys-smt2-cover 3 _witness_.check_cover_wd_v_197_193 wd.v:197.27-197.80
+(define-fun |watchdog_timer_c 3| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#3| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_197_193
+; yosys-smt2-cover 4 _witness_.check_cover_wd_v_198_198 wd.v:198.27-198.59
+(define-fun |watchdog_timer_c 4| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#4| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_198_198
+; yosys-smt2-cover 5 _witness_.check_cover_wd_v_199_203 wd.v:199.27-199.98
+(define-fun |watchdog_timer_c 5| ((state |watchdog_timer_s|)) Bool (and (= ((_ extract 0 0) (|watchdog_timer#5| state)) #b1) (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1))) ; _witness_.check_cover_wd_v_199_203
+(define-fun |watchdog_timer#30| ((state |watchdog_timer_s|)) Bool (bvuge (|watchdog_timer#11| state) #b00000000000000000000000000000011)) ; $ge$wd.v:61$42_Y
 (define-fun |watchdog_timer#31| ((state |watchdog_timer_s|)) (_ BitVec 1) (ite (|watchdog_timer#30| state) #b1 #b0)) ; $procmux$260_Y
-(define-fun |watchdog_timer#32| ((state |watchdog_timer_s|)) Bool (bvuge (|watchdog_timer#11| state) #b00000000000000000000000000000101)) ; $ge$wd.v:53$40_Y
+(define-fun |watchdog_timer#32| ((state |watchdog_timer_s|)) Bool (bvuge (|watchdog_timer#11| state) #b00000000000000000000000000000100)) ; $ge$wd.v:55$40_Y
 (define-fun |watchdog_timer#33| ((state |watchdog_timer_s|)) (_ BitVec 1) (ite (|watchdog_timer#32| state) #b1 (|watchdog_timer#31| state))) ; $procmux$263_Y
-(define-fun |watchdog_timer#34| ((state |watchdog_timer_s|)) Bool (or  (|watchdog_timer#15| state) false  (|watchdog_timer#14| state) false)) ; $logic_or$wd.v:48$39_Y
+(define-fun |watchdog_timer#34| ((state |watchdog_timer_s|)) Bool (or  (|watchdog_timer#15| state) false  (|watchdog_timer#14| state) false)) ; $logic_or$wd.v:50$39_Y
 (define-fun |watchdog_timer#35| ((state |watchdog_timer_s|)) (_ BitVec 1) (ite (|watchdog_timer#34| state) #b0 (|watchdog_timer#33| state))) ; $procmux$266_Y
 (define-fun |watchdog_timer#36| ((state |watchdog_timer_s|)) (_ BitVec 1) (ite (|watchdog_timer#12| state) (|watchdog_timer#35| state) #b0)) ; $procmux$269_Y
 (define-fun |watchdog_timer#37| ((state |watchdog_timer_s|)) (_ BitVec 1) (ite (|watchdog_timer#19| state) (|watchdog_timer#36| state) #b0)) ; $0\warning[0:0]
@@ -147,23 +147,23 @@
 (define-fun |watchdog_timer#39| ((state |watchdog_timer_s|)) (_ BitVec 1) (ite (|watchdog_timer#34| state) #b0 (|watchdog_timer#38| state))) ; $procmux$290_Y
 (define-fun |watchdog_timer#40| ((state |watchdog_timer_s|)) (_ BitVec 1) (ite (|watchdog_timer#12| state) (|watchdog_timer#39| state) #b0)) ; $procmux$293_Y
 (define-fun |watchdog_timer#41| ((state |watchdog_timer_s|)) (_ BitVec 1) (ite (|watchdog_timer#19| state) (|watchdog_timer#40| state) #b0)) ; $0\triggered[0:0]
-(define-fun |watchdog_timer#42| ((state |watchdog_timer_s|)) (_ BitVec 32) (bvadd (|watchdog_timer#11| state) #b00000000000000000000000000000001)) ; $add$wd.v:58$41_Y
+(define-fun |watchdog_timer#42| ((state |watchdog_timer_s|)) (_ BitVec 32) (bvadd (|watchdog_timer#11| state) #b00000000000000000000000000000001)) ; $add$wd.v:60$41_Y
 (define-fun |watchdog_timer#43| ((state |watchdog_timer_s|)) (_ BitVec 32) (ite (|watchdog_timer#32| state) (|watchdog_timer#11| state) (|watchdog_timer#42| state))) ; $procmux$275_Y
 (define-fun |watchdog_timer#44| ((state |watchdog_timer_s|)) (_ BitVec 32) (ite (|watchdog_timer#34| state) #b00000000000000000000000000000000 (|watchdog_timer#43| state))) ; $procmux$278_Y
 (define-fun |watchdog_timer#45| ((state |watchdog_timer_s|)) (_ BitVec 32) (ite (|watchdog_timer#12| state) (|watchdog_timer#44| state) #b00000000000000000000000000000000)) ; $procmux$281_Y
 (define-fun |watchdog_timer#46| ((state |watchdog_timer_s|)) (_ BitVec 32) (ite (|watchdog_timer#19| state) (|watchdog_timer#45| state) #b00000000000000000000000000000000)) ; $0\counter[31:0]
-(define-fun |watchdog_timer#47| ((state |watchdog_timer_s|)) Bool (and (or  (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1) false) (or  (= ((_ extract 0 0) (|watchdog_timer#6| state)) #b1) false))) ; $logic_and$wd.v:197$204_Y
-(define-fun |watchdog_timer#48| ((state |watchdog_timer_s|)) Bool (not (or  (= ((_ extract 0 0) (|watchdog_timer#7| state)) #b1) false))) ; $logic_not$wd.v:197$205_Y
-(define-fun |watchdog_timer#49| ((state |watchdog_timer_s|)) Bool (and (or  (|watchdog_timer#47| state) false) (or  (|watchdog_timer#48| state) false))) ; $logic_and$wd.v:197$206_Y
-(define-fun |watchdog_timer#50| ((state |watchdog_timer_s|)) Bool (and (or  (|watchdog_timer#49| state) false) (or  (= ((_ extract 0 0) (|watchdog_timer#22| state)) #b1) false))) ; $logic_and$wd.v:197$207_Y
-(define-fun |watchdog_timer#51| ((state |watchdog_timer_s|)) Bool (= (|watchdog_timer#11| state) #b00000000000000000000000000000101)) ; $eq$wd.v:196$199_Y
-(define-fun |watchdog_timer#52| ((state |watchdog_timer_s|)) Bool (and (or  (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1) false) (or  (= ((_ extract 0 0) (|watchdog_timer#8| state)) #b1) false))) ; $logic_and$wd.v:195$194_Y
-(define-fun |watchdog_timer#53| ((state |watchdog_timer_s|)) Bool (not (or  (= ((_ extract 0 0) (|watchdog_timer#22| state)) #b1) false))) ; $logic_not$wd.v:123$98_Y
-(define-fun |watchdog_timer#54| ((state |watchdog_timer_s|)) Bool (and (or  (|watchdog_timer#52| state) false) (or  (|watchdog_timer#53| state) false))) ; $logic_and$wd.v:195$196_Y
-(define-fun |watchdog_timer#55| ((state |watchdog_timer_s|)) Bool (= (|watchdog_timer#11| state) #b00000000000000000000000000000100)) ; $eq$wd.v:194$189_Y
-(define-fun |watchdog_timer#56| ((state |watchdog_timer_s|)) Bool (and (or  (|watchdog_timer#55| state) false) (or  (|watchdog_timer#15| state) false))) ; $logic_and$wd.v:194$190_Y
-(define-fun |watchdog_timer#57| ((state |watchdog_timer_s|)) (_ BitVec 1) (bvnot (|watchdog_timer#22| state))) ; $eq$wd.v:102$75_Y
-(define-fun |watchdog_timer#58| ((state |watchdog_timer_s|)) Bool (and (or  (= ((_ extract 0 0) (|watchdog_timer#23| state)) #b1) false) (or  (= ((_ extract 0 0) (|watchdog_timer#57| state)) #b1) false))) ; $logic_and$wd.v:193$186_Y
+(define-fun |watchdog_timer#47| ((state |watchdog_timer_s|)) Bool (and (or  (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1) false) (or  (= ((_ extract 0 0) (|watchdog_timer#6| state)) #b1) false))) ; $logic_and$wd.v:199$204_Y
+(define-fun |watchdog_timer#48| ((state |watchdog_timer_s|)) Bool (not (or  (= ((_ extract 0 0) (|watchdog_timer#7| state)) #b1) false))) ; $logic_not$wd.v:199$205_Y
+(define-fun |watchdog_timer#49| ((state |watchdog_timer_s|)) Bool (and (or  (|watchdog_timer#47| state) false) (or  (|watchdog_timer#48| state) false))) ; $logic_and$wd.v:199$206_Y
+(define-fun |watchdog_timer#50| ((state |watchdog_timer_s|)) Bool (and (or  (|watchdog_timer#49| state) false) (or  (= ((_ extract 0 0) (|watchdog_timer#22| state)) #b1) false))) ; $logic_and$wd.v:199$207_Y
+(define-fun |watchdog_timer#51| ((state |watchdog_timer_s|)) Bool (= (|watchdog_timer#11| state) #b00000000000000000000000000000100)) ; $eq$wd.v:198$199_Y
+(define-fun |watchdog_timer#52| ((state |watchdog_timer_s|)) Bool (and (or  (= ((_ extract 0 0) (|watchdog_timer#13| state)) #b1) false) (or  (= ((_ extract 0 0) (|watchdog_timer#8| state)) #b1) false))) ; $logic_and$wd.v:197$194_Y
+(define-fun |watchdog_timer#53| ((state |watchdog_timer_s|)) Bool (not (or  (= ((_ extract 0 0) (|watchdog_timer#22| state)) #b1) false))) ; $logic_not$wd.v:125$98_Y
+(define-fun |watchdog_timer#54| ((state |watchdog_timer_s|)) Bool (and (or  (|watchdog_timer#52| state) false) (or  (|watchdog_timer#53| state) false))) ; $logic_and$wd.v:197$196_Y
+(define-fun |watchdog_timer#55| ((state |watchdog_timer_s|)) Bool (= (|watchdog_timer#11| state) #b00000000000000000000000000000011)) ; $eq$wd.v:196$189_Y
+(define-fun |watchdog_timer#56| ((state |watchdog_timer_s|)) Bool (and (or  (|watchdog_timer#55| state) false) (or  (|watchdog_timer#15| state) false))) ; $logic_and$wd.v:196$190_Y
+(define-fun |watchdog_timer#57| ((state |watchdog_timer_s|)) (_ BitVec 1) (bvnot (|watchdog_timer#22| state))) ; $eq$wd.v:104$75_Y
+(define-fun |watchdog_timer#58| ((state |watchdog_timer_s|)) Bool (and (or  (= ((_ extract 0 0) (|watchdog_timer#23| state)) #b1) false) (or  (= ((_ extract 0 0) (|watchdog_timer#57| state)) #b1) false))) ; $logic_and$wd.v:195$186_Y
 (define-fun |watchdog_timer_a| ((state |watchdog_timer_s|)) Bool true)
 (define-fun |watchdog_timer_u| ((state |watchdog_timer_s|)) Bool (and
   (|watchdog_timer_u 0| state)

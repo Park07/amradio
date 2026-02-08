@@ -30,13 +30,13 @@
 ##   0:00:00  Checking assumptions in step 14..
 ##   0:00:00  Checking assertions in step 14..
 ##   0:00:00  Checking assumptions in step 15..
-##   0:00:01  Checking assertions in step 15..
-##   0:00:01  Checking assumptions in step 16..
-##   0:00:01  Checking assertions in step 16..
-##   0:00:01  Checking assumptions in step 17..
-##   0:00:01  Checking assertions in step 17..
-##   0:00:01  Checking assumptions in step 18..
-##   0:00:01  Checking assertions in step 18..
-##   0:00:01  Checking assumptions in step 19..
-##   0:00:01  Checking assertions in step 19..
-##   0:00:02  Status: passed
+##   0:00:00  Checking assertions in step 15..
+##   0:00:00  Checking assumptions in step 16..
+##   0:00:00  Checking assertions in step 16..
+##   0:00:00  Checking assumptions in step 17..
+##   0:00:00  Checking assertions in step 17..
+##   0:00:00  Checking assumptions in step 18..
+##   0:00:00  Checking assertions in step 18..
+##   0:00:00  Checking assumptions in step 19..
+##   0:00:00  Checking assertions in step 19..
+##   0:00:00  Status: passed

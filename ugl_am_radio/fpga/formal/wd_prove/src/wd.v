@@ -4,6 +4,7 @@
 // ===================================================
 // DEMO VERSION: CLK_FREQ=1 so counter counts in whole seconds (0-5)
 // Waveform output matches presentation slide timing diagram
+// Note: -1 offsets compensate for non-blocking assignment delay
 //////////////////////////////////////////////////////////////////////////////////
 module watchdog_timer #(
     parameter CLK_FREQ    = 1,    // 1 tick = 1 second (for clean waveform)
@@ -18,8 +19,9 @@ module watchdog_timer #(
     output reg         warning,
     output wire [7:0]  time_remaining
 );
-    localparam TIMEOUT_CYCLES = CLK_FREQ * TIMEOUT_SEC;       // = 5
-    localparam WARNING_CYCLES = (CLK_FREQ * TIMEOUT_SEC * 8) / 10;  // = 4
+    localparam TIMEOUT_CYCLES = CLK_FREQ * TIMEOUT_SEC - 1;              // = 4, appears at 5
+    localparam WARNING_CYCLES = (CLK_FREQ * TIMEOUT_SEC * 8) / 10 - 1;  // = 3, appears at 4
+    localparam DISPLAY_TIMEOUT = CLK_FREQ * TIMEOUT_SEC;                 // = 5, for time_remaining display
     localparam COUNTER_WIDTH  = 32;
 
     reg [COUNTER_WIDTH-1:0] counter;
@@ -30,7 +32,7 @@ module watchdog_timer #(
         warning   = 0;
     end
 
-    wire [31:0] remaining_cycles = (counter < TIMEOUT_CYCLES) ? (TIMEOUT_CYCLES - counter) : 0;
+    wire [31:0] remaining_cycles = (counter < TIMEOUT_CYCLES) ? (DISPLAY_TIMEOUT - counter) : 0;
     wire [31:0] remaining_sec = remaining_cycles / CLK_FREQ;
     assign time_remaining = (remaining_sec > 255) ? 8'd255 : remaining_sec[7:0];
 
