@@ -1,0 +1,19 @@
+[tasks]
+prove
+cover
+
+[options]
+prove: mode prove
+prove: depth 20
+cover: mode cover
+cover: depth 20
+
+[engines]
+smtbmc z3
+
+[script]
+read -formal wd.v
+prep -top watchdog_timer
+
+[files]
+wd.v

@@ -1,0 +1,37 @@
+##   0:00:00  Solver: z3
+##   0:00:00  Checking cover reachability in step 0..
+##   0:00:00  Checking cover reachability in step 1..
+##   0:00:00  Checking cover reachability in step 2..
+##   0:00:00  Checking cover reachability in step 3..
+##   0:00:00  Checking cover reachability in step 4..
+##   0:00:00  Checking cover reachability in step 5..
+##   0:00:00  Checking cover reachability in step 6..
+##   0:00:00  Reached cover statement in step 6 at watchdog_timer: wd.v:194.27-194.76 (_witness_.check_cover_wd_v_194_188)
+##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
+##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
+##   0:00:00  Checking cover reachability in step 6..
+##   0:00:00  Checking cover reachability in step 7..
+##   0:00:00  Reached cover statement in step 7 at watchdog_timer: wd.v:193.27-193.64 (_witness_.check_cover_wd_v_193_183)
+##   0:00:00  Reached cover statement in step 7 at watchdog_timer: wd.v:196.27-196.59 (_witness_.check_cover_wd_v_196_198)
+##   0:00:00  Writing trace to VCD file: engine_0/trace1.vcd
+##   0:00:00  Writing trace to Verilog testbench: engine_0/trace1_tb.v
+##   0:00:00  Writing trace to constraints file: engine_0/trace1.smtc
+##   0:00:00  Writing trace to Yosys witness file: engine_0/trace1.yw
+##   0:00:00  Checking cover reachability in step 7..
+##   0:00:00  Checking cover reachability in step 8..
+##   0:00:00  Reached cover statement in step 8 at watchdog_timer: wd.v:192.27-192.48 (_witness_.check_cover_wd_v_192_180)
+##   0:00:00  Reached cover statement in step 8 at watchdog_timer: wd.v:197.27-197.98 (_witness_.check_cover_wd_v_197_203)
+##   0:00:00  Writing trace to VCD file: engine_0/trace2.vcd
+##   0:00:00  Writing trace to Verilog testbench: engine_0/trace2_tb.v
+##   0:00:00  Writing trace to constraints file: engine_0/trace2.smtc
+##   0:00:00  Writing trace to Yosys witness file: engine_0/trace2.yw
+##   0:00:00  Checking cover reachability in step 8..
+##   0:00:00  Checking cover reachability in step 9..
+##   0:00:00  Reached cover statement in step 9 at watchdog_timer: wd.v:195.27-195.80 (_witness_.check_cover_wd_v_195_193)
+##   0:00:00  Writing trace to VCD file: engine_0/trace3.vcd
+##   0:00:00  Writing trace to Verilog testbench: engine_0/trace3_tb.v
+##   0:00:00  Writing trace to constraints file: engine_0/trace3.smtc
+##   0:00:00  Writing trace to Yosys witness file: engine_0/trace3.yw
+##   0:00:00  Status: passed
