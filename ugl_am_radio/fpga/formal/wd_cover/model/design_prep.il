@@ -387,7 +387,7 @@ module \watchdog_timer
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $lt$wd.v:103$73_Y
-    connect \B 3'100
+    connect \B 3'101
     connect \A \counter
   end
   attribute \src "wd.v:50.18-50.42"
@@ -543,7 +543,7 @@ module \watchdog_timer
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $ge$wd.v:55$40_Y
-    connect \B 3'100
+    connect \B 3'101
     connect \A \counter
   end
   attribute \src "wd.v:70.20-70.29"
@@ -562,18 +562,18 @@ module \watchdog_timer
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $eq$wd.v:198$199_Y
-    connect \B 3'100
+    connect \B 3'101
     connect \A \counter
   end
   attribute \src "wd.v:196.33-196.62"
   cell $eq $eq$wd.v:196$189
     parameter \Y_WIDTH 1
-    parameter \B_WIDTH 2
+    parameter \B_WIDTH 3
     parameter \B_SIGNED 0
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $eq$wd.v:196$189_Y
-    connect \B 2'11
+    connect \B 3'100
     connect \A \counter
   end
   attribute \src "wd.v:104.20-104.34"

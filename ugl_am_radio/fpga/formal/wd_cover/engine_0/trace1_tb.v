@@ -8,14 +8,14 @@ module testbench(input clock, output reg genclock);
 `endif
   reg genclock = 1;
   reg [31:0] cycle = 0;
-  reg [0:0] PI_force_reset;
   wire [0:0] PI_clk = clock;
+  reg [0:0] PI_force_reset;
   reg [0:0] PI_rstn;
   reg [0:0] PI_heartbeat;
   reg [0:0] PI_enable;
   watchdog_timer UUT (
-    .force_reset(PI_force_reset),
     .clk(PI_clk),
+    .force_reset(PI_force_reset),
     .rstn(PI_rstn),
     .heartbeat(PI_heartbeat),
     .enable(PI_enable)
@@ -107,7 +107,15 @@ module testbench(input clock, output reg genclock);
       PI_enable <= 1'b1;
     end
 
-    genclock <= cycle < 6;
+    // state 7
+    if (cycle == 6) begin
+      PI_force_reset <= 1'b0;
+      PI_rstn <= 1'b1;
+      PI_heartbeat <= 1'b0;
+      PI_enable <= 1'b1;
+    end
+
+    genclock <= cycle < 7;
     cycle <= cycle + 1;
   end
 endmodule

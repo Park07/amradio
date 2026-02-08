@@ -62,3 +62,10 @@ assume (= [enable] true)
 assume (= [force_reset] false)
 assume (= [heartbeat] false)
 assume (= [rstn] true)
+
+state 7
+assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)

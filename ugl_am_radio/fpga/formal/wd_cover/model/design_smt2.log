@@ -63,6 +63,6 @@ Module watchdog_timer directly or indirectly contains formal properties -> setti
 6.2. Executing DEMUXMAP pass.
 Creating SMT-LIBv2 representation of module watchdog_timer.
 
-End of script. Logfile hash: 4c11519751, CPU: user 0.01s system 0.00s, MEM: 13.12 MB peak
+End of script. Logfile hash: 4c11519751, CPU: user 0.01s system 0.00s, MEM: 13.14 MB peak
 Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 17.0.0 -fPIC -O3)
-Time spent: 72% 2x write_smt2 (0 sec), 14% 2x read_rtlil (0 sec), ...
+Time spent: 75% 2x write_smt2 (0 sec), 14% 2x read_rtlil (0 sec), ...

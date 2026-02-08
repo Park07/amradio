@@ -44,12 +44,19 @@ assume (= [rstn] true)
 
 state 4
 assume (= [clk] false)
+assume (= [enable] true)
+assume (= [force_reset] false)
+assume (= [heartbeat] false)
+assume (= [rstn] true)
+
+state 5
+assume (= [clk] false)
 assume (= [enable] false)
 assume (= [force_reset] false)
 assume (= [heartbeat] true)
 assume (= [rstn] false)
 
-state 5
+state 6
 assume (= [clk] false)
 assume (= [enable] true)
 assume (= [force_reset] false)

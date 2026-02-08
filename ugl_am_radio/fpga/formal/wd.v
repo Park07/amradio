@@ -19,7 +19,7 @@ module watchdog_timer #(
     output reg         warning,
     output wire [7:0]  time_remaining
 );
-    localparam TIMEOUT_CYCLES = CLK_FREQ * TIMEOUT_SEC - 1;              // = 4, appears at 5
+    localparam TIMEOUT_CYCLES = CLK_FREQ * TIMEOUT_SEC;                   // = 5
     localparam WARNING_CYCLES = (CLK_FREQ * TIMEOUT_SEC * 8) / 10 - 1;  // = 3, appears at 4
     localparam DISPLAY_TIMEOUT = CLK_FREQ * TIMEOUT_SEC;                 // = 5, for time_remaining display
     localparam COUNTER_WIDTH  = 32;

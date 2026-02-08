@@ -334,7 +334,7 @@ Removed top 29 bits (of 32) from port B of cell watchdog_timer.$lt$wd.v:168$150 
 Removed top 31 bits (of 32) from port B of cell watchdog_timer.$add$wd.v:169$153 ($add).
 Removed top 5 bits (of 8) from port B of cell watchdog_timer.$eq$wd.v:175$158 ($eq).
 Removed top 29 bits (of 32) from port B of cell watchdog_timer.$lt$wd.v:189$175 ($lt).
-Removed top 30 bits (of 32) from port B of cell watchdog_timer.$eq$wd.v:196$189 ($eq).
+Removed top 29 bits (of 32) from port B of cell watchdog_timer.$eq$wd.v:196$189 ($eq).
 Removed top 29 bits (of 32) from port B of cell watchdog_timer.$eq$wd.v:198$199 ($eq).
 
 2.10. Executing OPT_CLEAN pass (remove unused cells and wires).
@@ -407,6 +407,6 @@ Module watchdog_timer directly or indirectly contains formal properties -> setti
 5. Executing RTLIL backend.
 Output filename: ../model/design.il
 
-End of script. Logfile hash: 32b0f8a003, CPU: user 0.04s system 0.02s, MEM: 17.05 MB peak
+End of script. Logfile hash: d2d0f0d722, CPU: user 0.04s system 0.02s, MEM: 17.02 MB peak
 Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 17.0.0 -fPIC -O3)
-Time spent: 23% 5x opt_clean (0 sec), 16% 6x opt_expr (0 sec), ...
+Time spent: 23% 5x opt_clean (0 sec), 15% 6x opt_expr (0 sec), ...

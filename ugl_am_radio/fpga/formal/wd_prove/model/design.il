@@ -1322,7 +1322,7 @@ module \watchdog_timer
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $lt$wd.v:189$175_Y
-    connect \B 3'100
+    connect \B 3'101
     connect \A $past$wd.v:189$25$0
   end
   attribute \src "wd.v:168.16-168.47"
@@ -1333,7 +1333,7 @@ module \watchdog_timer
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $lt$wd.v:168$150_Y
-    connect \B 3'100
+    connect \B 3'101
     connect \A $past$wd.v:168$19$0
   end
   attribute \src "wd.v:153.13-153.37"
@@ -1355,7 +1355,7 @@ module \watchdog_timer
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $lt$wd.v:103$73_Y
-    connect \B 3'100
+    connect \B 3'101
     connect \A \counter
   end
   attribute \src "wd.v:50.18-50.42"
@@ -1839,7 +1839,7 @@ module \watchdog_timer
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $le$wd.v:139$111_Y
-    connect \B 3'100
+    connect \B 3'101
     connect \A \counter
   end
   attribute \src "wd.v:37.30-37.49"
@@ -1883,7 +1883,7 @@ module \watchdog_timer
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $ge$wd.v:55$40_Y
-    connect \B 3'100
+    connect \B 3'101
     connect \A \counter
   end
   attribute \src "wd.v:112.16-112.48"
@@ -1894,7 +1894,7 @@ module \watchdog_timer
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $ge$wd.v:112$88_Y
-    connect \B 3'100
+    connect \B 3'101
     connect \A $past$wd.v:112$10$0
   end
   attribute \src "wd.v:70.20-70.29"
@@ -1913,18 +1913,18 @@ module \watchdog_timer
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $eq$wd.v:198$199_Y
-    connect \B 3'100
+    connect \B 3'101
     connect \A \counter
   end
   attribute \src "wd.v:196.33-196.62"
   cell $eq $eq$wd.v:196$189
     parameter \Y_WIDTH 1
-    parameter \B_WIDTH 2
+    parameter \B_WIDTH 3
     parameter \B_SIGNED 0
     parameter \A_WIDTH 32
     parameter \A_SIGNED 0
     connect \Y $eq$wd.v:196$189_Y
-    connect \B 2'11
+    connect \B 3'100
     connect \A \counter
   end
   attribute \src "wd.v:181.20-181.39"
