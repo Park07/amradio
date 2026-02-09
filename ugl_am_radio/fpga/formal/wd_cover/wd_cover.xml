@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-<testsuite timestamp="2026-02-10T01:48:50" hostname="William-MacBook-Pro.local" package="wd" id="0" name="cover" tests="29" errors="0" failures="0" time="0" skipped="23">
+<testsuite timestamp="2026-02-10T01:51:06" hostname="William-MacBook-Pro.local" package="wd" id="0" name="cover" tests="29" errors="0" failures="0" time="0" skipped="23">
 <properties>
 <property name="os" value="Darwin"/>
 <property name="expect" value="PASS"/>
@@ -89,70 +89,70 @@
 </testcase>
 <testcase classname="cover" name="Property COVER in watchdog_timer at wd.v:199.27-199.98" time="0" type="COVER" location="wd.v:199.27-199.98" id="_witness_.check_cover_wd_v_199_203" tracefile="engine_0/trace2.vcd">
 </testcase>
-<system-out>SBY  1:48:48 [wd_prove] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd_prove'.
-SBY  1:48:48 [wd_cover] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd_cover'.
-SBY  1:48:48 [wd_cover] Copy '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd.v' to '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd_cover/src/wd.v'.
-SBY  1:48:48 [wd_cover] engine_0: smtbmc z3
-SBY  1:48:48 [wd_cover] base: starting process &quot;cd wd_cover/src; yosys -ql ../model/design.log ../model/design.ys&quot;
-SBY  1:48:49 [wd_cover] base: finished (returncode=0)
-SBY  1:48:49 [wd_cover] prep: starting process &quot;cd wd_cover/model; yosys -ql design_prep.log design_prep.ys&quot;
-SBY  1:48:49 [wd_cover] prep: finished (returncode=0)
-SBY  1:48:49 [wd_cover] smt2: starting process &quot;cd wd_cover/model; yosys -ql design_smt2.log design_smt2.ys&quot;
-SBY  1:48:49 [wd_cover] smt2: finished (returncode=0)
-SBY  1:48:49 [wd_cover] engine_0: starting process &quot;cd wd_cover; yosys-smtbmc -s z3 --presat -c --noprogress -t 20  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2&quot;
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Solver: z3
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 1..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 2..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 4..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 5..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 6..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 6 at watchdog_timer: wd.v:195.27-195.64 (_witness_.check_cover_wd_v_195_183)
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 6 at watchdog_timer: wd.v:196.27-196.76 (_witness_.check_cover_wd_v_196_188)
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 6..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 7..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 7 at watchdog_timer: wd.v:198.27-198.59 (_witness_.check_cover_wd_v_198_198)
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace1.vcd
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace1_tb.v
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace1.smtc
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace1.yw
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 7..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 8..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 8 at watchdog_timer: wd.v:194.27-194.48 (_witness_.check_cover_wd_v_194_180)
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 8 at watchdog_timer: wd.v:199.27-199.98 (_witness_.check_cover_wd_v_199_203)
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace2.vcd
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace2_tb.v
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace2.smtc
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace2.yw
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 8..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 9..
-SBY  1:48:49 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 9 at watchdog_timer: wd.v:197.27-197.80 (_witness_.check_cover_wd_v_197_193)
-SBY  1:48:50 [wd_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace3.vcd
-SBY  1:48:50 [wd_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace3_tb.v
-SBY  1:48:50 [wd_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace3.smtc
-SBY  1:48:50 [wd_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace3.yw
-SBY  1:48:50 [wd_cover] engine_0: ##   0:00:00  Status: passed
-SBY  1:48:50 [wd_cover] engine_0: finished (returncode=0)
-SBY  1:48:50 [wd_cover] engine_0: Status returned by engine: pass
-SBY  1:48:50 [wd_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:01 (1)
-SBY  1:48:50 [wd_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:00 (0)
-SBY  1:48:50 [wd_cover] summary: engine_0 (smtbmc z3) returned pass
-SBY  1:48:50 [wd_cover] summary: cover trace: wd_cover/engine_0/trace0.vcd
-SBY  1:48:50 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_195_183 at wd.v:195.27-195.64 step 6
-SBY  1:48:50 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_196_188 at wd.v:196.27-196.76 step 6
-SBY  1:48:50 [wd_cover] summary: cover trace: wd_cover/engine_0/trace1.vcd
-SBY  1:48:50 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_198_198 at wd.v:198.27-198.59 step 7
-SBY  1:48:50 [wd_cover] summary: cover trace: wd_cover/engine_0/trace2.vcd
-SBY  1:48:50 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_194_180 at wd.v:194.27-194.48 step 8
-SBY  1:48:50 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_199_203 at wd.v:199.27-199.98 step 8
-SBY  1:48:50 [wd_cover] summary: cover trace: wd_cover/engine_0/trace3.vcd
-SBY  1:48:50 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_197_193 at wd.v:197.27-197.80 step 9
-SBY  1:48:50 [wd_cover] DONE (PASS, rc=0)
+<system-out>SBY  1:51:06 [wd_prove] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd_prove'.
+SBY  1:51:06 [wd_cover] Removing directory '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd_cover'.
+SBY  1:51:06 [wd_cover] Copy '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd.v' to '/Users/williampark/amradio/ugl_am_radio/fpga/formal/wd_cover/src/wd.v'.
+SBY  1:51:06 [wd_cover] engine_0: smtbmc z3
+SBY  1:51:06 [wd_cover] base: starting process &quot;cd wd_cover/src; yosys -ql ../model/design.log ../model/design.ys&quot;
+SBY  1:51:06 [wd_cover] base: finished (returncode=0)
+SBY  1:51:06 [wd_cover] prep: starting process &quot;cd wd_cover/model; yosys -ql design_prep.log design_prep.ys&quot;
+SBY  1:51:06 [wd_cover] prep: finished (returncode=0)
+SBY  1:51:06 [wd_cover] smt2: starting process &quot;cd wd_cover/model; yosys -ql design_smt2.log design_smt2.ys&quot;
+SBY  1:51:06 [wd_cover] smt2: finished (returncode=0)
+SBY  1:51:06 [wd_cover] engine_0: starting process &quot;cd wd_cover; yosys-smtbmc -s z3 --presat -c --noprogress -t 20  --append 0 --dump-vcd engine_0/trace%.vcd --dump-yw engine_0/trace%.yw --dump-vlogtb engine_0/trace%_tb.v --dump-smtc engine_0/trace%.smtc model/design_smt2.smt2&quot;
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Solver: z3
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 0..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 1..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 2..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 3..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 4..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 5..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 6..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 6 at watchdog_timer: wd.v:195.27-195.64 (_witness_.check_cover_wd_v_195_183)
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 6 at watchdog_timer: wd.v:196.27-196.76 (_witness_.check_cover_wd_v_196_188)
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace0.vcd
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace0_tb.v
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace0.smtc
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace0.yw
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 6..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 7..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 7 at watchdog_timer: wd.v:198.27-198.59 (_witness_.check_cover_wd_v_198_198)
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace1.vcd
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace1_tb.v
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace1.smtc
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace1.yw
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 7..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 8..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 8 at watchdog_timer: wd.v:194.27-194.48 (_witness_.check_cover_wd_v_194_180)
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 8 at watchdog_timer: wd.v:199.27-199.98 (_witness_.check_cover_wd_v_199_203)
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace2.vcd
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace2_tb.v
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace2.smtc
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace2.yw
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 8..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Checking cover reachability in step 9..
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Reached cover statement in step 9 at watchdog_timer: wd.v:197.27-197.80 (_witness_.check_cover_wd_v_197_193)
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to VCD file: engine_0/trace3.vcd
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to Verilog testbench: engine_0/trace3_tb.v
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to constraints file: engine_0/trace3.smtc
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Writing trace to Yosys witness file: engine_0/trace3.yw
+SBY  1:51:06 [wd_cover] engine_0: ##   0:00:00  Status: passed
+SBY  1:51:06 [wd_cover] engine_0: finished (returncode=0)
+SBY  1:51:06 [wd_cover] engine_0: Status returned by engine: pass
+SBY  1:51:06 [wd_cover] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:00 (0)
+SBY  1:51:06 [wd_cover] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:00 (0)
+SBY  1:51:06 [wd_cover] summary: engine_0 (smtbmc z3) returned pass
+SBY  1:51:06 [wd_cover] summary: cover trace: wd_cover/engine_0/trace0.vcd
+SBY  1:51:06 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_195_183 at wd.v:195.27-195.64 step 6
+SBY  1:51:06 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_196_188 at wd.v:196.27-196.76 step 6
+SBY  1:51:06 [wd_cover] summary: cover trace: wd_cover/engine_0/trace1.vcd
+SBY  1:51:06 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_198_198 at wd.v:198.27-198.59 step 7
+SBY  1:51:06 [wd_cover] summary: cover trace: wd_cover/engine_0/trace2.vcd
+SBY  1:51:06 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_194_180 at wd.v:194.27-194.48 step 8
+SBY  1:51:06 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_199_203 at wd.v:199.27-199.98 step 8
+SBY  1:51:06 [wd_cover] summary: cover trace: wd_cover/engine_0/trace3.vcd
+SBY  1:51:06 [wd_cover] summary:   reached cover statement watchdog_timer._witness_.check_cover_wd_v_197_193 at wd.v:197.27-197.80 step 9
+SBY  1:51:06 [wd_cover] DONE (PASS, rc=0)
 </system-out>
 <system-err>
 </system-err>
