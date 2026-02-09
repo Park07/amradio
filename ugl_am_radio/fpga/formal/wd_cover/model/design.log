@@ -407,6 +407,6 @@ Module watchdog_timer directly or indirectly contains formal properties -> setti
 5. Executing RTLIL backend.
 Output filename: ../model/design.il
 
-End of script. Logfile hash: d2d0f0d722, CPU: user 0.07s system 0.04s, MEM: 17.09 MB peak
+End of script. Logfile hash: d2d0f0d722, CPU: user 0.05s system 0.02s, MEM: 17.11 MB peak
 Yosys 0.62 (git sha1 7326bb7d6641500ecb285c291a54a662cb1e76cf, clang++ 17.0.0 -fPIC -O3)
-Time spent: 23% 5x opt_clean (0 sec), 17% 6x opt_expr (0 sec), ...
+Time spent: 24% 5x opt_clean (0 sec), 17% 6x opt_expr (0 sec), ...
