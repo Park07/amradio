@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1s / 1ms
 //////////////////////////////////////////////////////////////////////////////////
 // Formal Verification Properties for Watchdog Timer
 // ===================================================
