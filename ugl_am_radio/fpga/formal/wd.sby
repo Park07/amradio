@@ -4,9 +4,9 @@ cover
 
 [options]
 prove: mode prove
-prove: depth 20
+prove: depth 100
 cover: mode cover
-cover: depth 20
+cover: depth 100
 
 [engines]
 smtbmc z3

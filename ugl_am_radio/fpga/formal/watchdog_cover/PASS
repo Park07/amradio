@@ -1,4 +1,4 @@
-Elapsed clock time [H:MM:SS (secs)]: 0:00:08 (8)
+Elapsed clock time [H:MM:SS (secs)]: 0:00:03 (3)
 Elapsed process time [H:MM:SS (secs)]: 0:00:03 (3)
 engine_0 (smtbmc z3) returned pass
 cover trace: engine_0/trace0.vcd
