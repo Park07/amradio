@@ -210,7 +210,7 @@ brew install node
 # Build
 cd gui
 npm install
-npm run tauri build
+npm run build
 ```
 
 The built `.app` will be in `gui/src-tauri/target/release/bundle/macos/`.
@@ -240,7 +240,7 @@ npm --version
 # 5. Build
 cd gui
 npm install
-npm run tauri build
+npm run build
 ```
 
 The built `.exe` will be in `gui\src-tauri\target\release\`.
@@ -370,7 +370,7 @@ On your local machine:
 
 ```bash
 cd gui
-npm run tauri dev
+npm run dev
 ```
 
 Or run the built binary directly from `src-tauri/target/release/`.
@@ -535,7 +535,7 @@ The Red Pitaya IP was `192.168.0.101` during development. SSH credentials are `r
 
 ### Development workflow
 
-For GUI changes: edit JS/HTML in `gui/src/`, run `npm run tauri dev` — hot-reloads the frontend. For Rust backend changes: edit files in `gui/src-tauri/src/`, the dev server recompiles automatically (takes a few seconds). For FPGA changes: edit Verilog in `fpga/`, synthesise in Vivado, generate new bitstream, copy to Red Pitaya SD card.
+For GUI changes: edit JS/HTML in `gui/src/`, run `npm run dev` — hot-reloads the frontend. For Rust backend changes: edit files in `gui/src-tauri/src/`, the dev server recompiles automatically (takes a few seconds). For FPGA changes: edit Verilog in `fpga/`, synthesise in Vivado, generate new bitstream, copy to Red Pitaya SD card.
 
 ---
 
