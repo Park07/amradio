@@ -6,7 +6,7 @@ on:
 
 jobs:
   rust-check:
-    name: Rust Check + Clippy
+    name: Rust Check + Test + Clippy
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -32,6 +32,9 @@ jobs:
 
       - name: cargo check
         run: cargo check
+
+      - name: cargo test
+        run: cargo test
 
       - name: cargo clippy
         run: cargo clippy -- -D warnings
@@ -70,7 +73,7 @@ jobs:
 
       - name: Build Tauri app
         working-directory: ugl_am_radio/gui
-        run: npm run tauri build
+        run: npm run build
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4

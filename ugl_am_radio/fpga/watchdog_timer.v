@@ -2,16 +2,17 @@
 //////////////////////////////////////////////////////////////////////////////////
 // Watchdog Timer - Fail-Safe Module
 // ==================================
-//
+// This is the actual version btw there are other watchdog after but those are for testing so u can ignore
+
 // Purpose:
 //   Auto-stops RF broadcast if control system stops communicating.
 //   If no register write for TIMEOUT seconds → forces broadcast OFF
 //
-// Behavior:
+// Behaviour:
 //   - Resets on any register write (heartbeat)
 //   - Counts up every clock cycle
-//   - At 80% timeout → warning flag
-//   - At 100% timeout → triggered flag (KILLS BROADCAST)
+//   - At 80% timeout: warning flag
+//   - At 100% timeout: triggered flag (KILLS BROADCAST)
 //   - Triggered state latches until manual reset or disable
 //
 //////////////////////////////////////////////////////////////////////////////////

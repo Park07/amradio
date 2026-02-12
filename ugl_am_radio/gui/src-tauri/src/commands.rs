@@ -8,11 +8,11 @@ use tokio::sync::RwLock;
 use serde::{Deserialize, Serialize};
 
 use crate::model::NetworkManager;
-use crate::state_machine::{BroadcastState, ConnectionState, WatchdogState, SourceMode};
+use crate::state_machine::{BroadcastState, SourceMode};
 
 pub type AppState = Arc<RwLock<NetworkManager>>;
 
-// ==================== RESPONSE TYPES ====================
+// RESPONSE TYPES
 
 #[derive(Serialize)]
 pub struct StateResponse {
@@ -46,7 +46,7 @@ pub struct ChannelUpdate {
     pub frequency: Option<u32>,
 }
 
-// ==================== CONNECTION ====================
+// CONNECTION
 
 #[tauri::command]
 pub async fn connect(
@@ -66,7 +66,7 @@ pub async fn disconnect(state: State<'_, AppState>) -> Result<String, String> {
     Ok("Disconnected".to_string())
 }
 
-// ==================== BROADCAST STATE MACHINE ====================
+//BROADCAST STATE MACHINE
 
 /// Arm the system for broadcast
 #[tauri::command]
@@ -108,7 +108,7 @@ pub async fn stop_emergency(state: State<'_, AppState>) -> Result<String, String
     Ok("Emergency broadcast stopped".to_string())
 }
 
-// ==================== CHANNEL CONTROL ====================
+// CHANNEL CONTROL
 
 #[tauri::command]
 pub async fn update_channel(
@@ -142,7 +142,7 @@ pub async fn enable_preset_channels(
     Ok(format!("Enabled {} channels", count))
 }
 
-// ==================== SOURCE CONTROL ====================
+// SOURCE CONTROL
 
 #[tauri::command]
 pub async fn set_source(source: String, state: State<'_, AppState>) -> Result<String, String> {
@@ -158,7 +158,7 @@ pub async fn set_source(source: String, state: State<'_, AppState>) -> Result<St
     Ok(format!("Source set to {}", source))
 }
 
-// ==================== STATE QUERY ====================
+// STATE QUERY
 
 #[tauri::command]
 pub async fn get_state(state: State<'_, AppState>) -> Result<StateResponse, String> {

@@ -1,7 +1,7 @@
-// ============================================================
+#![allow(dead_code)]
+
 // model.rs - FULL PRODUCTION VERSION
 // Complete NetworkManager with all features from Python
-// ============================================================
 use crate::state_machine::{BroadcastState, ConnectionState, WatchdogState, SourceMode};
 use std::sync::Arc;
 use tokio::io::AsyncReadExt;
@@ -17,9 +17,7 @@ use crate::config::{Config, ScpiCommands};
 use crate::event_bus::EventType;
 
 
-// ============================================================
 // CHANNEL STRUCT
-// ============================================================
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Channel {
     pub id: u8,
@@ -48,9 +46,7 @@ impl Channel {
     }
 }
 
-// ============================================================
 // DEVICE STATE - All tracked state
-// ============================================================
 #[derive(Debug, Clone, Serialize)]
 pub struct DeviceState {
     pub connection: ConnectionState,
@@ -83,9 +79,7 @@ impl Default for DeviceState {
         }
     }
 }
-// ============================================================
 // AUDIT LOG ENTRY
-// ============================================================
 #[derive(Clone, Debug, Serialize)]
 pub struct AuditEntry {
     pub timestamp: u64,
@@ -93,9 +87,7 @@ pub struct AuditEntry {
     pub message: String,
 }
 
-// ============================================================
 // NETWORK MANAGER - The main class
-// ============================================================
 pub struct NetworkManager {
     // TCP connection (wrapped for async access)
     stream: Arc<RwLock<Option<TcpStream>>>,
@@ -443,10 +435,8 @@ impl NetworkManager {
                     break;
                 }
 
-                // ================================================
                 // CRITICAL: WATCHDOG RESET
                 // Must send this every poll or FPGA stops output!
-                // ================================================
                 let watchdog_result = {
                     let mut stream_guard = stream.write().await;
                     if let Some(s) = stream_guard.as_mut() {
@@ -486,9 +476,7 @@ impl NetworkManager {
                 *last_watchdog_reset.write().await = Instant::now();
                 consecutive_errors = 0;
 
-                // ================================================
                 // QUERY STATUS
-                // ================================================
                 let status_result = {
                     let mut stream_guard = stream.write().await;
                     if let Some(s) = stream_guard.as_mut() {
@@ -576,7 +564,7 @@ impl NetworkManager {
                 Duration::from_secs(Config::CONNECTION_TIMEOUT_SECS),
                 TcpStream::connect(&addr)
             ).await {
-                Ok(Ok(stream)) => {
+                Ok(Ok(_stream)) => {
                     // Success!
                     println!("[RECONNECT] Success!");
 

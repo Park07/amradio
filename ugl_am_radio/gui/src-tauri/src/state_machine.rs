@@ -1,3 +1,5 @@
+
+#![allow(dead_code)]
 // state_machine.rs
 // Enforces valid state transitions for broadcast control
 

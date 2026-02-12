@@ -136,28 +136,22 @@ module watchdog_timer #(
             assert(triggered == 1);
     end
 
-    // ========================================================================
     // PROPERTY 5: Warning comes before trigger (state invariant)
     // Whenever triggered is HIGH, warning must also be HIGH
-    // ========================================================================
     always @(posedge clk) begin
         if (triggered)
             assert(warning == 1);
     end
 
-    // ========================================================================
     // PROPERTY 5b: Contrapositive — no warning means no trigger
     // Tightens the solver's invariant space
-    // ========================================================================
     always @(posedge clk) begin
         if (!warning)
             assert(!triggered);
     end
 
-    // ========================================================================
     // PROPERTY 6: Disable kills everything (FIXED — includes counter)
     // If enable was LOW last cycle, all state is now 0
-    // ========================================================================
     always @(posedge clk) begin
         if (f_past_valid && $past(!enable)) begin
             assert(counter == 0);
@@ -166,17 +160,13 @@ module watchdog_timer #(
         end
     end
 
-    // ========================================================================
     // PROPERTY 7: Counter never exceeds timeout (state invariant)
-    // ========================================================================
     always @(posedge clk) begin
         assert(counter <= TIMEOUT_CYCLES);
     end
 
-    // ========================================================================
     // PROPERTY 8: Force reset clears trigger
     // If force_reset was active last cycle (with enable), triggered is now 0
-    // ========================================================================
     always @(posedge clk) begin
         if (f_past_valid && $past(rstn) && $past(enable) && $past(force_reset)) begin
             assert(counter == 0);
@@ -185,29 +175,23 @@ module watchdog_timer #(
         end
     end
 
-    // ========================================================================
     // PROPERTY 9: Warning timing — negative direction (state invariant)
     // If counter hasn't reached warning threshold and not triggered,
     // warning must be LOW
-    // ========================================================================
     always @(posedge clk) begin
         if (counter < WARNING_CYCLES && !triggered)
             assert(warning == 0);
     end
 
-    // ========================================================================
     // PROPERTY 10: Warning timing — positive direction (state invariant)
     // If counter is in the warning zone, warning must be HIGH
-    // ========================================================================
     always @(posedge clk) begin
         if (counter > WARNING_CYCLES && counter < TIMEOUT_CYCLES)
             assert(warning == 1);
     end
 
-    // ========================================================================
     // PROPERTY 11: Counter increments correctly
     // In normal counting mode, counter advances by exactly 1
-    // ========================================================================
     always @(posedge clk) begin
         if (f_past_valid
             && $past(rstn) && $past(enable)
@@ -216,26 +200,20 @@ module watchdog_timer #(
             assert(counter == $past(counter) + 1);
     end
 
-    // ========================================================================
     // PROPERTY 12: time_remaining correct at counter == 0
-    // ========================================================================
     always @(posedge clk) begin
         if (counter == 0)
             assert(time_remaining == TIMEOUT_SEC);
     end
 
-    // ========================================================================
     // PROPERTY 13: time_remaining == 0 when triggered
-    // ========================================================================
     always @(posedge clk) begin
         if (triggered)
             assert(time_remaining == 0);
     end
 
-    // ========================================================================
     // PROPERTY 14: time_remaining monotonically decreases during counting
     // If counter incremented normally, time_remaining must not increase
-    // ========================================================================
     always @(posedge clk) begin
         if (f_past_valid
             && $past(rstn) && $past(enable)
@@ -244,9 +222,7 @@ module watchdog_timer #(
             assert(time_remaining <= $past(time_remaining));
     end
 
-    // ========================================================================
     // COVER: Prove these scenarios are reachable
-    // ========================================================================
 
     // Trigger fires
     always @(posedge clk) cover(triggered == 1);

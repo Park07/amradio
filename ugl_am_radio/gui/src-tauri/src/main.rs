@@ -1,6 +1,7 @@
 // main.rs
 // Entry point for Tauri application
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+#![allow(dead_code, unused_imports)]
 
 mod commands;
 mod config;

@@ -495,6 +495,39 @@ This watchdog:      GUI dies → counter hits timeout → kills RF output → st
 
 ---
 
+## Testing
+
+### Rust Unit Tests
+
+11 tests across the backend — state machine transitions, event bus pub/sub, retry logic, and config validation.
+
+```bash
+cd gui/src-tauri
+cargo test
+```
+
+### Formal Verification (FPGA)
+
+14 mathematically proven safety properties on the watchdog timer. See the [Formal Verification](#formal-verification) section above.
+
+### Mock Server
+
+For testing the GUI without a Red Pitaya connected:
+
+```bash
+# Terminal 1 — start mock FPGA
+cd gui
+npm run mock
+
+# Terminal 2 — start GUI
+cd gui
+npm run dev
+```
+
+Then connect to `127.0.0.1:5000` in the GUI.
+
+---
+
 ## Troubleshooting
 
 | Problem | Solution |

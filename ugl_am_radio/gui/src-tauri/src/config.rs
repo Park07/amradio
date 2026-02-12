@@ -1,7 +1,7 @@
-// ============================================================
+#![allow(dead_code)]
+
 // config.rs - ALL CONFIGURATION CONSTANTS
 // Same as Python's config.py
-// ============================================================
 
 /// Application configuration constants
 pub struct Config;

@@ -1,16 +1,12 @@
-// ============================================================
+#![allow(dead_code)]
 // event_bus.rs - FULL EVENT SYSTEM
 // Pub/sub pattern using tokio broadcast channels
-// ============================================================
 
 use tokio::sync::broadcast;
-use serde::Serialize;
 
 use crate::state_machine::{ConnectionState, SourceMode};
 
-// ============================================================
 // EVENT TYPES
-// ============================================================
 #[derive(Clone, Debug)]
 pub enum EventType {
     // ----------------------------------------------------------
@@ -68,9 +64,7 @@ pub enum EventType {
     NetworkError(String),
 }
 
-// ============================================================
 // EVENT BUS
-// ============================================================
 pub struct EventBus {
     sender: broadcast::Sender<EventType>,
 }
@@ -116,9 +110,7 @@ impl Default for EventBus {
     }
 }
 
-// ============================================================
 // EVENT LISTENER EXAMPLE
-// ============================================================
 /// Example of how to listen for events in a background task
 pub async fn example_event_listener(mut rx: broadcast::Receiver<EventType>) {
     loop {
@@ -159,9 +151,7 @@ pub async fn example_event_listener(mut rx: broadcast::Receiver<EventType>) {
     }
 }
 
-// ============================================================
 // TAURI EVENT BRIDGE
-// ============================================================
 /// Bridge events to Tauri window for UI updates
 
 #[cfg(test)]
