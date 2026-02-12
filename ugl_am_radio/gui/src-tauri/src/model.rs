@@ -115,9 +115,7 @@ pub struct NetworkManager {
 }
 
 impl NetworkManager {
-    // ----------------------------------------------------------
     // CONSTRUCTOR
-    // ----------------------------------------------------------
     pub fn new(event_tx: broadcast::Sender<EventType>) -> Self {
         Self {
             stream: Arc::new(RwLock::new(None)),
@@ -133,9 +131,7 @@ impl NetworkManager {
         }
     }
 
-    // ----------------------------------------------------------
     // AUDIT LOGGING (Same as Python)
-    // ----------------------------------------------------------
     async fn log(&self, level: &str, message: &str) {
         let entry = AuditEntry {
             timestamp: std::time::SystemTime::now()
@@ -175,9 +171,7 @@ impl NetworkManager {
         self.log("WARNING", message).await;
     }
 
-    // ----------------------------------------------------------
     // CONNECT TO FPGA
-    // ----------------------------------------------------------
     pub async fn connect(&self, ip: &str, port: u16) -> Result<(), String> {
         // Check if already connected
         if *self.is_running.read().await {
@@ -269,9 +263,7 @@ impl NetworkManager {
         let _ = self.event_tx.send(EventType::ConnectionStateChanged(ConnectionState::Disconnected));
     }
 
-    // ----------------------------------------------------------
     // INITIALIZE DEVICE - Query current state after connect
-    // ----------------------------------------------------------
     async fn initialize_device(&self) -> Result<(), String> {
         self.log_info("Initializing device...").await;
 
@@ -301,9 +293,7 @@ impl NetworkManager {
         Ok(())
     }
 
-    // ----------------------------------------------------------
     // DISCONNECT
-    // ----------------------------------------------------------
     pub async fn disconnect(&self) -> Result<(), String> {
         self.log_info("Disconnecting...").await;
 
@@ -348,9 +338,7 @@ impl NetworkManager {
         Ok(())
     }
 
-    // ----------------------------------------------------------
     // SEND COMMAND (Low-level)
-    // ----------------------------------------------------------
     async fn send_command(&self, command: &str) -> Result<(), String> {
         let mut stream_guard = self.stream.write().await;
 
@@ -376,9 +364,7 @@ impl NetworkManager {
         }
     }
 
-    // ----------------------------------------------------------
     // QUERY (Send command, get response)
-    // ----------------------------------------------------------
     async fn query(&self, command: &str) -> Result<String, String> {
         // Send the command
         self.send_command(command).await?;
@@ -404,9 +390,7 @@ impl NetworkManager {
         }
     }
 
-    // ----------------------------------------------------------
     // POLLING TASK - Runs every 500ms in background
-    // ----------------------------------------------------------
     fn spawn_poll_task(&self) {
         let stream = self.stream.clone();
         let state = self.state.clone();
@@ -510,9 +494,7 @@ impl NetworkManager {
         });
     }
 
-    // ----------------------------------------------------------
     // HANDLE CONNECTION LOST - Attempt reconnection
-    // ----------------------------------------------------------
     async fn handle_connection_lost(
         state: &Arc<RwLock<DeviceState>>,
         event_tx: &broadcast::Sender<EventType>,
@@ -598,9 +580,7 @@ impl NetworkManager {
         let _ = event_tx.send(EventType::ConnectionStateChanged(ConnectionState::Disconnected));
     }
 
-    // ----------------------------------------------------------
     // PARSE STATUS RESPONSE
-    // ----------------------------------------------------------
     async fn parse_status_response(&self, response: &str) {
         Self::parse_status_static(response, &self.state, &self.event_tx).await;
     }
@@ -695,9 +675,7 @@ impl NetworkManager {
         );
     }
 
-    // ----------------------------------------------------------
     // START BROADCAST
-    // ----------------------------------------------------------
     pub async fn start_broadcast(&self) -> Result<(), String> {
         // Check connection
         let state = self.state.read().await;
@@ -734,9 +712,7 @@ impl NetworkManager {
         Ok(())
     }
 
-    // ----------------------------------------------------------
     // STOP BROADCAST
-    // ----------------------------------------------------------
     pub async fn stop_broadcast(&self) -> Result<(), String> {
         self.log_info("Stopping broadcast").await;
 
@@ -759,9 +735,7 @@ impl NetworkManager {
         Ok(())
     }
 
-    // ----------------------------------------------------------
     // SET CHANNEL
-    // ----------------------------------------------------------
     pub async fn set_channel(&self, ch: u8, freq: u32, enabled: bool) -> Result<(), String> {
         if ch < 1 || ch > 12 {
             return Err(format!("Invalid channel: {}", ch));
@@ -796,9 +770,7 @@ impl NetworkManager {
         Ok(())
     }
 
-    // ----------------------------------------------------------
     // SET SOURCE MODE
-    // ----------------------------------------------------------
     pub async fn set_source(&self, source: SourceMode) -> Result<(), String> {
         let cmd = format!("{} {}",
             ScpiCommands::SOURCE_MODE,
@@ -819,9 +791,7 @@ impl NetworkManager {
         Ok(())
     }
 
-    // ----------------------------------------------------------
     // ENABLE PRESET CHANNELS
-    // ----------------------------------------------------------
     pub async fn enable_preset(&self, count: u8) -> Result<(), String> {
         // Frequency presets (100kHz spacing)
         let freqs: [u32; 12] = [
@@ -856,29 +826,21 @@ impl NetworkManager {
         Ok(())
     }
 
-        // ----------------------------------------------------------
         // GET STATE (for UI)
-        // ----------------------------------------------------------
         pub async fn get_state(&self) -> DeviceState {
             self.state.read().await.clone()
         }
 
-        // ----------------------------------------------------------
         // GET AUDIT LOG
-        // ----------------------------------------------------------
         pub async fn get_audit_log(&self) -> Vec<AuditEntry> {
             self.audit_log.read().await.clone()
         }
 
-        // ----------------------------------------------------------
         // IS CONNECTED
-        // ----------------------------------------------------------
         pub async fn is_connected(&self) -> bool {
             self.state.read().await.connection == ConnectionState::Connected
         }
-        // ----------------------------------------------------------
     // ARM (for state machine)
-    // ----------------------------------------------------------
     pub async fn arm(&self) -> Result<(), String> {
         let state = self.state.read().await;
         if state.connection != ConnectionState::Connected {
@@ -890,9 +852,7 @@ impl NetworkManager {
         Ok(())
     }
 
-    // ----------------------------------------------------------
     // START EMERGENCY (bypasses arm)
-    // ----------------------------------------------------------
     pub async fn start_emergency(&self) -> Result<(), String> {
         self.log_info("EMERGENCY BROADCAST").await;
 
@@ -907,9 +867,7 @@ impl NetworkManager {
         Ok(())
     }
 
-    // ----------------------------------------------------------
     // STOP EMERGENCY
-    // ----------------------------------------------------------
     pub async fn stop_emergency(&self) -> Result<(), String> {
         self.log_info("Stopping emergency broadcast").await;
         self.stop_broadcast().await

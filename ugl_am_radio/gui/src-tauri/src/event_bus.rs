@@ -9,57 +9,41 @@ use crate::state_machine::{ConnectionState, SourceMode};
 // EVENT TYPES
 #[derive(Clone, Debug)]
 pub enum EventType {
-    // ----------------------------------------------------------
     // CONNECTION EVENTS
-    // ----------------------------------------------------------
     ConnectSuccess,
     ConnectFailed(String),
     Disconnected,
     ConnectionLost,
     ConnectionStateChanged(ConnectionState),
 
-    // ----------------------------------------------------------
     // RECONNECTION EVENTS
-    // ----------------------------------------------------------
     ReconnectAttempt(u8),  // Attempt number
     ReconnectSuccess,
     ReconnectFailed,
 
-    // ----------------------------------------------------------
     // BROADCAST EVENTS
-    // ----------------------------------------------------------
     BroadcastStarted,
     BroadcastStopped,
 
-    // ----------------------------------------------------------
     // WATCHDOG EVENTS (CRITICAL FOR SAFETY)
-    // ----------------------------------------------------------
     WatchdogOk,
     WatchdogWarning,
     WatchdogTriggered,  // FPGA killed output - this is serious!
     WatchdogReset,
 
-    // ----------------------------------------------------------
     // CHANNEL EVENTS
-    // ----------------------------------------------------------
     ChannelUpdated(u8),      // Channel ID
     ChannelEnabled(u8),
     ChannelDisabled(u8),
     FrequencyChanged(u8, u32),  // Channel ID, new frequency
 
-    // ----------------------------------------------------------
     // SOURCE EVENTS
-    // ----------------------------------------------------------
     SourceChanged(SourceMode),
 
-    // ----------------------------------------------------------
     // STATE EVENTS
-    // ----------------------------------------------------------
     DeviceStateUpdated,
 
-    // ----------------------------------------------------------
     // ERROR EVENTS
-    // ----------------------------------------------------------
     CommandFailed(String),
     NetworkError(String),
 }

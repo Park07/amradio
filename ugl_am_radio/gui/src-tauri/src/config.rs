@@ -7,42 +7,30 @@
 pub struct Config;
 
 impl Config {
-    // ----------------------------------------------------------
     // NETWORK
-    // ----------------------------------------------------------
     pub const DEFAULT_IP: &'static str = "192.168.0.100";
     pub const DEFAULT_PORT: u16 = 5000;
     pub const CONNECTION_TIMEOUT_SECS: u64 = 5;
     pub const COMMAND_TIMEOUT_SECS: u64 = 2;
 
-    // ----------------------------------------------------------
     // POLLING
-    // ----------------------------------------------------------
     pub const POLL_INTERVAL_MS: u64 = 500;  // 500ms = 2Hz polling
     pub const WATCHDOG_TIMEOUT_SECS: u64 = 5;
 
-    // ----------------------------------------------------------
     // RECONNECTION
-    // ----------------------------------------------------------
     pub const MAX_RECONNECT_ATTEMPTS: u8 = 5;
     pub const RECONNECT_DELAY_SECS: u64 = 2;
     pub const MAX_CONSECUTIVE_ERRORS: u8 = 3;
 
-    // ----------------------------------------------------------
     // FREQUENCY LIMITS (Hz)
-    // ----------------------------------------------------------
     pub const MIN_FREQUENCY: u32 = 500_000;    // 500 kHz
     pub const MAX_FREQUENCY: u32 = 1_700_000;  // 1700 kHz
     pub const DEFAULT_FREQUENCY: u32 = 540_000; // 540 kHz
 
-    // ----------------------------------------------------------
     // CHANNELS
-    // ----------------------------------------------------------
     pub const NUM_CHANNELS: u8 = 12;
 
-    // ----------------------------------------------------------
     // AUDIT LOG
-    // ----------------------------------------------------------
     pub const MAX_LOG_ENTRIES: usize = 100;
 }
 
@@ -50,61 +38,43 @@ impl Config {
 pub struct ScpiCommands;
 
 impl ScpiCommands {
-    // ----------------------------------------------------------
     // SYSTEM COMMANDS
-    // ----------------------------------------------------------
     pub const IDENTITY: &'static str = "*IDN?";
     pub const RESET: &'static str = "*RST";
     pub const STATUS: &'static str = "STATUS?";
 
-    // ----------------------------------------------------------
     // WATCHDOG (CRITICAL FOR SAFETY)
-    // ----------------------------------------------------------
     pub const WATCHDOG_RESET: &'static str = "WATCHDOG:RESET";
     pub const WATCHDOG_STATUS: &'static str = "WATCHDOG:STATUS?";
     pub const WATCHDOG_TIMEOUT: &'static str = "WATCHDOG:TIMEOUT";  // Set timeout
 
-    // ----------------------------------------------------------
     // OUTPUT CONTROL
-    // ----------------------------------------------------------
     pub const OUTPUT_ON: &'static str = "OUTPUT:STATE ON";
     pub const OUTPUT_OFF: &'static str = "OUTPUT:STATE OFF";
     pub const OUTPUT_STATUS: &'static str = "OUTPUT:STATE?";
     pub const OUTPUT_CH_PREFIX: &'static str = "CH";  // OUTPUT:CH1 ON
 
-    // ----------------------------------------------------------
     // FREQUENCY CONTROL
-    // ----------------------------------------------------------
     pub const FREQ_PREFIX: &'static str = "CH";  // FREQ:CH1 540000
     pub const FREQ_QUERY_PREFIX: &'static str = "FREQ:CH";  // FREQ:CH1?
 
-    // ----------------------------------------------------------
     // AMPLITUDE CONTROL
-    // ----------------------------------------------------------
     pub const AMP_PREFIX: &'static str = "AMP:CH";  // AMP:CH1 0.5
 
-    // ----------------------------------------------------------
     // PHASE CONTROL
-    // ----------------------------------------------------------
     pub const PHASE_PREFIX: &'static str = "PHASE:CH";  // PHASE:CH1 90
 
-    // ----------------------------------------------------------
     // SOURCE CONTROL
-    // ----------------------------------------------------------
     pub const SOURCE_MODE: &'static str = "SOURCE:MODE";  // SOURCE:MODE BRAM
     pub const SOURCE_BRAM: &'static str = "SOURCE:MODE BRAM";
     pub const SOURCE_ADC: &'static str = "SOURCE:MODE ADC";
     pub const SOURCE_STATUS: &'static str = "SOURCE:MODE?";
 
-    // ----------------------------------------------------------
     // BRAM (Pre-recorded audio) CONTROL
-    // ----------------------------------------------------------
     pub const BRAM_SELECT: &'static str = "BRAM:SELECT";  // BRAM:SELECT 0 (message index)
     pub const BRAM_LIST: &'static str = "BRAM:LIST?";
 
-    // ----------------------------------------------------------
     // DIAGNOSTIC COMMANDS
-    // ----------------------------------------------------------
     pub const TEMP_QUERY: &'static str = "SYSTEM:TEMP?";
     pub const UPTIME_QUERY: &'static str = "SYSTEM:UPTIME?";
     pub const ERROR_QUERY: &'static str = "SYSTEM:ERROR?";
