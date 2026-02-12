@@ -86,7 +86,7 @@ A 12-channel AM radio broadcast system using Red Pitaya FPGA for emergency alert
 - **NCO**: 12 Numerically Controlled Oscillators generate carrier frequencies (505–1605 kHz)
 - **AM Modulator**: Combines audio source with each carrier
 - **Dynamic Scaling**: Output power adjusts based on enabled channel count
-- **Audio Buffer**: BRAM stores pre-recorded emergency messages. AXI audio loader available for runtime loading.
+- **Audio Buffer**: BRAM stores pre-recorded emergency messages (16,384 sample buffer at ~5 kHz playback rate). AXI audio loader available for runtime loading.
 - **Watchdog Timer** (`wd.v`): Hardware fail-safe — if GUI heartbeat stops for 5 seconds, RF output is killed and latched. Only manual operator reset restores output.
 - **SCPI Server** (`am_scpi_server.py`): Runs on Red Pitaya, parses text commands, converts frequencies to phase increments, writes to FPGA registers via `/dev/mem`.
 
@@ -154,22 +154,29 @@ SBY [wd_cover] DONE (PASS, rc=0)
 
 Verification uses `CLK_FREQ=1`, `TIMEOUT_SEC=5` to keep state space tractable. Production uses `CLK_FREQ=125000000`. The RTL is parameterised — same if/else logic, same state transitions. Proof at reduced scale implies correctness at production scale.
 
-See [`fpga/formal/README.md`](ugl_am_radio/fpga/formal/README.md) for full technical details.
+See [`fpga/formal/README.md`](fpga/formal/README.md) for full technical details.
 
 ---
 
 ## Requirements
 
-### Software
-- Rust + Cargo
-- Node.js (for Tauri)
-- npm
-
 ### Hardware
+
 - Red Pitaya STEMlab 125-10
 - AM Radio receiver(s) for testing
+- Ethernet cable (for Red Pitaya connection)
+
+### Software
+
+| Dependency | macOS | Windows |
+|-----------|-------|---------|
+| Rust + Cargo | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh` | Download `rustup-init.exe` from [rustup.rs](https://rustup.rs) |
+| Node.js (LTS) | `brew install node` or [nodejs.org](https://nodejs.org) | [nodejs.org](https://nodejs.org) |
+| Xcode Command Line Tools (macOS only) | `xcode-select --install` | — |
+| Visual Studio Build Tools (Windows only) | — | [Download](https://visualstudio.microsoft.com/visual-cpp-build-tools/) — select **"Desktop development with C++"** |
 
 ### Formal Verification (optional)
+
 - SymbiYosys
 - Yosys
 - Z3 SMT solver
@@ -179,62 +186,211 @@ See [`fpga/formal/README.md`](ugl_am_radio/fpga/formal/README.md) for full techn
 ## Installation
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/Park07/amradio.git
 cd amradio/ugl_am_radio
 ```
 
 ### 2. Build the GUI
+
+#### macOS
+
 ```bash
+# Install Rust (if not installed)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+
+# Install Xcode CLI tools (if not installed)
+xcode-select --install
+
+# Install Node.js via Homebrew (if not installed)
+brew install node
+
+# Build
 cd gui
 npm install
 npm run tauri build
 ```
 
+The built `.app` will be in `gui/src-tauri/target/release/bundle/macos/`.
+
+#### Windows (PowerShell)
+
+```powershell
+# 1. Install Rust
+#    Download and run rustup-init.exe from https://rustup.rs
+#    Close and reopen PowerShell after install
+
+# 2. Install Visual Studio Build Tools
+#    Download from https://visualstudio.microsoft.com/visual-cpp-build-tools/
+#    Select "Desktop development with C++" during installation
+#    Close and reopen PowerShell after install
+
+# 3. Install Node.js
+#    Download LTS from https://nodejs.org
+#    Close and reopen PowerShell after install
+
+# 4. Verify installations
+rustc --version
+cargo --version
+node --version
+npm --version
+
+# 5. Build
+cd gui
+npm install
+npm run tauri build
+```
+
+The built `.exe` will be in `gui\src-tauri\target\release\`.
+
+> **Note:** First build takes ~2–3 minutes (compiling Rust). Subsequent builds are faster.
+
 ### 3. Setup Red Pitaya
 
 SSH into the Red Pitaya:
+
 ```bash
 ssh root@<RED_PITAYA_IP>
 # Default password: root
 ```
 
 Copy required files:
+
 ```bash
 scp am_scpi_server.py root@<RED_PITAYA_IP>:/root/
-scp axi_audio_loader.py root@<RED_PITAYA_IP>:/root/
-scp *.wav root@<RED_PITAYA_IP>:/root/
+scp axi_audio_sequence_loop.py root@<RED_PITAYA_IP>:/root/
+scp alarm_fast.wav 0009_part1.wav 0009_part2_fast.wav root@<RED_PITAYA_IP>:/root/
+scp fpga/red_pitaya_top.bit root@<RED_PITAYA_IP>:/root/
 ```
+
+### 4. Python Environment (Red Pitaya)
+
+The Red Pitaya runs Alpine Linux with Python 3.5. The SCPI server has no external dependencies (stdlib only). The audio loader requires `numpy`:
+
+```bash
+# On Red Pitaya
+pip install numpy
+```
+
+> **Note:** The Red Pitaya's Python 3.5 does not support `venv` out of the box and runs as root, so packages are installed globally. This is fine — it's an embedded device, not a shared server.
+
+### 5. Python Environment (Local Development — optional)
+
+If you want to run or modify the Python scripts locally (e.g. for testing audio processing without the Red Pitaya):
+
+```bash
+python3 -m venv venv
+source venv/bin/activate        # macOS/Linux
+# or
+.\venv\Scripts\activate         # Windows PowerShell
+
+pip install -r requirements.txt
+```
+
+Add `venv/` to `.gitignore` if not already present.
+
+---
+
+## Audio Files
+
+The system plays three audio files in a loop: **Alarm → Part 1 → Part 2 → (repeat)**.
+
+| File | Description | Duration |
+|------|-------------|----------|
+| `alarm_fast.wav` | Alarm tone | ~4 sec |
+| `0009_part1.wav` | Emergency message part 1 | ~3 sec |
+| `0009_part2_fast.wav` | Emergency message part 2 | ~3.6 sec |
+
+All audio is downsampled to ~5 kHz to fit within the FPGA's 16,384-sample BRAM buffer. The `axi_audio_sequence_loop.py` script handles resampling, 14-bit conversion, and sequential loading automatically.
 
 ---
 
 ## Usage
 
-### Step 1: Start the SCPI server on Red Pitaya
+You need three SSH terminals open to the Red Pitaya, plus one local terminal for the GUI.
+
+> **Note:** The Red Pitaya's IP address may change each time it is powered on. Check your router's DHCP client list or use `ping rp-f0866a.local` to find it.
+
+### Step 1: Connect to Red Pitaya
+
+Open a terminal and SSH in:
+
 ```bash
 ssh root@<RED_PITAYA_IP>
-sudo python3 am_scpi_server.py
+# Password: root
 ```
 
-### Step 2: Load audio (separate SSH terminal)
+### Step 2: Load the FPGA bitstream
+
+On the Red Pitaya (first SSH terminal):
+
 ```bash
-sudo python3 /axi_audio_loader.py alarm_fast.wav
+cat /root/red_pitaya_top.bit > /dev/xdevcfg
 ```
 
-### Step 3: Run the GUI
+This loads the AM radio design onto the FPGA. Required after every power cycle.
+
+### Step 3: Start the SCPI server
+
+On the Red Pitaya (same or second SSH terminal):
+
+```bash
+python3 /root/am_scpi_server.py
+```
+
+Leave this running — it bridges TCP commands from the GUI to FPGA registers.
+
+### Step 4: Start the audio loop
+
+Open a second SSH terminal to the Red Pitaya:
+
+```bash
+ssh root@<RED_PITAYA_IP>
+sudo python3 /root/axi_audio_sequence_loop.py
+```
+
+Expected output:
+
+```
+============================================================
+AXI AUDIO SEQUENCE - AUTO LOOP
+Alarm -> Part 1 -> Part 2 -> (repeat)
+============================================================
+Buffer: 16384 samples
+FPGA playback rate: 5000 Hz
+Press Ctrl+C to stop
+============================================================
+```
+
+### Step 5: Run the GUI
+
+On your local machine:
+
 ```bash
 cd gui
 npm run tauri dev
 ```
 
-### Step 4: Connect and broadcast
-1. Enter Red Pitaya IP address
+Or run the built binary directly from `src-tauri/target/release/`.
+
+### Step 6: Connect and broadcast
+
+1. Enter the Red Pitaya IP address
 2. Click **Connect**
-3. Select audio source
-4. Enable desired channels (1–12)
-5. Adjust frequencies if needed
-6. Click **START BROADCAST**
-7. Tune AM radio to any enabled frequency
+3. Enable desired channels (1–12)
+4. Adjust frequencies if needed
+5. Click **START BROADCAST**
+6. Tune an AM radio to any enabled frequency
+
+### Vivado (for FPGA development only)
+
+If you need to modify the FPGA design and rebuild the bitstream, install Vivado 2020.1. Red Pitaya provides a setup guide here:
+
+https://redpitaya.readthedocs.io/en/latest/developerGuide/fpga/getting_started/vivado_install.html
+
+All basic Red Pitaya settings and tutorials are available on the [Red Pitaya official documentation](https://redpitaya.readthedocs.io/).
 
 ---
 
@@ -264,9 +420,14 @@ ugl_am_radio/
 │   │   └── README.md               # Formal verification docs
 │   ├── am_radio_ctrl.v             # 12-channel AM radio controller
 │   ├── watchdog_timer.v            # Watchdog timer module
-│   └── red_pitaya_top.sv           # Top-level FPGA integration
+│   ├── red_pitaya_top.sv           # Top-level FPGA integration
+│   └── red_pitaya_top.bit          # Compiled FPGA bitstream (load with cat > /dev/xdevcfg)
 ├── am_scpi_server.py               # SCPI server (runs on Red Pitaya)
-├── axi_audio_loader.py             # Runtime audio loader
+├── axi_audio_sequence_loop.py      # Audio sequence loader (alarm → part1 → part2 loop)
+├── alarm_fast.wav                  # Alarm tone
+├── 0009_part1.wav                  # Emergency message part 1
+├── 0009_part2_fast.wav             # Emergency message part 2
+├── requirements.txt                # Python dependencies (numpy)
 └── README.md
 ```
 
@@ -304,7 +465,6 @@ This watchdog:      GUI dies → counter hits timeout → kills RF output → st
 
 **Safety margin:** GUI polls every 500ms. Watchdog timeout is 5s. That's 10 consecutive missed heartbeats before trigger — resilient against transient network delays.
 
-
 ---
 
 ## Performance Notes
@@ -339,11 +499,43 @@ This watchdog:      GUI dies → counter hits timeout → kills RF output → st
 
 | Problem | Solution |
 |---------|----------|
+| No RF output after power cycle | Reload bitstream: `cat /root/red_pitaya_top.bit > /dev/xdevcfg` |
 | GUI won't connect | Check IP, ensure SCPI server is running |
-| No audio, only carrier | Load audio: `python3 axi_audio_loader.py alarm_fast.wav` |
+| No audio, only carrier | Start audio loop: `sudo python3 /root/axi_audio_sequence_loop.py` |
+| `file does not start with RIFF id` | Audio file is not a valid WAV — reconvert with `ffmpeg -i input -ac 1 -ar 44100 output.wav` |
 | Weak signal | Reduce enabled channels (max 4–5) |
 | Connection timeout | Check network, Red Pitaya power |
 | Watchdog triggered unexpectedly | Check network stability, increase timeout if needed |
+| `linker 'link.exe' not found` (Windows) | Install Visual Studio Build Tools with "Desktop development with C++" |
+| `cargo not found` | Restart terminal after Rust install |
+| `npm not found` | Restart terminal after Node.js install |
+| `xcode-select` errors (macOS) | Run `xcode-select --install` |
+
+---
+
+## For Future Developers
+
+This project will be inherited by the next EPI cohort. Here's what you need to know.
+
+### What works
+
+The full signal chain is functional: GUI → Rust backend → TCP/SCPI → Red Pitaya → FPGA → RF output. Audio playback loops automatically. The watchdog kills RF if the GUI disconnects. All of this has been demonstrated live on hardware.
+
+### What to improve
+
+The FPGA audio buffer is limited to 16,384 samples in BRAM, which forces downsampling to ~5 kHz. Longer or higher-quality audio would need external memory (DDR or SD card). The `axi_audio_sequence_loop.py` script reloads audio over AXI with a ~1.4 second gap between tracks — DMA would eliminate this. Currently only 4–5 channels are practical at usable signal strength; an external RF amplifier stage would allow all 12 channels simultaneously.
+
+### Key files to understand first
+
+Read `model.rs` (the Rust backend — all network logic lives here), `am_scpi_server.py` (the bridge between TCP commands and FPGA registers), and `am_radio_ctrl.v` (the register interface between software and hardware). Those three files are the handshake points between every layer of the system.
+
+### Red Pitaya access
+
+The Red Pitaya IP was `192.168.0.101` during development. SSH credentials are `root`/`root`. The FPGA bitstream loads automatically on boot from the SD card. If the bitstream is missing or corrupted, you'll need Vivado to rebuild it from the `.sv`/`.v` sources in `fpga/`.
+
+### Development workflow
+
+For GUI changes: edit JS/HTML in `gui/src/`, run `npm run tauri dev` — hot-reloads the frontend. For Rust backend changes: edit files in `gui/src-tauri/src/`, the dev server recompiles automatically (takes a few seconds). For FPGA changes: edit Verilog in `fpga/`, synthesise in Vivado, generate new bitstream, copy to Red Pitaya SD card.
 
 ---
 
