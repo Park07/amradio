@@ -39,14 +39,14 @@ impl Channel {
         Self {
             id,
             enabled: false,
-            frequency: 540_000,  // Default 540 kHz
+            frequency: 505_000,  // Default 505 kHz
             amplitude: 1.0,
             phase: 0.0,
         }
     }
 }
 
-// DEVICE STATE - All tracked state
+// DEVICE STATE
 #[derive(Debug, Clone, Serialize)]
 pub struct DeviceState {
     pub connection: ConnectionState,
