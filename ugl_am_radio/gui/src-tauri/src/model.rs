@@ -515,7 +515,7 @@ impl NetworkManager {
 
         // Get connection info
         let ip = current_ip.read().await.clone();
-        let port = current_port.read().await.clone();
+        let port = *current_port.read().await;
 
         if ip.is_none() || port.is_none() {
             // No connection info - can't reconnect
@@ -622,7 +622,7 @@ impl NetworkManager {
                     }
                 }
                 "WATCHDOG" => {
-                    let old_state = s.watchdog.clone();
+                    let old_state = s.watchdog;
                     s.watchdog = match value {
                         "0" | "OK" => WatchdogState::Ok,
                         "1" | "WARNING" => WatchdogState::Warning,
@@ -655,8 +655,8 @@ impl NetworkManager {
                 }
                 _ => {
                     // Check for channel status: "CH1", "CH2", etc.
-                    if key.starts_with("CH") {
-                        if let Ok(ch_num) = key[2..].parse::<u8>() {
+                    if let Some(stripped) = key.strip_prefix("CH") {
+                        if let Ok(ch_num) = stripped.parse::<u8>() {
                             if let Some(channel) = s.channels.iter_mut().find(|c| c.id == ch_num) {
                                 channel.enabled = value == "1" || value == "ON";
                             }
@@ -737,11 +737,11 @@ impl NetworkManager {
 
     // SET CHANNEL
     pub async fn set_channel(&self, ch: u8, freq: u32, enabled: bool) -> Result<(), String> {
-        if ch < 1 || ch > 12 {
+        if !(1..=12).contains(&ch) {
             return Err(format!("Invalid channel: {}", ch));
         }
 
-        if freq < Config::MIN_FREQUENCY || freq > Config::MAX_FREQUENCY {
+        if !(Config::MIN_FREQUENCY..=Config::MAX_FREQUENCY).contains(&freq) {
             return Err(format!("Frequency {} out of range ({}-{})",
                 freq, Config::MIN_FREQUENCY, Config::MAX_FREQUENCY));
         }
@@ -783,7 +783,7 @@ impl NetworkManager {
         self.send_command(&cmd).await?;
 
         // Update local state
-        self.state.write().await.source = source.clone();
+        self.state.write().await.source = source;
 
         // Emit event
         let _ = self.event_tx.send(EventType::SourceChanged(source));

@@ -66,7 +66,7 @@ fn handle_client(mut stream: TcpStream) {
                     if parts.len() >= 2 {
                         let ch_str = parts[0].replace("FREQ:CH", "");
                         if let (Ok(ch), Ok(freq)) = (ch_str.parse::<usize>(), parts[1].parse::<u32>()) {
-                            if ch >= 1 && ch <= 12 {
+                            if (1..=12).contains(&ch) {
                                 channels_freq[ch - 1] = freq;
                                 println!("     -> CH{} frequency: {} Hz ({:.0} kHz)", ch, freq, freq as f64 / 1000.0);
                             }
@@ -79,7 +79,7 @@ fn handle_client(mut stream: TcpStream) {
                     if parts.len() >= 3 {
                         let ch_str = parts[0].replace("CH", "");
                         if let Ok(ch) = ch_str.parse::<usize>() {
-                            if ch >= 1 && ch <= 12 {
+                            if (1..=12).contains(&ch) {
                                 let enabled = parts[2] == "ON";
                                 channels_enabled[ch - 1] = enabled;
                                 println!("     -> CH{} output: {}", ch, if enabled { "ON" } else { "OFF" });

@@ -9,7 +9,9 @@ use serde::{Deserialize, Serialize};
 /// Transitions: IDLE → ARMED → BROADCASTING → IDLE
 ///              Any state → EMERGENCY → IDLE
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Default)]
 pub enum BroadcastState {
+    #[default]
     Idle,
     Arming,       // Intermediate: arm requested, waiting for confirmation
     Armed,
@@ -19,11 +21,6 @@ pub enum BroadcastState {
     Emergency,
 }
 
-impl Default for BroadcastState {
-    fn default() -> Self {
-        Self::Idle
-    }
-}
 
 impl BroadcastState {
     /// Request to arm - returns intermediate state
