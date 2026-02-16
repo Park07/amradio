@@ -575,7 +575,7 @@ For GUI changes: edit JS/HTML in `gui/src/`, run `npm run dev` — hot-reloads t
 ## Authors
 
 - **William Park** — Software architecture (GUI, MVC, event bus), hardware watchdog timer, formal verification
-- **Bowen** — FPGA development (NCO, AM modulation, RF output)
+- **Bowen Deng** — FPGA development (NCO, AM modulation, RF output)
 
 ## Acknowledgments
 
