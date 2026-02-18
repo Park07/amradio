@@ -1,7 +1,7 @@
 [package]
-name = "ugl-radio-control"
+name = "am-radio-control"
 version = "0.1.0"
-description = "UGL AM Radio Control - Pure Rust"
+description = "AM Radio Control - Pure Rust"
 authors = ["William Park"]
 edition = "2021"
 

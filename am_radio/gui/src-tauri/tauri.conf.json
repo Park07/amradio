@@ -7,7 +7,7 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "UGL AM Radio Control",
+    "productName": "AM Radio Control",
     "version": "0.1.0"
   },
   "tauri": {
@@ -22,7 +22,7 @@
       "active": false,
       "category": "Utility",
       "icon": [],
-      "identifier": "com.ugl.radio-control",
+      "identifier": "com.amradio.control",
       "targets": "all"
     },
     "security": {
@@ -36,7 +36,7 @@
         "minHeight": 700,
         "minWidth": 1000,
         "resizable": true,
-        "title": "UGL AM Radio Control",
+        "title": "AM Radio Control",
         "center": true
       }
     ]

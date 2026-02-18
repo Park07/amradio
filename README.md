@@ -30,7 +30,7 @@ A 12-channel AM radio broadcast system using Red Pitaya FPGA for emergency alert
 ---
 
 ## Architecture
-![System Architecture](ugl_am_radio/docs/architecture.png)
+![System Architecture](am_radio/docs/architecture.png)
 
 ### Software Layer
 
@@ -105,7 +105,7 @@ sby -f wd.sby
 ```
 
 Expected output:
-![SymbiYosys Verification Output](ugl_am_radio/docs/symbiyosys_output.png)
+![SymbiYosys Verification Output](am_radio/docs/symbiyosys_output.png)
 
 ```
 SBY [wd_prove] DONE (PASS, rc=0)
@@ -119,7 +119,7 @@ SBY [wd_cover] DONE (PASS, rc=0)
 
 Verification uses `CLK_FREQ=1`, `TIMEOUT_SEC=5` to keep state space tractable. Production uses `CLK_FREQ=125000000`. The RTL is parameterised — same if/else logic, same state transitions. Proof at reduced scale implies correctness at production scale.
 
-See [`fpga/formal/README.md`](ugl_am_radio/fpga/formal/README.md)
+See [`fpga/formal/README.md`](am_radio/fpga/formal/README.md)
 ---
 
 ## Requirements
@@ -153,7 +153,7 @@ See [`fpga/formal/README.md`](ugl_am_radio/fpga/formal/README.md)
 
 ```bash
 git clone https://github.com/Park07/amradio.git
-cd amradio/ugl_am_radio
+cd amradio/am_radio
 ```
 
 ### 2. Build the GUI
@@ -366,7 +366,7 @@ All basic Red Pitaya settings and tutorials are available on the [Red Pitaya off
 ## File Structure
 
 ```
-ugl_am_radio/
+am_radio/
 ├── gui/
 │   ├── src/
 │   │   ├── index.html              # HTML + CSS
@@ -427,7 +427,7 @@ Frequencies adjustable at runtime (500–1700 kHz range).
 ---
 
 ## Watchdog Safety Design
-![Watchdog State Machine](ugl_am_radio/docs/state_machine.png)
+![Watchdog State Machine](am_radio/docs/state_machine.png)
 
 ```
 Standard watchdog:  device hangs → timer overflows → restarts device → back to normal
@@ -552,9 +552,8 @@ For GUI changes: edit JS/HTML in `gui/src/`, run `npm run dev` — hot-reloads t
 
 ## Acknowledgments
 
-- **UGL Limited** — Project sponsor
 - **University of New South Wales** — EPI program
-- **Robert Mahood** (UGL) — Engineering supervisor
+- **Robert Mahood** — Engineering supervisor
 - **Andrew Wong** (UNSW) — Academic supervisor
 
 *Final Version: 13th February 2026*

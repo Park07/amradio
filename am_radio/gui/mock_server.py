@@ -15,7 +15,7 @@ class MockFPGA:
         print(f"  RX: {cmd}")
         
         if cmd == "*IDN?":
-            return "MockFPGA,UGL-Radio,v1.0"
+            return "MockFPGA,AM-Radio,v1.0"
         if cmd == "STATUS?":
             return f"BROADCAST:{'1' if self.broadcasting else '0'},WATCHDOG:0,TEMP:42.5"
         if cmd == "WATCHDOG:RESET":

@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-22.04
     defaults:
       run:
-        working-directory: ugl_am_radio/gui/src-tauri
+        working-directory: am_radio/gui/src-tauri
 
     steps:
       - uses: actions/checkout@v4
@@ -37,7 +37,7 @@ jobs:
       - name: Rust cache
         uses: Swatinem/rust-cache@v2
         with:
-          workspaces: ugl_am_radio/gui/src-tauri
+          workspaces: am_radio/gui/src-tauri
 
       - name: cargo check
         run: cargo check
@@ -74,14 +74,14 @@ jobs:
       - name: Rust cache
         uses: Swatinem/rust-cache@v2
         with:
-          workspaces: ugl_am_radio/gui/src-tauri
+          workspaces: am_radio/gui/src-tauri
 
       - name: Install dependencies
-        working-directory: ugl_am_radio/gui
+        working-directory: am_radio/gui
         run: npm install
 
       - name: Build Tauri app
-        working-directory: ugl_am_radio/gui
+        working-directory: am_radio/gui
         run: npm run build
 
       - name: Upload build artifact
@@ -89,8 +89,8 @@ jobs:
         with:
           name: build-${{ matrix.os }}
           path: |
-            ugl_am_radio/gui/src-tauri/target/release/bundle/**/*.dmg
-            ugl_am_radio/gui/src-tauri/target/release/bundle/**/*.app
-            ugl_am_radio/gui/src-tauri/target/release/bundle/**/*.msi
-            ugl_am_radio/gui/src-tauri/target/release/bundle/**/*.exe
+            am_radio/gui/src-tauri/target/release/bundle/**/*.dmg
+            am_radio/gui/src-tauri/target/release/bundle/**/*.app
+            am_radio/gui/src-tauri/target/release/bundle/**/*.msi
+            am_radio/gui/src-tauri/target/release/bundle/**/*.exe
           retention-days: 14

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 AM Radio SCPI Server - 12 Channel Version
-Compatible with UGL AM Radio Control GUI
+Compatible with AM Radio Control GUI
 
 Register Map (when Bowen updates Verilog):
   0x00: CTRL_REG - [0]=master_en, [3]=source_sel, [7:4]=msg_select

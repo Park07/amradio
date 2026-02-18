@@ -5,7 +5,7 @@ Mathematically proven safety properties for the FPGA watchdog timer using bounde
 ## Quick Start
 
 ```bash
-cd ~/amradio/ugl_am_radio/fpga/formal/
+cd ~/amradio/am_radio/fpga/formal/
 sby -f watchdog.sby
 ```
 
