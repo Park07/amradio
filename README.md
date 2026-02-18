@@ -154,8 +154,7 @@ SBY [wd_cover] DONE (PASS, rc=0)
 
 Verification uses `CLK_FREQ=1`, `TIMEOUT_SEC=5` to keep state space tractable. Production uses `CLK_FREQ=125000000`. The RTL is parameterised — same if/else logic, same state transitions. Proof at reduced scale implies correctness at production scale.
 
-See [`fpga/formal/README.md`](fpga/formal/README.md) for full technical details.
-
+See [`fpga/formal/README.md`](ugl_am_radio/fpga/formal/README.md)
 ---
 
 ## Requirements
