@@ -28,47 +28,7 @@ A 12-channel AM radio broadcast system using Red Pitaya FPGA for emergency alert
 ---
 
 ## Architecture
-
-```
-┌──────────────────────────────────────────────────────────┐
-│                     SOFTWARE (GUI)                        │
-│                                                          │
-│  ┌────────────┐  ┌──────────────┐  ┌──────────────────┐ │
-│  │   View     │  │  Controller  │  │      Model       │ │
-│  │  (JS)      │  │    (JS)      │  │     (Rust)       │ │
-│  │ index.html │  │ controller.js│  │    model.rs      │ │
-│  │ view.js    │  │              │  │  NetworkManager   │ │
-│  └─────┬──────┘  └──────┬───────┘  │  StateMachine    │ │
-│        │                │           └────────┬─────────┘ │
-│        │         ┌──────▼───────┐            │           │
-│        └─────────┤  Event Bus   ├────────────┘           │
-│                  │ event_bus.rs  │                        │
-│                  │ event_bus.js  │                        │
-│                  └──────┬───────┘                         │
-│                         │ Tauri Bridge                    │
-└─────────────────────────┼────────────────────────────────┘
-                          │ TCP/SCPI (Port 5000)
-┌─────────────────────────▼────────────────────────────────┐
-│                     HARDWARE (FPGA)                       │
-│                                                          │
-│  ┌─────────────────┐  ┌──────────────┐  ┌────────────┐  │
-│  │  SCPI Server    │  │ AM Radio     │  │  Watchdog  │  │
-│  │ am_scpi_server  │─▶│ Controller   │  │   Timer    │  │
-│  │    .py          │  │ am_radio_    │  │   wd.v     │  │
-│  └─────────────────┘  │ ctrl.v       │  └──────┬─────┘  │
-│                       └──────┬───────┘         │         │
-│                              │            ┌────▼─────┐   │
-│                        ┌─────▼──────┐     │ RF Kill  │   │
-│                        │ 12x NCO +  │     │ Switch   │   │
-│                        │ AM Mod     │     └──────────┘   │
-│                        └─────┬──────┘                    │
-│                              ▼                           │
-│                       ┌─────────────┐                    │
-│                       │  RF Output  │                    │
-│                       │ 505-1605kHz │                    │
-│                       └─────────────┘                    │
-└──────────────────────────────────────────────────────────┘
-```
+![System Architecture](ugl_am_radio/docs/architecture.png)
 
 ### Software Layer
 
@@ -143,12 +103,15 @@ sby -f wd.sby
 ```
 
 Expected output:
+![SymbiYosys Verification Output](ugl_am_radio/docs/symbiyosys_output.png)
+
 ```
 SBY [wd_prove] DONE (PASS, rc=0)
     summary: successful proof by k-induction.
 SBY [wd_cover] DONE (PASS, rc=0)
     summary: 6/6 cover statements reached.
 ```
+
 
 ### Scalability
 
@@ -462,6 +425,7 @@ Frequencies adjustable at runtime (500–1700 kHz range).
 ---
 
 ## Watchdog Safety Design
+![Watchdog State Machine](ugl_am_radio/docs/state_machine.png)
 
 ```
 Standard watchdog:  device hangs → timer overflows → restarts device → back to normal
