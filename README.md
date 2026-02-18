@@ -2,6 +2,8 @@
 
 A 12-channel AM radio broadcast system using Red Pitaya FPGA for emergency alert transmission in unmanned tunnels.
 
+**Why AM radio in a tunnel?** During construction and maintenance, vehicles with standard AM radios transit through tunnels that have no mobile coverage. AM signals propagate along tunnel structures via [leaky feeder](https://en.wikipedia.org/wiki/Leaky_feeder) cables, and receivers are cheap, robust, and already present in every vehicle. The system broadcasts pre-recorded emergency alerts across multiple frequencies so that any AM radio tuned to any station in the band will receive the message. A hardware watchdog ensures RF output is killed if the control system fails — because automatically restarting a transmitter in an unmanned tunnel is not an acceptable failure mode.
+
 ![Channels: 12](https://img.shields.io/badge/Channels-12-blue)
 ![Platform: Red Pitaya](https://img.shields.io/badge/Platform-Red%20Pitaya-red)
 ![Backend: Rust](https://img.shields.io/badge/Backend-Rust-orange)
