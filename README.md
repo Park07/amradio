@@ -257,13 +257,18 @@ ssh root@<RED_PITAYA_IP>
 ```
 
 Copy required files:
-
 ```bash
+
 scp am_scpi_server.py root@<RED_PITAYA_IP>:/root/
 scp axi_audio_sequence_loop.py root@<RED_PITAYA_IP>:/root/
 scp alarm_fast.wav 0009_part1.wav 0009_part2_fast.wav root@<RED_PITAYA_IP>:/root/
 scp fpga/red_pitaya_top.bit root@<RED_PITAYA_IP>:/root/
 ```
+**Note**
+# Bitstream is already on the Red Pitaya SD card from development.
+# To rebuild: open project_William.xpr in Vivado, generate bitstream,
+# then scp the new .bit file to the Red Pitaya.
+
 
 ### 4. Python Environment (Red Pitaya)
 
@@ -418,10 +423,13 @@ ugl_am_radio/
 │   │   ├── wd.v                    # Watchdog + 14 formal properties
 │   │   ├── wd.sby                  # SymbiYosys config
 │   │   └── README.md               # Formal verification docs
+│   ├── am_mod.sv                   # AM modulation module
 │   ├── am_radio_ctrl.v             # 12-channel AM radio controller
-│   ├── watchdog_timer.v            # Watchdog timer module
+│   ├── axi_audio_buffer.v          # AXI audio buffer for BRAM playback
+│   ├── nco_sin.v                   # Numerically Controlled Oscillator
 │   ├── red_pitaya_top.sv           # Top-level FPGA integration
-│   └── red_pitaya_top.bit          # Compiled FPGA bitstream (load with cat > /dev/xdevcfg)
+│   ├── sine_lut_4096.mem           # 4096-point sine lookup table
+│   └── watchdog_timer.v            # Watchdog timer module (production)
 ├── am_scpi_server.py               # SCPI server (runs on Red Pitaya)
 ├── axi_audio_sequence_loop.py      # Audio sequence loader (alarm → part1 → part2 loop)
 ├── alarm_fast.wav                  # Alarm tone
