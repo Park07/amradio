@@ -1,4 +1,4 @@
-# UGL AM Radio Control System - Development Dependencies
+# AM Radio Control System - Development Dependencies
 # Install with: pip install -r requirements-dev.txt
 
 # Include base requirements
