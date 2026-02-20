@@ -1,8 +1,8 @@
 target/
 node_modules/
-ugl_am_radio/sby/
-ugl_am_radio/sby/
-ugl_am_radio/sby/
+am_radio/sby/
+am_radio/sby/
+am_radio/sby/
 node_modules/
 target/
 venv/
