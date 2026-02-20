@@ -1,3 +1,3 @@
 """
-UGL AM Radio Control System - Test Suite
+AM Radio Control System - Test Suite
 """
